@@ -1,0 +1,244 @@
+{
+  "results": [
+    {
+      "systemTag": "EWB",
+      "fromAsset": {
+        "id": "H0017fee8COMP",
+        "name": "NIGHTINGALE-NEWBURY TRANS"
+      },
+      "toAsset": {
+        "id": "",
+        "name": ""
+      },
+      "loadIds": [
+        "H0017fee8COMP"
+      ],
+      "voltage": 22000,
+      "rating": 315,
+      "timeBoxStart": null,
+      "timeBoxEnd": null,
+      "series": [
+        [
+          {
+            "energy": {
+              "date": "2018-01-18",
+              "missingLoadIds": [],
+              "maximums": {
+                "kvaNet": 119.8
+              },
+              "readings": [
+                {
+                  "time": "2018-01-17T13:30:00Z",
+                  "values": {
+                    "kvaNet": 27.398
+                  }
+                },
+                {
+                  "time": "2018-01-17T14:00:00Z",
+                  "values": {
+                    "kvaNet": 24.29
+                  }
+                },
+                {
+                  "time": "2018-01-17T14:30:00Z",
+                  "values": {
+                    "kvaNet": 22.098
+                  }
+                },
+                {
+                  "time": "2018-01-17T15:00:00Z",
+                  "values": {
+                    "kvaNet": 22.14
+                  }
+                },
+                {
+                  "time": "2018-01-17T15:30:00Z",
+                  "values": {
+                    "kvaNet": 20.526
+                  }
+                },
+                {
+                  "time": "2018-01-17T16:00:00Z",
+                  "values": {
+                    "kvaNet": 19.522
+                  }
+                },
+                {
+                  "time": "2018-01-17T16:30:00Z",
+                  "values": {
+                    "kvaNet": 18.454
+                  }
+                },
+                {
+                  "time": "2018-01-17T17:00:00Z",
+                  "values": {
+                    "kvaNet": 18.791
+                  }
+                },
+                {
+                  "time": "2018-01-17T17:30:00Z",
+                  "values": {
+                    "kvaNet": 18.846
+                  }
+                },
+                {
+                  "time": "2018-01-17T18:00:00Z",
+                  "values": {
+                    "kvaNet": 22.286
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        [
+          {
+            "energy": {
+              "date": "2018-01-19",
+              "missingLoadIds": [],
+              "maximums": {
+                "kvaNet": 93.662
+              },
+              "readings": [
+                {
+                  "time": "2018-01-18T13:30:00Z",
+                  "values": {
+                    "kvaNet": 52.103
+                  }
+                },
+                {
+                  "time": "2018-01-18T14:00:00Z",
+                  "values": {
+                    "kvaNet": 46.156
+                  }
+                },
+                {
+                  "time": "2018-01-18T14:30:00Z",
+                  "values": {
+                    "kvaNet": 40.191
+                  }
+                },
+                {
+                  "time": "2018-01-18T15:00:00Z",
+                  "values": {
+                    "kvaNet": 37.878
+                  }
+                },
+                {
+                  "time": "2018-01-18T15:30:00Z",
+                  "values": {
+                    "kvaNet": 34.797
+                  }
+                },
+                {
+                  "time": "2018-01-18T16:00:00Z",
+                  "values": {
+                    "kvaNet": 33.452
+                  }
+                },
+                {
+                  "time": "2018-01-18T16:30:00Z",
+                  "values": {
+                    "kvaNet": 33.041
+                  }
+                },
+                {
+                  "time": "2018-01-18T17:00:00Z",
+                  "values": {
+                    "kvaNet": 30.877
+                  }
+                },
+                {
+                  "time": "2018-01-18T17:30:00Z",
+                  "values": {
+                    "kvaNet": 28.978
+                  }
+                },
+                {
+                  "time": "2018-01-18T18:00:00Z",
+                  "values": {
+                    "kvaNet": 29.091
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        [
+          {
+            "energy": {
+              "date": "2018-01-17",
+              "missingLoadIds": [],
+              "maximums": {
+                "kvaNet": 59.757
+              },
+              "readings": [
+                {
+                  "time": "2018-01-16T13:30:00Z",
+                  "values": {
+                    "kvaNet": 21.537
+                  }
+                },
+                {
+                  "time": "2018-01-16T14:00:00Z",
+                  "values": {
+                    "kvaNet": 21.101
+                  }
+                },
+                {
+                  "time": "2018-01-16T14:30:00Z",
+                  "values": {
+                    "kvaNet": 19.127
+                  }
+                },
+                {
+                  "time": "2018-01-16T15:00:00Z",
+                  "values": {
+                    "kvaNet": 17.024
+                  }
+                },
+                {
+                  "time": "2018-01-16T15:30:00Z",
+                  "values": {
+                    "kvaNet": 17.599
+                  }
+                },
+                {
+                  "time": "2018-01-16T16:00:00Z",
+                  "values": {
+                    "kvaNet": 17.174
+                  }
+                },
+                {
+                  "time": "2018-01-16T16:30:00Z",
+                  "values": {
+                    "kvaNet": 15.249
+                  }
+                },
+                {
+                  "time": "2018-01-16T17:00:00Z",
+                  "values": {
+                    "kvaNet": 15.741
+                  }
+                },
+                {
+                  "time": "2018-01-16T17:30:00Z",
+                  "values": {
+                    "kvaNet": 16.187
+                  }
+                },
+                {
+                  "time": "2018-01-16T18:00:00Z",
+                  "values": {
+                    "kvaNet": 17.93
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      ]
+    }
+  ],
+  "warnings": []
+}

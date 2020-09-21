@@ -1,0 +1,116 @@
+{
+  "feeders": [
+    {
+      "feeder": {
+        "id": "H00007f5eCOMP",
+        "name": "BET004",
+        "state": "NORMAL"
+      },
+      "assets": [
+        {
+          "id": "H00070307COMP",
+          "name": "EARTH_B",
+          "symbol": "DEFAULT",
+          "isOpen": false,
+          "lngLat": {
+            "longitude": 144.23956,
+            "latitude": -36.832857
+          }
+        },
+        {
+          "id": "H00070db9COMP",
+          "name": "GIS NODE 25466442",
+          "symbol": "DEFAULT",
+          "isOpen": false,
+          "lngLat": {
+            "longitude": 144.19079,
+            "latitude": -36.824584
+          }
+        },
+        {
+          "id": "H00070501COMP",
+          "name": "BUS NODE 26234732",
+          "symbol": "DEFAULT",
+          "isOpen": false,
+          "lngLat": {
+            "longitude": 144.24194,
+            "latitude": -36.815695
+          }
+        },
+        {
+          "id": "H00070b44COMP",
+          "name": "TEE OFF POLE HERBERT 9",
+          "symbol": "DEFAULT",
+          "isOpen": false,
+          "lngLat": {
+            "longitude": 144.22414,
+            "latitude": -36.869837
+          }
+        },
+        {
+          "id": "H0006f9e6COMP",
+          "name": "PINJARRA DR 5E TRANS",
+          "symbol": "DIST_TRANSFORMER",
+          "isOpen": false,
+          "lngLat": {
+            "longitude": 144.15885,
+            "latitude": -36.888814
+          }
+        },
+        {
+          "id": "G0002d471COMP",
+          "name": "HVIS SHELBOURNE EAST P3 ACR SUPPLY SIDE ISOL",
+          "symbol": "ISOLATOR",
+          "isOpen": false,
+          "lngLat": {
+            "longitude": 144.14777,
+            "latitude": -36.806839
+          }
+        },
+        {
+          "id": "e0001e46bCOMP",
+          "name": "TRANS HV FUSE MOSIER P1E",
+          "symbol": "FUSE",
+          "isOpen": false,
+          "lngLat": {
+            "longitude": 144.19388,
+            "latitude": -36.874642
+          }
+        },
+        {
+          "id": "H00070df1COMP",
+          "name": "GIS NODE 25475978",
+          "symbol": "DEFAULT",
+          "isOpen": false,
+          "lngLat": {
+            "longitude": 144.09306,
+            "latitude": -36.869725
+          }
+        },
+        {
+          "id": "H00070aaaCOMP",
+          "name": "TEE OFF POLE KANGAROO FLAT 70",
+          "symbol": "DEFAULT",
+          "isOpen": false,
+          "lngLat": {
+            "longitude": 144.23958,
+            "latitude": -36.811659
+          }
+        },
+        {
+          "id": "b00031d1cCOMP",
+          "name": "FI KANGAROO FLAT 127A LIS0948796",
+          "symbol": "FAULT_INDICATOR",
+          "isOpen": false,
+          "lngLat": {
+            "longitude": 144.171524,
+            "latitude": -36.84743335
+          }
+        }
+      ],
+      "infeeds": [
+        "G00006f0aCOMP"
+      ]
+    }
+  ]
+}

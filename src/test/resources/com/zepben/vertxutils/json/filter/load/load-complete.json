@@ -1,0 +1,376 @@
+{
+  "results": [
+    {
+      "systemTag": "EWB",
+      "fromAsset": {
+        "id": "H0017fee8COMP",
+        "name": "NIGHTINGALE-NEWBURY TRANS"
+      },
+      "toAsset": {
+        "id": "",
+        "name": ""
+      },
+      "loadIds": [
+        "H0017fee8COMP"
+      ],
+      "voltage": 22000,
+      "rating": 315,
+      "timeBoxStart": null,
+      "timeBoxEnd": null,
+      "series": [
+        [
+          {
+            "energy": {
+              "date": "2018-01-18",
+              "missingLoadIds": [],
+              "maximums": {
+                "kwIn": 107.82,
+                "kwOut": 4.96,
+                "kwNet": 107.82,
+                "pf": 0.9,
+                "kvaNet": 119.8
+              },
+              "readings": [
+                {
+                  "time": "2018-01-17T13:30:00Z",
+                  "values": {
+                    "kwIn": 24.658,
+                    "kwOut": 0,
+                    "kwNet": 24.658,
+                    "pf": 0.9,
+                    "kvaNet": 27.398
+                  }
+                },
+                {
+                  "time": "2018-01-17T14:00:00Z",
+                  "values": {
+                    "kwIn": 21.861,
+                    "kwOut": 0,
+                    "kwNet": 21.861,
+                    "pf": 0.9,
+                    "kvaNet": 24.29
+                  }
+                },
+                {
+                  "time": "2018-01-17T14:30:00Z",
+                  "values": {
+                    "kwIn": 19.888,
+                    "kwOut": 0,
+                    "kwNet": 19.888,
+                    "pf": 0.9,
+                    "kvaNet": 22.098
+                  }
+                },
+                {
+                  "time": "2018-01-17T15:00:00Z",
+                  "values": {
+                    "kwIn": 19.926,
+                    "kwOut": 0,
+                    "kwNet": 19.926,
+                    "pf": 0.9,
+                    "kvaNet": 22.14
+                  }
+                },
+                {
+                  "time": "2018-01-17T15:30:00Z",
+                  "values": {
+                    "kwIn": 18.473,
+                    "kwOut": 0,
+                    "kwNet": 18.473,
+                    "pf": 0.9,
+                    "kvaNet": 20.526
+                  }
+                },
+                {
+                  "time": "2018-01-17T16:00:00Z",
+                  "values": {
+                    "kwIn": 17.57,
+                    "kwOut": 0,
+                    "kwNet": 17.57,
+                    "pf": 0.9,
+                    "kvaNet": 19.522
+                  }
+                },
+                {
+                  "time": "2018-01-17T16:30:00Z",
+                  "values": {
+                    "kwIn": 16.609,
+                    "kwOut": 0,
+                    "kwNet": 16.609,
+                    "pf": 0.9,
+                    "kvaNet": 18.454
+                  }
+                },
+                {
+                  "time": "2018-01-17T17:00:00Z",
+                  "values": {
+                    "kwIn": 16.912,
+                    "kwOut": 0,
+                    "kwNet": 16.912,
+                    "pf": 0.9,
+                    "kvaNet": 18.791
+                  }
+                },
+                {
+                  "time": "2018-01-17T17:30:00Z",
+                  "values": {
+                    "kwIn": 16.961,
+                    "kwOut": 0,
+                    "kwNet": 16.961,
+                    "pf": 0.9,
+                    "kvaNet": 18.846
+                  }
+                },
+                {
+                  "time": "2018-01-17T18:00:00Z",
+                  "values": {
+                    "kwIn": 20.057,
+                    "kwOut": 0,
+                    "kwNet": 20.057,
+                    "pf": 0.9,
+                    "kvaNet": 22.286
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        [
+          {
+            "energy": {
+              "date": "2018-01-19",
+              "missingLoadIds": [],
+              "maximums": {
+                "kwIn": 85.278,
+                "kwOut": 4.225,
+                "kwNet": 84.296,
+                "pf": 0.9,
+                "kvaNet": 93.662
+              },
+              "readings": [
+                {
+                  "time": "2018-01-18T13:30:00Z",
+                  "values": {
+                    "kwIn": 46.893,
+                    "kwOut": 0,
+                    "kwNet": 46.893,
+                    "pf": 0.9,
+                    "kvaNet": 52.103
+                  }
+                },
+                {
+                  "time": "2018-01-18T14:00:00Z",
+                  "values": {
+                    "kwIn": 41.54,
+                    "kwOut": 0,
+                    "kwNet": 41.54,
+                    "pf": 0.9,
+                    "kvaNet": 46.156
+                  }
+                },
+                {
+                  "time": "2018-01-18T14:30:00Z",
+                  "values": {
+                    "kwIn": 36.172,
+                    "kwOut": 0,
+                    "kwNet": 36.172,
+                    "pf": 0.9,
+                    "kvaNet": 40.191
+                  }
+                },
+                {
+                  "time": "2018-01-18T15:00:00Z",
+                  "values": {
+                    "kwIn": 34.09,
+                    "kwOut": 0,
+                    "kwNet": 34.09,
+                    "pf": 0.9,
+                    "kvaNet": 37.878
+                  }
+                },
+                {
+                  "time": "2018-01-18T15:30:00Z",
+                  "values": {
+                    "kwIn": 31.317,
+                    "kwOut": 0,
+                    "kwNet": 31.317,
+                    "pf": 0.9,
+                    "kvaNet": 34.797
+                  }
+                },
+                {
+                  "time": "2018-01-18T16:00:00Z",
+                  "values": {
+                    "kwIn": 30.107,
+                    "kwOut": 0,
+                    "kwNet": 30.107,
+                    "pf": 0.9,
+                    "kvaNet": 33.452
+                  }
+                },
+                {
+                  "time": "2018-01-18T16:30:00Z",
+                  "values": {
+                    "kwIn": 29.737,
+                    "kwOut": 0,
+                    "kwNet": 29.737,
+                    "pf": 0.9,
+                    "kvaNet": 33.041
+                  }
+                },
+                {
+                  "time": "2018-01-18T17:00:00Z",
+                  "values": {
+                    "kwIn": 27.789,
+                    "kwOut": 0,
+                    "kwNet": 27.789,
+                    "pf": 0.9,
+                    "kvaNet": 30.877
+                  }
+                },
+                {
+                  "time": "2018-01-18T17:30:00Z",
+                  "values": {
+                    "kwIn": 26.08,
+                    "kwOut": 0,
+                    "kwNet": 26.08,
+                    "pf": 0.9,
+                    "kvaNet": 28.978
+                  }
+                },
+                {
+                  "time": "2018-01-18T18:00:00Z",
+                  "values": {
+                    "kwIn": 26.182,
+                    "kwOut": 0,
+                    "kwNet": 26.182,
+                    "pf": 0.9,
+                    "kvaNet": 29.091
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        [
+          {
+            "energy": {
+              "date": "2018-01-17",
+              "missingLoadIds": [],
+              "maximums": {
+                "kwIn": 54.281,
+                "kwOut": 6.506,
+                "kwNet": 53.781,
+                "pf": 0.9,
+                "kvaNet": 59.757
+              },
+              "readings": [
+                {
+                  "time": "2018-01-16T13:30:00Z",
+                  "values": {
+                    "kwIn": 19.383,
+                    "kwOut": 0,
+                    "kwNet": 19.383,
+                    "pf": 0.9,
+                    "kvaNet": 21.537
+                  }
+                },
+                {
+                  "time": "2018-01-16T14:00:00Z",
+                  "values": {
+                    "kwIn": 18.991,
+                    "kwOut": 0,
+                    "kwNet": 18.991,
+                    "pf": 0.9,
+                    "kvaNet": 21.101
+                  }
+                },
+                {
+                  "time": "2018-01-16T14:30:00Z",
+                  "values": {
+                    "kwIn": 17.214,
+                    "kwOut": 0,
+                    "kwNet": 17.214,
+                    "pf": 0.9,
+                    "kvaNet": 19.127
+                  }
+                },
+                {
+                  "time": "2018-01-16T15:00:00Z",
+                  "values": {
+                    "kwIn": 15.322,
+                    "kwOut": 0,
+                    "kwNet": 15.322,
+                    "pf": 0.9,
+                    "kvaNet": 17.024
+                  }
+                },
+                {
+                  "time": "2018-01-16T15:30:00Z",
+                  "values": {
+                    "kwIn": 15.839,
+                    "kwOut": 0,
+                    "kwNet": 15.839,
+                    "pf": 0.9,
+                    "kvaNet": 17.599
+                  }
+                },
+                {
+                  "time": "2018-01-16T16:00:00Z",
+                  "values": {
+                    "kwIn": 15.457,
+                    "kwOut": 0,
+                    "kwNet": 15.457,
+                    "pf": 0.9,
+                    "kvaNet": 17.174
+                  }
+                },
+                {
+                  "time": "2018-01-16T16:30:00Z",
+                  "values": {
+                    "kwIn": 13.724,
+                    "kwOut": 0,
+                    "kwNet": 13.724,
+                    "pf": 0.9,
+                    "kvaNet": 15.249
+                  }
+                },
+                {
+                  "time": "2018-01-16T17:00:00Z",
+                  "values": {
+                    "kwIn": 14.167,
+                    "kwOut": 0,
+                    "kwNet": 14.167,
+                    "pf": 0.9,
+                    "kvaNet": 15.741
+                  }
+                },
+                {
+                  "time": "2018-01-16T17:30:00Z",
+                  "values": {
+                    "kwIn": 14.568,
+                    "kwOut": 0,
+                    "kwNet": 14.568,
+                    "pf": 0.9,
+                    "kvaNet": 16.187
+                  }
+                },
+                {
+                  "time": "2018-01-16T18:00:00Z",
+                  "values": {
+                    "kwIn": 16.137,
+                    "kwOut": 0,
+                    "kwNet": 16.137,
+                    "pf": 0.9,
+                    "kvaNet": 17.93
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      ]
+    }
+  ],
+  "warnings": []
+}

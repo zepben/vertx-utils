@@ -1,0 +1,972 @@
+{
+  "feeders": [
+    {
+      "feeder": {
+        "id": "H00007f5eCOMP",
+        "name": "BET004",
+        "state": "NORMAL"
+      },
+      "assets": [
+        {
+          "type": "BasicSwitch",
+          "id": "H00070307COMP",
+          "siteId": "",
+          "loadId": null,
+          "name": "EARTH_B",
+          "voltage": 0,
+          "connections": [
+            {
+              "connectivityNodeId": "generated_cn_203941",
+              "numCores": 3,
+              "normalPhases": [
+                "A",
+                "B",
+                "C"
+              ],
+              "normalDirections": [
+                "IN",
+                "IN",
+                "IN"
+              ],
+              "currentPhases": [
+                "A",
+                "B",
+                "C"
+              ],
+              "currentDirections": [
+                "IN",
+                "IN",
+                "IN"
+              ]
+            },
+            {
+              "connectivityNodeId": "generated_cn_1855185",
+              "numCores": 3,
+              "normalPhases": [
+                "A",
+                "B",
+                "C"
+              ],
+              "normalDirections": [
+                "OUT",
+                "OUT",
+                "OUT"
+              ],
+              "currentPhases": [
+                "A",
+                "B",
+                "C"
+              ],
+              "currentDirections": [
+                "OUT",
+                "OUT",
+                "OUT"
+              ]
+            }
+          ],
+          "feeder": {
+            "current": [
+              {
+                "id": "H00007f5eCOMP",
+                "name": "BET004",
+                "zone": {
+                  "id": "S0000110cCOMP",
+                  "name": "BETS"
+                }
+              }
+            ],
+            "normal": [
+              {
+                "id": "H00007f5eCOMP",
+                "name": "BET004",
+                "zone": {
+                  "id": "S0000110cCOMP",
+                  "name": "BETS"
+                }
+              }
+            ]
+          },
+          "symbol": "DEFAULT",
+          "isOpen": false,
+          "lngLat": {
+            "longitude": 144.23956,
+            "latitude": -36.832857
+          }
+        },
+        {
+          "type": "BasicNode",
+          "id": "H00070db9COMP",
+          "siteId": "",
+          "loadId": null,
+          "name": "GIS NODE 25466442",
+          "voltage": 12500,
+          "connections": [
+            {
+              "connectivityNodeId": "generated_cn_957223",
+              "numCores": 3,
+              "normalPhases": [
+                "A",
+                "B",
+                "C"
+              ],
+              "normalDirections": [
+                "IN",
+                "IN",
+                "IN"
+              ],
+              "currentPhases": [
+                "A",
+                "B",
+                "C"
+              ],
+              "currentDirections": [
+                "IN",
+                "IN",
+                "IN"
+              ]
+            },
+            {
+              "connectivityNodeId": "generated_cn_1114916",
+              "numCores": 3,
+              "normalPhases": [
+                "A",
+                "B",
+                "C"
+              ],
+              "normalDirections": [
+                "OUT",
+                "OUT",
+                "OUT"
+              ],
+              "currentPhases": [
+                "A",
+                "B",
+                "C"
+              ],
+              "currentDirections": [
+                "OUT",
+                "OUT",
+                "OUT"
+              ]
+            },
+            {
+              "connectivityNodeId": "generated_cn_1492285",
+              "numCores": 3,
+              "normalPhases": [
+                "A",
+                "B",
+                "C"
+              ],
+              "normalDirections": [
+                "OUT",
+                "OUT",
+                "OUT"
+              ],
+              "currentPhases": [
+                "A",
+                "B",
+                "C"
+              ],
+              "currentDirections": [
+                "OUT",
+                "OUT",
+                "OUT"
+              ]
+            }
+          ],
+          "feeder": {
+            "current": [
+              {
+                "id": "H00007f5eCOMP",
+                "name": "BET004",
+                "zone": {
+                  "id": "S0000110cCOMP",
+                  "name": "BETS"
+                }
+              }
+            ],
+            "normal": [
+              {
+                "id": "H00007f5eCOMP",
+                "name": "BET004",
+                "zone": {
+                  "id": "S0000110cCOMP",
+                  "name": "BETS"
+                }
+              }
+            ]
+          },
+          "symbol": "DEFAULT",
+          "isOpen": false,
+          "lngLat": {
+            "longitude": 144.19079,
+            "latitude": -36.824584
+          }
+        },
+        {
+          "type": "BasicNode",
+          "id": "H00070501COMP",
+          "siteId": "H000704e7COMP",
+          "loadId": null,
+          "name": "BUS NODE 26234732",
+          "voltage": 22000,
+          "connections": [
+            {
+              "connectivityNodeId": "generated_cn_322268",
+              "numCores": 3,
+              "normalPhases": [
+                "A",
+                "B",
+                "C"
+              ],
+              "normalDirections": [
+                "OUT",
+                "OUT",
+                "OUT"
+              ],
+              "currentPhases": [
+                "A",
+                "B",
+                "C"
+              ],
+              "currentDirections": [
+                "OUT",
+                "OUT",
+                "OUT"
+              ]
+            },
+            {
+              "connectivityNodeId": "generated_cn_841398",
+              "numCores": 3,
+              "normalPhases": [
+                "A",
+                "B",
+                "C"
+              ],
+              "normalDirections": [
+                "IN",
+                "IN",
+                "IN"
+              ],
+              "currentPhases": [
+                "A",
+                "B",
+                "C"
+              ],
+              "currentDirections": [
+                "IN",
+                "IN",
+                "IN"
+              ]
+            },
+            {
+              "connectivityNodeId": "generated_cn_1378121",
+              "numCores": 3,
+              "normalPhases": [
+                "A",
+                "B",
+                "C"
+              ],
+              "normalDirections": [
+                "OUT",
+                "OUT",
+                "OUT"
+              ],
+              "currentPhases": [
+                "A",
+                "B",
+                "C"
+              ],
+              "currentDirections": [
+                "OUT",
+                "OUT",
+                "OUT"
+              ]
+            }
+          ],
+          "feeder": {
+            "current": [
+              {
+                "id": "H00007f5eCOMP",
+                "name": "BET004",
+                "zone": {
+                  "id": "S0000110cCOMP",
+                  "name": "BETS"
+                }
+              }
+            ],
+            "normal": [
+              {
+                "id": "H00007f5eCOMP",
+                "name": "BET004",
+                "zone": {
+                  "id": "S0000110cCOMP",
+                  "name": "BETS"
+                }
+              }
+            ]
+          },
+          "symbol": "DEFAULT",
+          "isOpen": false,
+          "lngLat": {
+            "longitude": 144.24194,
+            "latitude": -36.815695
+          }
+        },
+        {
+          "type": "BasicNode",
+          "id": "H00070b44COMP",
+          "siteId": "",
+          "loadId": null,
+          "name": "TEE OFF POLE HERBERT 9",
+          "voltage": 22000,
+          "connections": [
+            {
+              "connectivityNodeId": "generated_cn_588469",
+              "numCores": 3,
+              "normalPhases": [
+                "A",
+                "B",
+                "C"
+              ],
+              "normalDirections": [
+                "OUT",
+                "OUT",
+                "OUT"
+              ],
+              "currentPhases": [
+                "A",
+                "B",
+                "C"
+              ],
+              "currentDirections": [
+                "OUT",
+                "OUT",
+                "OUT"
+              ]
+            },
+            {
+              "connectivityNodeId": "generated_cn_655499",
+              "numCores": 3,
+              "normalPhases": [
+                "A",
+                "B",
+                "C"
+              ],
+              "normalDirections": [
+                "IN",
+                "IN",
+                "IN"
+              ],
+              "currentPhases": [
+                "A",
+                "B",
+                "C"
+              ],
+              "currentDirections": [
+                "IN",
+                "IN",
+                "IN"
+              ]
+            },
+            {
+              "connectivityNodeId": "generated_cn_1118810",
+              "numCores": 3,
+              "normalPhases": [
+                "A",
+                "B",
+                "C"
+              ],
+              "normalDirections": [
+                "OUT",
+                "OUT",
+                "OUT"
+              ],
+              "currentPhases": [
+                "A",
+                "B",
+                "C"
+              ],
+              "currentDirections": [
+                "OUT",
+                "OUT",
+                "OUT"
+              ]
+            }
+          ],
+          "feeder": {
+            "current": [
+              {
+                "id": "H00007f5eCOMP",
+                "name": "BET004",
+                "zone": {
+                  "id": "S0000110cCOMP",
+                  "name": "BETS"
+                }
+              }
+            ],
+            "normal": [
+              {
+                "id": "H00007f5eCOMP",
+                "name": "BET004",
+                "zone": {
+                  "id": "S0000110cCOMP",
+                  "name": "BETS"
+                }
+              }
+            ]
+          },
+          "symbol": "DEFAULT",
+          "isOpen": false,
+          "lngLat": {
+            "longitude": 144.22414,
+            "latitude": -36.869837
+          }
+        },
+        {
+          "type": "DistTransformer",
+          "id": "H0006f9e6COMP",
+          "siteId": "H0006f9e5COMP",
+          "loadId": "20372477",
+          "name": "PINJARRA DR 5E TRANS",
+          "voltage": 22000,
+          "connections": [
+            {
+              "connectivityNodeId": "generated_cn_399190",
+              "numCores": 3,
+              "normalPhases": [
+                "A",
+                "B",
+                "C"
+              ],
+              "normalDirections": [
+                "OUT",
+                "OUT",
+                "OUT"
+              ],
+              "currentPhases": [
+                "A",
+                "B",
+                "C"
+              ],
+              "currentDirections": [
+                "OUT",
+                "OUT",
+                "OUT"
+              ]
+            },
+            {
+              "connectivityNodeId": "generated_cn_849699",
+              "numCores": 3,
+              "normalPhases": [
+                "A",
+                "B",
+                "C"
+              ],
+              "normalDirections": [
+                "IN",
+                "IN",
+                "IN"
+              ],
+              "currentPhases": [
+                "A",
+                "B",
+                "C"
+              ],
+              "currentDirections": [
+                "IN",
+                "IN",
+                "IN"
+              ]
+            }
+          ],
+          "feeder": {
+            "current": [
+              {
+                "id": "H00007f5eCOMP",
+                "name": "BET004",
+                "zone": {
+                  "id": "S0000110cCOMP",
+                  "name": "BETS"
+                }
+              }
+            ],
+            "normal": [
+              {
+                "id": "H00007f5eCOMP",
+                "name": "BET004",
+                "zone": {
+                  "id": "S0000110cCOMP",
+                  "name": "BETS"
+                }
+              }
+            ]
+          },
+          "symbol": "DIST_TRANSFORMER",
+          "isOpen": false,
+          "lngLat": {
+            "longitude": 144.15885,
+            "latitude": -36.888814
+          }
+        },
+        {
+          "type": "Isolator",
+          "id": "G0002d471COMP",
+          "siteId": "G0002d476COMP",
+          "loadId": null,
+          "name": "HVIS SHELBOURNE EAST P3 ACR SUPPLY SIDE ISOL",
+          "voltage": 12700,
+          "connections": [
+            {
+              "connectivityNodeId": "generated_cn_313209",
+              "numCores": 3,
+              "normalPhases": [
+                "A",
+                "B",
+                "C"
+              ],
+              "normalDirections": [
+                "OUT",
+                "OUT",
+                "OUT"
+              ],
+              "currentPhases": [
+                "A",
+                "B",
+                "C"
+              ],
+              "currentDirections": [
+                "OUT",
+                "OUT",
+                "OUT"
+              ]
+            },
+            {
+              "connectivityNodeId": "generated_cn_2224590",
+              "numCores": 3,
+              "normalPhases": [
+                "A",
+                "B",
+                "C"
+              ],
+              "normalDirections": [
+                "IN",
+                "IN",
+                "IN"
+              ],
+              "currentPhases": [
+                "A",
+                "B",
+                "C"
+              ],
+              "currentDirections": [
+                "IN",
+                "IN",
+                "IN"
+              ]
+            }
+          ],
+          "feeder": {
+            "current": [
+              {
+                "id": "H00007f5eCOMP",
+                "name": "BET004",
+                "zone": {
+                  "id": "S0000110cCOMP",
+                  "name": "BETS"
+                }
+              }
+            ],
+            "normal": [
+              {
+                "id": "H00007f5eCOMP",
+                "name": "BET004",
+                "zone": {
+                  "id": "S0000110cCOMP",
+                  "name": "BETS"
+                }
+              }
+            ]
+          },
+          "symbol": "ISOLATOR",
+          "isOpen": false,
+          "lngLat": {
+            "longitude": 144.14777,
+            "latitude": -36.806839
+          }
+        },
+        {
+          "type": "Fuse",
+          "id": "e0001e46bCOMP",
+          "siteId": "e0001e469COMP",
+          "loadId": null,
+          "name": "TRANS HV FUSE MOSIER P1E",
+          "voltage": 12700,
+          "connections": [
+            {
+              "connectivityNodeId": "generated_cn_276663",
+              "numCores": 3,
+              "normalPhases": [
+                "A",
+                "B",
+                "C"
+              ],
+              "normalDirections": [
+                "IN",
+                "IN",
+                "IN"
+              ],
+              "currentPhases": [
+                "A",
+                "B",
+                "C"
+              ],
+              "currentDirections": [
+                "IN",
+                "IN",
+                "IN"
+              ]
+            },
+            {
+              "connectivityNodeId": "generated_cn_2189658",
+              "numCores": 3,
+              "normalPhases": [
+                "A",
+                "B",
+                "C"
+              ],
+              "normalDirections": [
+                "OUT",
+                "OUT",
+                "OUT"
+              ],
+              "currentPhases": [
+                "A",
+                "B",
+                "C"
+              ],
+              "currentDirections": [
+                "OUT",
+                "OUT",
+                "OUT"
+              ]
+            }
+          ],
+          "feeder": {
+            "current": [
+              {
+                "id": "H00007f5eCOMP",
+                "name": "BET004",
+                "zone": {
+                  "id": "S0000110cCOMP",
+                  "name": "BETS"
+                }
+              }
+            ],
+            "normal": [
+              {
+                "id": "H00007f5eCOMP",
+                "name": "BET004",
+                "zone": {
+                  "id": "S0000110cCOMP",
+                  "name": "BETS"
+                }
+              }
+            ]
+          },
+          "symbol": "FUSE",
+          "isOpen": false,
+          "lngLat": {
+            "longitude": 144.19388,
+            "latitude": -36.874642
+          }
+        },
+        {
+          "type": "BasicNode",
+          "id": "H00070df1COMP",
+          "siteId": "",
+          "loadId": null,
+          "name": "GIS NODE 25475978",
+          "voltage": 22000,
+          "connections": [
+            {
+              "connectivityNodeId": "generated_cn_28605",
+              "numCores": 3,
+              "normalPhases": [
+                "A",
+                "B",
+                "C"
+              ],
+              "normalDirections": [
+                "IN",
+                "IN",
+                "IN"
+              ],
+              "currentPhases": [
+                "A",
+                "B",
+                "C"
+              ],
+              "currentDirections": [
+                "IN",
+                "IN",
+                "IN"
+              ]
+            },
+            {
+              "connectivityNodeId": "generated_cn_567702",
+              "numCores": 3,
+              "normalPhases": [
+                "A",
+                "B",
+                "C"
+              ],
+              "normalDirections": [
+                "OUT",
+                "OUT",
+                "OUT"
+              ],
+              "currentPhases": [
+                "A",
+                "B",
+                "C"
+              ],
+              "currentDirections": [
+                "OUT",
+                "OUT",
+                "OUT"
+              ]
+            },
+            {
+              "connectivityNodeId": "generated_cn_614292",
+              "numCores": 3,
+              "normalPhases": [
+                "A",
+                "B",
+                "C"
+              ],
+              "normalDirections": [
+                "OUT",
+                "OUT",
+                "OUT"
+              ],
+              "currentPhases": [
+                "A",
+                "B",
+                "C"
+              ],
+              "currentDirections": [
+                "OUT",
+                "OUT",
+                "OUT"
+              ]
+            }
+          ],
+          "feeder": {
+            "current": [
+              {
+                "id": "H00007f5eCOMP",
+                "name": "BET004",
+                "zone": {
+                  "id": "S0000110cCOMP",
+                  "name": "BETS"
+                }
+              }
+            ],
+            "normal": [
+              {
+                "id": "H00007f5eCOMP",
+                "name": "BET004",
+                "zone": {
+                  "id": "S0000110cCOMP",
+                  "name": "BETS"
+                }
+              }
+            ]
+          },
+          "symbol": "DEFAULT",
+          "isOpen": false,
+          "lngLat": {
+            "longitude": 144.09306,
+            "latitude": -36.869725
+          }
+        },
+        {
+          "type": "BasicNode",
+          "id": "H00070aaaCOMP",
+          "siteId": "",
+          "loadId": null,
+          "name": "TEE OFF POLE KANGAROO FLAT 70",
+          "voltage": 22000,
+          "connections": [
+            {
+              "connectivityNodeId": "generated_cn_1720100",
+              "numCores": 3,
+              "normalPhases": [
+                "A",
+                "B",
+                "C"
+              ],
+              "normalDirections": [
+                "OUT",
+                "OUT",
+                "OUT"
+              ],
+              "currentPhases": [
+                "A",
+                "B",
+                "C"
+              ],
+              "currentDirections": [
+                "OUT",
+                "OUT",
+                "OUT"
+              ]
+            },
+            {
+              "connectivityNodeId": "generated_cn_2100936",
+              "numCores": 3,
+              "normalPhases": [
+                "A",
+                "B",
+                "C"
+              ],
+              "normalDirections": [
+                "IN",
+                "IN",
+                "IN"
+              ],
+              "currentPhases": [
+                "A",
+                "B",
+                "C"
+              ],
+              "currentDirections": [
+                "IN",
+                "IN",
+                "IN"
+              ]
+            },
+            {
+              "connectivityNodeId": "generated_cn_2255579",
+              "numCores": 3,
+              "normalPhases": [
+                "A",
+                "B",
+                "C"
+              ],
+              "normalDirections": [
+                "OUT",
+                "OUT",
+                "OUT"
+              ],
+              "currentPhases": [
+                "A",
+                "B",
+                "C"
+              ],
+              "currentDirections": [
+                "OUT",
+                "OUT",
+                "OUT"
+              ]
+            }
+          ],
+          "feeder": {
+            "current": [
+              {
+                "id": "H00007f5eCOMP",
+                "name": "BET004",
+                "zone": {
+                  "id": "S0000110cCOMP",
+                  "name": "BETS"
+                }
+              }
+            ],
+            "normal": [
+              {
+                "id": "H00007f5eCOMP",
+                "name": "BET004",
+                "zone": {
+                  "id": "S0000110cCOMP",
+                  "name": "BETS"
+                }
+              }
+            ]
+          },
+          "symbol": "DEFAULT",
+          "isOpen": false,
+          "lngLat": {
+            "longitude": 144.23958,
+            "latitude": -36.811659
+          }
+        },
+        {
+          "type": "FaultIndicator",
+          "id": "b00031d1cCOMP",
+          "siteId": "H0006f126COMP",
+          "loadId": null,
+          "name": "FI KANGAROO FLAT 127A LIS0948796",
+          "voltage": 22000,
+          "connections": [
+            {
+              "connectivityNodeId": "generated_cn_2444075",
+              "numCores": 3,
+              "normalPhases": [
+                "A",
+                "B",
+                "C"
+              ],
+              "normalDirections": [
+                "IN",
+                "IN",
+                "IN"
+              ],
+              "currentPhases": [
+                "A",
+                "B",
+                "C"
+              ],
+              "currentDirections": [
+                "IN",
+                "IN",
+                "IN"
+              ]
+            }
+          ],
+          "feeder": {
+            "current": [
+              {
+                "id": "H00007f5eCOMP",
+                "name": "BET004",
+                "zone": {
+                  "id": "S0000110cCOMP",
+                  "name": "BETS"
+                }
+              }
+            ],
+            "normal": [
+              {
+                "id": "H00007f5eCOMP",
+                "name": "BET004",
+                "zone": {
+                  "id": "S0000110cCOMP",
+                  "name": "BETS"
+                }
+              }
+            ]
+          },
+          "symbol": "FAULT_INDICATOR",
+          "isOpen": false,
+          "lngLat": {
+            "longitude": 144.171524,
+            "latitude": -36.84743335
+          }
+        }
+      ],
+      "infeeds": [
+        "G00006f0aCOMP"
+      ]
+    }
+  ]
+}

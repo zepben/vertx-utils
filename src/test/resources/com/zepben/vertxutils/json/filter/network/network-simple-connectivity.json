@@ -1,0 +1,188 @@
+{
+  "feeders": [
+    {
+      "feeder": {
+        "id": "H00007f5eCOMP",
+        "name": "BET004",
+        "state": "NORMAL"
+      },
+      "assets": [
+        {
+          "type": "BasicSwitch",
+          "id": "H00070307COMP",
+          "name": "EARTH_B",
+          "voltage": 0,
+          "connections": [
+            {
+              "connectivityNodeId": "generated_cn_203941"
+            },
+            {
+              "connectivityNodeId": "generated_cn_1855185"
+            }
+          ],
+          "symbol": "DEFAULT",
+          "isOpen": false
+        },
+        {
+          "type": "BasicNode",
+          "id": "H00070db9COMP",
+          "name": "GIS NODE 25466442",
+          "voltage": 12500,
+          "connections": [
+            {
+              "connectivityNodeId": "generated_cn_957223"
+            },
+            {
+              "connectivityNodeId": "generated_cn_1114916"
+            },
+            {
+              "connectivityNodeId": "generated_cn_1492285"
+            }
+          ],
+          "symbol": "DEFAULT",
+          "isOpen": false
+        },
+        {
+          "type": "BasicNode",
+          "id": "H00070501COMP",
+          "name": "BUS NODE 26234732",
+          "voltage": 22000,
+          "connections": [
+            {
+              "connectivityNodeId": "generated_cn_322268"
+            },
+            {
+              "connectivityNodeId": "generated_cn_841398"
+            },
+            {
+              "connectivityNodeId": "generated_cn_1378121"
+            }
+          ],
+          "symbol": "DEFAULT",
+          "isOpen": false
+        },
+        {
+          "type": "BasicNode",
+          "id": "H00070b44COMP",
+          "name": "TEE OFF POLE HERBERT 9",
+          "voltage": 22000,
+          "connections": [
+            {
+              "connectivityNodeId": "generated_cn_588469"
+            },
+            {
+              "connectivityNodeId": "generated_cn_655499"
+            },
+            {
+              "connectivityNodeId": "generated_cn_1118810"
+            }
+          ],
+          "symbol": "DEFAULT",
+          "isOpen": false
+        },
+        {
+          "type": "DistTransformer",
+          "id": "H0006f9e6COMP",
+          "name": "PINJARRA DR 5E TRANS",
+          "voltage": 22000,
+          "connections": [
+            {
+              "connectivityNodeId": "generated_cn_399190"
+            },
+            {
+              "connectivityNodeId": "generated_cn_849699"
+            }
+          ],
+          "symbol": "DIST_TRANSFORMER",
+          "isOpen": false
+        },
+        {
+          "type": "Isolator",
+          "id": "G0002d471COMP",
+          "name": "HVIS SHELBOURNE EAST P3 ACR SUPPLY SIDE ISOL",
+          "voltage": 12700,
+          "connections": [
+            {
+              "connectivityNodeId": "generated_cn_313209"
+            },
+            {
+              "connectivityNodeId": "generated_cn_2224590"
+            }
+          ],
+          "symbol": "ISOLATOR",
+          "isOpen": false
+        },
+        {
+          "type": "Fuse",
+          "id": "e0001e46bCOMP",
+          "name": "TRANS HV FUSE MOSIER P1E",
+          "voltage": 12700,
+          "connections": [
+            {
+              "connectivityNodeId": "generated_cn_276663"
+            },
+            {
+              "connectivityNodeId": "generated_cn_2189658"
+            }
+          ],
+          "symbol": "FUSE",
+          "isOpen": false
+        },
+        {
+          "type": "BasicNode",
+          "id": "H00070df1COMP",
+          "name": "GIS NODE 25475978",
+          "voltage": 22000,
+          "connections": [
+            {
+              "connectivityNodeId": "generated_cn_28605"
+            },
+            {
+              "connectivityNodeId": "generated_cn_567702"
+            },
+            {
+              "connectivityNodeId": "generated_cn_614292"
+            }
+          ],
+          "symbol": "DEFAULT",
+          "isOpen": false
+        },
+        {
+          "type": "BasicNode",
+          "id": "H00070aaaCOMP",
+          "name": "TEE OFF POLE KANGAROO FLAT 70",
+          "voltage": 22000,
+          "connections": [
+            {
+              "connectivityNodeId": "generated_cn_1720100"
+            },
+            {
+              "connectivityNodeId": "generated_cn_2100936"
+            },
+            {
+              "connectivityNodeId": "generated_cn_2255579"
+            }
+          ],
+          "symbol": "DEFAULT",
+          "isOpen": false
+        },
+        {
+          "type": "FaultIndicator",
+          "id": "b00031d1cCOMP",
+          "name": "FI KANGAROO FLAT 127A LIS0948796",
+          "voltage": 22000,
+          "connections": [
+            {
+              "connectivityNodeId": "generated_cn_2444075"
+            }
+          ],
+          "symbol": "FAULT_INDICATOR",
+          "isOpen": false
+        }
+      ],
+      "infeeds": [
+        "G00006f0aCOMP"
+      ]
+    }
+  ]
+}

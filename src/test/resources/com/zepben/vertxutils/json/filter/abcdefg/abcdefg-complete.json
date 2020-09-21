@@ -1,0 +1,33 @@
+{
+  "firstName": "First Name",
+  "lastName": "Last Name",
+  "b": {
+    "age": 111,
+    "attractive": true,
+    "d": {
+      "field1": "field1",
+      "field2": "field2"
+    },
+    "e": [
+      {
+        "field3": "field3",
+        "field4": "field4"
+      }
+    ]
+  },
+  "c": [
+    {
+      "height": 1.0,
+      "f": {
+        "field5": "field5",
+        "field6": "field6"
+      },
+      "g": [
+        {
+          "fieldX": "fieldX",
+          "fieldY": "fieldY"
+        }
+      ]
+    }
+  ]
+}
