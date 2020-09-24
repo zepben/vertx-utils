@@ -19,7 +19,49 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.zepben</groupId>
     <artifactId>vertx-utils</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.0-SNAPSHOT</version>
+
+    <name>${project.groupId}:${project.artifactId}</name>
+    <description>Helpers and utils for working with Vert.x in Zepben projects.</description>
+    <url>https://github.com/zepben/vertx-utils</url>
+    <organization>
+        <name>Zeppelin Bend Pty Ltd.</name>
+        <url>https://zepben.com</url>
+    </organization>
+
+    <licenses>
+        <license>
+            <name>Mozilla Public License v2.0</name>
+            <url>https://www.mozilla.org/en-US/MPL/2.0/</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Anthony Charlton</name>
+            <email>anthony.charlton@zepben.com</email>
+            <organization>Zeppelin Bend</organization>
+            <organizationUrl>https://zepben.com</organizationUrl>
+        </developer>
+        <developer>
+            <name>Glenn Carwardine</name>
+            <email>glenn.carwardine@zepben.com</email>
+            <organization>Zeppelin Bend</organization>
+            <organizationUrl>https://zepben.com</organizationUrl>
+        </developer>
+        <developer>
+            <name>Kurt Greaves</name>
+            <email>kurt.greaves@zepben.com</email>
+            <organization>Zeppelin Bend</organization>
+            <organizationUrl>https://zepben.com</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/zepben/vertx-utils.git</connection>
+        <developerConnection>scm:git:ssh://github.com:zepben/vertx-utils.git</developerConnection>
+        <url>http://github.com/zepben/vertx-utils/</url>
+    </scm>
 
     <dependencies>
         <dependency>
