@@ -34,19 +34,14 @@ jobs:
     container: zepben/pipeline-java
     steps:
       - uses: actions/checkout@v2
+        with:
+          ref: release
 
       - name: Cache maven deps
         uses: actions/cache@v2
         with:
           path: /maven
           key: maven
-
-      - name: Checkout release branch
-        run: |
-          git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
-          git fetch --all
-          git checkout release
-        shell: bash
 
       - name: Maven deploy to Central
         id: build
