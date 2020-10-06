@@ -1,0 +1,36 @@
+name: Maven Build
+
+on: 
+  pull_request:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    container: zepben/pipeline-java
+    env:
+      NEXUS_MAVEN_REPO: ${{ secrets.NEXUS_MAVEN_REPO }}
+      NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
+      NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Cache licence-check
+        uses: actions/cache@v2
+        with:
+          path: /lc
+          key: lcc
+          
+      - name: Check licence
+        uses: zepben/licence-check-action@main
+        with:
+          LC_URL: ${{ secrets.LC_URL }}
+
+      - name: Cache maven deps
+        uses: actions/cache@v2
+        with:
+          path: /maven
+          key: maven
+
+      - name: Maven build and test
+        run: mvn clean test -f pom.xml -Dserver.username=$NEXUS_USERNAME -Dserver.password=$NEXUS_PASSWORD -Dserver.repo.url=$NEXUS_MAVEN_REPO
+        shell: bash
