@@ -52,9 +52,6 @@ jobs:
         id: build
         uses: zepben/maven-deploy-central-action@main
         with:
-          NEXUS_MAVEN_REPO: ${{ secrets.NEXUS_MAVEN_REPO }}
-          NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
-          NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
           ZEPBEN_GPG_KEY: ${{ secrets.ZEPBEN_GPG_KEY_B64 }}
           OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
