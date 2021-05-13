@@ -28,11 +28,11 @@ public class JsonUtils {
     @EverythingIsNonnullByDefault
     public static class ParsingException extends Exception {
 
-        ParsingException(String message) {
+        public ParsingException(String message) {
             super(message);
         }
 
-        ParsingException(String message, Throwable cause) {
+        public ParsingException(String message, Throwable cause) {
             super(message, cause);
         }
 
