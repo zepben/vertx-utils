@@ -9,27 +9,34 @@
 package com.zepben.vertxutils.routing.ChunkedResponse;
 
 import io.vertx.core.http.HttpServerResponse;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import static org.mockito.Mockito.*;
-import static org.mockito.MockitoAnnotations.initMocks;
+import static org.mockito.MockitoAnnotations.openMocks;
 
 public class HttpChunkedJsonResponseTest {
 
     @Mock
     private HttpServerResponse httpServerResponse;
+    private AutoCloseable closeable;
 
     @BeforeEach
     public void setUp() {
-        initMocks(this);
+        closeable = openMocks(this);
+    }
+
+    @AfterEach
+    public void tearDown() throws Exception {
+        closeable.close();
     }
 
     @Test
     public void doEnd() {
-        doNothing().when(httpServerResponse).end(any(String.class));
+        doReturn(null).when(httpServerResponse).end(any(String.class));
 
         // Check that ending the response sends the remaining buffer.
         new HttpChunkedJsonResponse(httpServerResponse).ofArray().endArray();
@@ -38,7 +45,7 @@ public class HttpChunkedJsonResponseTest {
 
     @Test
     public void doSend() {
-        doReturn(httpServerResponse).when(httpServerResponse).write(any(String.class));
+        doReturn(null).when(httpServerResponse).write(any(String.class));
 
         ChunkedJsonResponse.JsonArray jsonArray = new HttpChunkedJsonResponse(httpServerResponse, 10).ofArray();
 
@@ -70,7 +77,7 @@ public class HttpChunkedJsonResponseTest {
         Mockito.verify(httpServerResponse).end("[]");
 
         doReturn(true).when(httpServerResponse).closed();
-        doReturn(httpServerResponse).when(httpServerResponse).write(any(String.class));
+        doReturn(null).when(httpServerResponse).write(any(String.class));
         ChunkedJsonResponse.JsonArray jsonArray = new HttpChunkedJsonResponse(httpServerResponse, 10).ofArray();
 
         jsonArray.addArrayItem("this").send(false);
