@@ -22,16 +22,16 @@ public class HttpChunkedJsonResponseTest {
 
     @Mock
     private HttpServerResponse httpServerResponse;
-    private AutoCloseable closeable;
+    private AutoCloseable mockitoSession;
 
     @BeforeEach
     public void setUp() {
-        closeable = openMocks(this);
+        mockitoSession = openMocks(this);
     }
 
     @AfterEach
     public void tearDown() throws Exception {
-        closeable.close();
+        mockitoSession.close();
     }
 
     @Test
