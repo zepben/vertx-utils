@@ -3,7 +3,7 @@
 ## [1.3.0] - UNRELEASED
 
 ### Breaking Changes
-* None.
+* Use super pom version 0.34.x, which uses Vert.x version 4.4.6 (major version change 3 &rarr; 4).
 
 ### New Features
 * None.
