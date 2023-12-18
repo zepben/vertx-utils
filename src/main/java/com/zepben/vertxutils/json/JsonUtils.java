@@ -120,7 +120,7 @@ public class JsonUtils {
      * @throws ParsingException if the value is not a string
      */
     public static Optional<String> extractOptionalString(JsonObject json, String key) throws ParsingException {
-        return extractOptional(json, key, JsonObject::getString, "string");
+        return extractOptional(json, key, JsonValueExtractors::getStringStrict, "string");
     }
 
     /**
@@ -132,7 +132,7 @@ public class JsonUtils {
      * @throws ParsingException if the value is not a string, or is not found
      */
     public static String extractRequiredString(JsonObject json, String key) throws ParsingException {
-        return extractRequired(json, key, JsonObject::getString, "string");
+        return extractRequired(json, key, JsonValueExtractors::getStringStrict, "string");
     }
 
     /**
@@ -240,7 +240,7 @@ public class JsonUtils {
      * @throws ParsingException if the value is not a list of strings.
      */
     public static Optional<List<String>> extractOptionalStringList(JsonObject json, String key) throws ParsingException {
-        return extractOptionalList(json, key, JsonArray::getString, "strings");
+        return extractOptionalList(json, key, JsonValueExtractors::getStringStrict, "strings");
     }
 
     /**
@@ -252,7 +252,7 @@ public class JsonUtils {
      * @throws ParsingException if the value is not a list of strings, or is not found.
      */
     public static List<String> extractRequiredStringList(JsonObject json, String key) throws ParsingException {
-        return extractRequiredList(json, key, JsonArray::getString, "strings");
+        return extractRequiredList(json, key, JsonValueExtractors::getStringStrict, "strings");
     }
 
     /**
