@@ -6,7 +6,7 @@
 * Use super pom version 0.34.x, which uses Vert.x version 4.4.6 (major version change 3 &rarr; 4).
 
 ### New Features
-* None.
+* Added Vert.x test helpers that used to be part of the `test-utils` library. These have been updated to support
 
 ### Enhancements
 * None.
