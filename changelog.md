@@ -1,6 +1,6 @@
 # Vertx Utils changelog
 
-## [1.3.0] - UNRELEASED
+## [1.3.0] - 2024-04-08
 
 ### Breaking Changes
 * Use super pom version 0.34.x, which uses Vert.x version 4.4.6 (major version change 3 &rarr; 4).
