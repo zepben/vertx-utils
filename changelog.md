@@ -4,7 +4,7 @@
 * None.
 
 ### New Features
-* None.
+* Add catch-all handler that supports logging exceptions when the server returns internal server error
 
 ### Enhancements
 * None.

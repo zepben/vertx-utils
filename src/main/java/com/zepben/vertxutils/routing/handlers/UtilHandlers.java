@@ -14,6 +14,9 @@ import com.zepben.vertxutils.routing.Respond;
 import io.vertx.core.Handler;
 import io.vertx.core.VertxException;
 import io.vertx.ext.web.RoutingContext;
+import org.slf4j.Logger;
+
+import java.util.function.Function;
 
 import static io.netty.handler.codec.http.HttpResponseStatus.INTERNAL_SERVER_ERROR;
 import static io.netty.handler.codec.http.HttpResponseStatus.MOVED_PERMANENTLY;
@@ -22,13 +25,16 @@ import static io.netty.handler.codec.http.HttpResponseStatus.MOVED_PERMANENTLY;
 public class UtilHandlers {
 
     /**
-     * A default failure handler that if the {@link RoutingContext#failure()} is not null responds with a
+     * Returns the default failure handler that if the {@link RoutingContext#failure()} is not null responds with a
      * 500 message with our own "standardised" errors JSON response (See {@link ErrorFormatter#asJson(String)})
-     * containing the message from the failure.
+     * containing the message from the failure. If a logger is specified, it will also log the stacktrace on the server side
      */
-    public static final Handler<RoutingContext> CATCH_ALL_API_FAILURE_HANDLER = context -> {
+    public static final Function<Logger, Handler<RoutingContext>> CATCH_ALL_API_FAILURE_HANDLER_WITH_EXCEPTION_LOGGING = logger -> (context) -> {
         Throwable failure = context.failure();
         if (failure != null && !context.response().ended()) {
+            if (logger != null) {
+                logger.error("Error stack trace:", failure);
+            }
             Respond.withJson(context, INTERNAL_SERVER_ERROR, ErrorFormatter.asJson(failure.toString()));
             return;
         } else if (failure instanceof VertxException && failure.getMessage().equals("Connection was closed")) {
@@ -37,6 +43,11 @@ public class UtilHandlers {
         }
 
         context.next();
+    };
+
+
+    public static final Handler<RoutingContext> CATCH_ALL_API_FAILURE_HANDLER = context -> {
+        CATCH_ALL_API_FAILURE_HANDLER_WITH_EXCEPTION_LOGGING.apply(null).handle(context);
     };
 
     @Deprecated
