@@ -25,9 +25,9 @@ import static io.netty.handler.codec.http.HttpResponseStatus.MOVED_PERMANENTLY;
 public class UtilHandlers {
 
     /**
-     * When given an optional logger, it returns the default failure handler that if the {@link RoutingContext#failure()} is not null responds with a
+     * Returns the default failure handler that if the {@link RoutingContext#failure()} is not null responds with a
      * 500 message with our own "standardised" errors JSON response (See {@link ErrorFormatter#asJson(String)})
-     * containing the message from the failure. If a logger is specified, it will also log
+     * containing the message from the failure. If a logger is specified, it will also log the stacktrace on the server side
      */
     public static final Function<Logger, Handler<RoutingContext>> CATCH_ALL_API_FAILURE_HANDLER_WITH_EXCEPTION_LOGGING = logger -> (context) -> {
         Throwable failure = context.failure();
