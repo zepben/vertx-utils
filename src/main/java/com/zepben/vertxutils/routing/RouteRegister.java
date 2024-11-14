@@ -91,6 +91,18 @@ public class RouteRegister {
         return this;
     }
 
+    /**
+     * Register a collection of route groups with this RouteRegister. NOTE: This function can't be named `add` like the others due
+     * to type erasure making it have the same signature at the iterable for routes.
+     *
+     * @param routeGroups The collection of routes to register.
+     * @return This RouteRegister for fluent use.
+     */
+    public RouteRegister addGroups(Iterable<RouteGroup> routeGroups) {
+        routeGroups.forEach(this::add);
+        return this;
+    }
+
     private String buildPath(String rootMount, String mountPath, @Nullable String routePath) {
         String path = rootMount;
         if (!mountPath.isEmpty())

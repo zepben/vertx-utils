@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InOrder;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.BiConsumer;
 
 import static org.mockito.Mockito.*;
@@ -158,6 +159,19 @@ public class RouteRegisterTest {
 
         verify(router).route("/group/route/1");
         verify(router).route("/group/route/2");
+    }
+
+    @Test
+    public void addRouteGroups() {
+        Route route1 = Route.builder().path("/route/1").build();
+        Route route2 = Route.builder().path("/route/2").build();
+        RouteGroup group1 = RouteGroup.create("/group1", List.of(route1));
+        RouteGroup group2 = RouteGroup.create("/group2", List.of(route2));
+
+        register.addGroups(List.of(group1, group2));
+
+        verify(router).route("/group1/route/1");
+        verify(router).route("/group2/route/2");
     }
 
     @Test
