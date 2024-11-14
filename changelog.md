@@ -7,7 +7,7 @@
 * None.
 
 ### Enhancements
-* None.
+* Added the ability to register a collection of route groups.
 
 ### Fixes
 * None.

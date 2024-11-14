@@ -91,6 +91,11 @@ public class RouteRegister {
         return this;
     }
 
+    public RouteRegister addGroups(Iterable<RouteGroup> routeGroups) {
+        routeGroups.forEach(this::add);
+        return this;
+    }
+
     private String buildPath(String rootMount, String mountPath, @Nullable String routePath) {
         String path = rootMount;
         if (!mountPath.isEmpty())
