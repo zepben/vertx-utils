@@ -165,6 +165,15 @@
                 <!--suppress MavenModelInspection -->
                 <artifactId>kotlin-maven-plugin</artifactId>
             </plugin>
+            <plugin>
+            <groupId>org.jetbrains.dokka</groupId>
+            <artifactId>dokka-maven-plugin</artifactId>
+                <configuration>
+                    <sourceDirectories>
+                        <dir>src/main/java</dir>
+                    </sourceDirectories>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
