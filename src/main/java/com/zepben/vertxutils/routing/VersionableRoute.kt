@@ -7,12 +7,10 @@
  */
 package com.zepben.vertxutils.routing
 
-import com.zepben.annotations.EverythingIsNonnullByDefault
-
 /**
  * It's a versionable Route
  */
-@EverythingIsNonnullByDefault
 interface VersionableRoute {
-    fun routeVersion(): RouteVersion?
+
+    fun routeVersion(): RouteVersion
 }
