@@ -13,7 +13,7 @@
 * None.
 
 ### Notes
-* None.
+* Update super POM to `0.37.0`, which update Vert.x to `4.5.11`
 
 ## [1.4.0] - 2024-06-03
 ### Breaking Changes
