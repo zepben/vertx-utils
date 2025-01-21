@@ -1,5 +1,5 @@
 # Vertx Utils changelog
-## [1.5.0] - UNRELEASED
+## [1.5.0] - 2025-01-21
 ### Breaking Changes
 * None.
 
