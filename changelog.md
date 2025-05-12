@@ -7,13 +7,13 @@
 * None.
 
 ### Enhancements
-* None.
+* Added overloads to Respond helper functions to support supplying additional headers to responses, or adding a Content-Length header of "0" to empty responses.
 
 ### Fixes
 * None.
 
 ### Notes
-* None.
+* Update super POM to `0.38.3`
 
 ## [1.5.0] - 2025-01-21
 ### Breaking Changes
