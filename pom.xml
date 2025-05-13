@@ -10,7 +10,7 @@
     <parent>
         <groupId>com.zepben.maven</groupId>
         <artifactId>evolve-super-pom</artifactId>
-        <version>0.37.0</version>
+        <version>0.38.3</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
@@ -49,6 +49,12 @@
         <developer>
             <name>Kurt Greaves</name>
             <email>kurt.greaves@zepben.com</email>
+            <organization>Zeppelin Bend</organization>
+            <organizationUrl>https://zepben.com</organizationUrl>
+        </developer>
+        <developer>
+            <name>Ramon Bouckaert</name>
+            <email>ramon.bouckaert@zepben.com</email>
             <organization>Zeppelin Bend</organization>
             <organizationUrl>https://zepben.com</organizationUrl>
         </developer>
