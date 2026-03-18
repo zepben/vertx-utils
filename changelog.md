@@ -1,4 +1,20 @@
 # Vertx Utils changelog
+## [1.8.0] - UNRELEASED
+### Breaking Changes
+* None.
+
+### New Features
+* None.
+
+### Enhancements
+* None.
+
+### Fixes
+* None.
+
+### Notes
+* None.
+
 ## [1.7.0] - 2026-03-18
 ### Breaking Changes
 * None.
