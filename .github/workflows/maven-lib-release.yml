@@ -7,4 +7,5 @@ jobs:
     uses: zepben/.github/.github/workflows/maven-lib-release.yml@main
     with:
       private: false
+      java-major-version: "17"
     secrets: inherit
