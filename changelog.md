@@ -1,7 +1,7 @@
 # Vertx Utils changelog
 ## [1.8.0] - UNRELEASED
 ### Breaking Changes
-* None.
+* This project requires JVM 17 to build
 
 ### New Features
 * None.
@@ -13,7 +13,7 @@
 * None.
 
 ### Notes
-* None.
+* Updated Kotlin from `1.9.24` to `2.3.20`
 
 ## [1.7.0] - 2026-03-18
 ### Breaking Changes

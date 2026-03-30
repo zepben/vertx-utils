@@ -34,10 +34,10 @@ import static org.hamcrest.core.IsEqual.equalTo;
 public class JsonUtilsTest {
 
     @RegisterExtension
-    SystemLogExtension systemOut = SystemLogExtension.SYSTEM_OUT.captureLog().muteOnSuccess();
+    static SystemLogExtension systemOut = SystemLogExtension.SYSTEM_OUT.captureLog().muteOnSuccess();
 
     @RegisterExtension
-    SystemLogExtension systemErr = SystemLogExtension.SYSTEM_ERR.captureLog().muteOnSuccess();
+    static SystemLogExtension systemErr = SystemLogExtension.SYSTEM_ERR.captureLog().muteOnSuccess();
 
     private static final String VALID_KEY = "key";
     private static final String MISSING_KEY = "key2";
