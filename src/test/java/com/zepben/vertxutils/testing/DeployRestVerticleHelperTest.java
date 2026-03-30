@@ -19,7 +19,7 @@ import static com.zepben.testutils.exception.ExpectException.expect;
 public class DeployRestVerticleHelperTest {
 
     @RegisterExtension
-    public final SystemLogExtension systemErr = SystemLogExtension.SYSTEM_OUT.captureLog().muteOnSuccess();
+    public static final SystemLogExtension systemErr = SystemLogExtension.SYSTEM_OUT.captureLog().muteOnSuccess();
 
     @AfterEach
     void afterEach() {

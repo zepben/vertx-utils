@@ -20,7 +20,7 @@ import static org.hamcrest.Matchers.equalTo;
 public class JsonObjectFilterTest {
 
     @RegisterExtension
-    SystemLogExtension systemOut = SystemLogExtension.SYSTEM_OUT.captureLog().muteOnSuccess();
+    static SystemLogExtension systemOut = SystemLogExtension.SYSTEM_OUT.captureLog().muteOnSuccess();
 
     @Test
     public void filtersObject() throws Exception {

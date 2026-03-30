@@ -23,7 +23,7 @@ import static org.mockito.Mockito.mock;
 public class RouteVersionUtilsTest {
 
     @RegisterExtension
-    SystemLogExtension systemOut = SystemLogExtension.SYSTEM_OUT.captureLog().muteOnSuccess();
+    static SystemLogExtension systemOut = SystemLogExtension.SYSTEM_OUT.captureLog().muteOnSuccess();
 
     private final Route route1 = mock(Route.class);
     private final Route route2V2 = mock(Route.class);

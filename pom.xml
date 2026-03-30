@@ -117,7 +117,7 @@
         <dependency>
             <groupId>com.zepben</groupId>
             <artifactId>test-utils</artifactId>
-            <version>2.0.0</version>
+            <version>3.2.0b1</version>
             <scope>test</scope>
         </dependency>
 

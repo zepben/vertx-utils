@@ -30,7 +30,7 @@ import static org.mockito.Mockito.*;
 public class RespondTest {
 
     @RegisterExtension
-    SystemLogExtension systemErr = SystemLogExtension.SYSTEM_ERR.captureLog().muteOnSuccess();
+    static SystemLogExtension systemErr = SystemLogExtension.SYSTEM_ERR.captureLog().muteOnSuccess();
 
     private final RoutingContext context = mock(RoutingContext.class);
     private final HttpServerResponse response = mock(HttpServerResponse.class, RETURNS_SELF);
