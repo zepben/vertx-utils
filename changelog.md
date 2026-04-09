@@ -1,5 +1,21 @@
 # Vertx Utils changelog
-## [1.8.0] - UNRELEASED
+## [1.9.0] - UNRELEASED
+### Breaking Changes
+* None.
+
+### New Features
+* None.
+
+### Enhancements
+* None.
+
+### Fixes
+* None.
+
+### Notes
+* None.
+
+## [1.8.0] - 2026-04-09
 ### Breaking Changes
 * This project requires JVM 17 to build
 
