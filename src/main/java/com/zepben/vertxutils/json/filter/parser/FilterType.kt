@@ -5,12 +5,15 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
+package com.zepben.vertxutils.json.filter.parser
 
-package com.zepben.vertxutils.json;
+//todo licence headers
+enum class FilterType(
+    val denotedBy: String = "",
+) {
 
-import io.vertx.core.json.JsonArray;
+    INCLUDE,
+    EXCLUDE(denotedBy = "-"),
+    PASSTHROUGH
 
-@FunctionalInterface
-public interface JsonArrayValueExtractor<T> {
-    T extractValue(JsonArray jsonArray, int index);
 }

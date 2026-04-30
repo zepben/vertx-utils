@@ -31,6 +31,7 @@ public class JsonValueExtractors {
     }
 
     @Nullable
+    //rename args
     public static Double getDouble(JsonArray jsonArray, int index) {
         try {
             return jsonArray.getDouble(index);
