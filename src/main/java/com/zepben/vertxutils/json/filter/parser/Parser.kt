@@ -11,7 +11,6 @@ import com.zepben.vertxutils.json.filter.FilterException
 
 object Parser {
 
-    @JvmStatic
     @Throws(FilterException::class)
     fun parse(specification: String): Node {
         val lexer = Lexer(specification)

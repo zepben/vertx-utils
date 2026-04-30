@@ -167,7 +167,7 @@ public class RouteTest {
 
         DecodeBodyHandler handler = (DecodeBodyHandler) route.handlers().get(1).handler();
         assertThat(handler.bodyRule().converter(), is(BodyType.JSON_OBJECT));
-        assertThat(handler.bodyRule().isRequired(), is(true));
+        assertThat(handler.bodyRule().isRequired, is(true));
     }
 
     @Test
@@ -184,7 +184,7 @@ public class RouteTest {
 
         DecodeBodyHandler handler = (DecodeBodyHandler) route.handlers().get(1).handler();
         assertThat(handler.bodyRule().converter(), is(BodyType.JSON_OBJECT));
-        assertThat(handler.bodyRule().isRequired(), is(false));
+        assertThat(handler.bodyRule().isRequired, is(false));
     }
 
     @Test

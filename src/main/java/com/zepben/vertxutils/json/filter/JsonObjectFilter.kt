@@ -74,9 +74,9 @@ class JsonObjectFilter {
 
     companion object {
 
-        @JvmStatic
         fun applyFilter(json: JsonObject, fs: FilterSpecification): JsonObject =
             JsonObjectFilter().apply(json, fs)
+
     }
 
 }

@@ -49,7 +49,7 @@ public class DecodeBodyHandler implements Handler<RoutingContext> {
     private Object handleBody(RoutingContext context) {
         Buffer rawBody = context.getBody();
         if (rawBody == null || rawBody.length() == 0) {
-            if (bodyRule.isRequired())
+            if (bodyRule.isRequired)
                 throw BadParamException.missingBody();
 
             return null;

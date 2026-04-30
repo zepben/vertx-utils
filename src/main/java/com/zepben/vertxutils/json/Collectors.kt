@@ -12,7 +12,6 @@ import java.util.stream.Collector
 
 object Collectors {
 
-    @JvmStatic
     fun <T> toJsonArray(): Collector<T, JsonArray, JsonArray> {
         return Collector.of<T, JsonArray>(
             { JsonArray() },

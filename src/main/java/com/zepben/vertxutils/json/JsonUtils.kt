@@ -22,7 +22,6 @@ object JsonUtils {
      * @param key  the key containing the value
      * @return optional of the value
      */
-    @JvmStatic
     fun extractOptionalValue(json: JsonObject, key: String): Any? =
         json.getValue(key)
 
@@ -34,7 +33,6 @@ object JsonUtils {
      * @return the value
      * @throws ParsingException if the key is not found
      */
-    @JvmStatic
     @Throws(ParsingException::class)
     fun extractRequiredValue(json: JsonObject, key: String): Any =
         extractRequired(json, key, "value") { obj, key -> obj.getValue(key) }
@@ -47,7 +45,6 @@ object JsonUtils {
      * @return optional of the value
      * @throws ParsingException if the value is not an object
      */
-    @JvmStatic
     @Throws(ParsingException::class)
     fun extractOptionalObject(json: JsonObject, key: String): JsonObject? =
         extractOptional(json, key, "object") { obj, key -> obj.getJsonObject(key) }
@@ -60,7 +57,6 @@ object JsonUtils {
      * @return the value
      * @throws ParsingException if the value is not an object, or is not found
      */
-    @JvmStatic
     @Throws(ParsingException::class)
     fun extractRequiredObject(json: JsonObject, key: String): JsonObject =
         extractRequired(json, key, "object") { obj, key -> obj.getJsonObject(key) }
@@ -73,7 +69,6 @@ object JsonUtils {
      * @return optional of the value
      * @throws ParsingException if the value is not an array
      */
-    @JvmStatic
     @Throws(ParsingException::class)
     fun extractOptionalArray(json: JsonObject, key: String): JsonArray? =
         extractOptional(json, key, "array") { obj, key -> obj.getJsonArray(key) }
@@ -86,7 +81,6 @@ object JsonUtils {
      * @return the value
      * @throws ParsingException if the value is not an array, or is not found
      */
-    @JvmStatic
     @Throws(ParsingException::class)
     fun extractRequiredArray(json: JsonObject, key: String): JsonArray =
         extractRequired(json, key, "array") { obj, key -> obj.getJsonArray(key) }
@@ -99,7 +93,6 @@ object JsonUtils {
      * @return optional of the value
      * @throws ParsingException if the value is not a string
      */
-    @JvmStatic
     @Throws(ParsingException::class)
     fun extractOptionalString(json: JsonObject, key: String): String? =
         extractOptional(json, key, "string") { obj, key -> JsonValueExtractors.getStringStrict(obj, key) }
@@ -112,7 +105,6 @@ object JsonUtils {
      * @return the value
      * @throws ParsingException if the value is not a string, or is not found
      */
-    @JvmStatic
     @Throws(ParsingException::class)
     fun extractRequiredString(json: JsonObject, key: String): String =
         extractRequired(json, key, "string") { obj, key -> JsonValueExtractors.getStringStrict(obj, key) }
@@ -125,7 +117,6 @@ object JsonUtils {
      * @return optional of the value
      * @throws ParsingException if the value is not an integer
      */
-    @JvmStatic
     @Throws(ParsingException::class)
     fun extractOptionalInt(json: JsonObject, key: String): Int? =
         extractOptional(json, key, "integer") { obj, key -> obj.getInteger(key) }
@@ -138,7 +129,6 @@ object JsonUtils {
      * @return the value
      * @throws ParsingException if the value is not an integer, or is not found
      */
-    @JvmStatic
     @Throws(ParsingException::class)
     fun extractRequiredInt(json: JsonObject, key: String): Int =
         extractRequired(json, key, "integer") { obj, key -> obj.getInteger(key) }
@@ -151,7 +141,6 @@ object JsonUtils {
      * @return optional of the value
      * @throws ParsingException if the value is not a double
      */
-    @JvmStatic
     @Throws(ParsingException::class)
     fun extractOptionalDouble(json: JsonObject, key: String): Double? =
         extractOptional(json, key, "double") { obj, key -> JsonValueExtractors.getDouble(obj, key) }
@@ -164,7 +153,6 @@ object JsonUtils {
      * @return the value
      * @throws ParsingException if the value is not a double, or is not found
      */
-    @JvmStatic
     @Throws(ParsingException::class)
     fun extractRequiredDouble(json: JsonObject, key: String): Double =
         extractRequired(json, key, "double") { obj, key -> JsonValueExtractors.getDouble(obj, key) }
@@ -177,7 +165,6 @@ object JsonUtils {
      * @return optional of the value
      * @throws ParsingException if the value is not a path
      */
-    @JvmStatic
     @Throws(ParsingException::class)
     fun extractOptionalPath(json: JsonObject, key: String): Path? =
         extractOptional(json, key, "path") { obj, key -> JsonValueExtractors.getPath(obj, key) }
@@ -190,7 +177,6 @@ object JsonUtils {
      * @return the value
      * @throws ParsingException if the value is not a path, or is not found
      */
-    @JvmStatic
     @Throws(ParsingException::class)
     fun extractRequiredPath(json: JsonObject, key: String): Path =
         extractRequired(json, key, "path") { obj, key -> JsonValueExtractors.getPath(obj, key) }
@@ -203,7 +189,6 @@ object JsonUtils {
      * @return optional of a list containing each of the JsonObjects contained in the specified array.
      * @throws ParsingException if the value is not a list of objects.
      */
-    @JvmStatic
     @Throws(ParsingException::class)
     fun extractOptionalObjectList(json: JsonObject, key: String): List<JsonObject?>? =
         extractOptionalList(json, key, "objects") { jsonArray, pos -> jsonArray.getJsonObject(pos) }
@@ -216,7 +201,6 @@ object JsonUtils {
      * @return a list containing each of the JsonObjects contained in the specified array.
      * @throws ParsingException if the value is not a list of objects, or is not found.
      */
-    @JvmStatic
     @Throws(ParsingException::class)
     fun extractRequiredObjectList(json: JsonObject, key: String): List<JsonObject?> =
         extractRequiredList(json, key, "objects") { jsonArray, pos -> jsonArray.getJsonObject(pos) }
@@ -229,7 +213,6 @@ object JsonUtils {
      * @return optional of a list containing each of the strings contained in the specified array.
      * @throws ParsingException if the value is not a list of strings.
      */
-    @JvmStatic
     @Throws(ParsingException::class)
     fun extractOptionalStringList(json: JsonObject, key: String): List<String?>? =
         extractOptionalList(json, key, "strings") { jsonArray, pos -> JsonValueExtractors.getStringStrict(jsonArray, pos) }
@@ -242,7 +225,6 @@ object JsonUtils {
      * @return a list containing each of the strings contained in the specified array.
      * @throws ParsingException if the value is not a list of strings, or is not found.
      */
-    @JvmStatic
     @Throws(ParsingException::class)
     fun extractRequiredStringList(json: JsonObject, key: String): List<String?> =
         extractRequiredList(json, key, "strings") { jsonArray, pos -> JsonValueExtractors.getStringStrict(jsonArray, pos) }
@@ -255,7 +237,6 @@ object JsonUtils {
      * @return optional of a list containing each of the integers contained in the specified array.
      * @throws ParsingException if the value is not a list of integers.
      */
-    @JvmStatic
     @Throws(ParsingException::class)
     fun extractOptionalIntList(json: JsonObject, key: String): List<Int?>? =
         extractOptionalList(json, key, "integers") { jsonArray, pos -> jsonArray.getInteger(pos) }
@@ -268,7 +249,6 @@ object JsonUtils {
      * @return a list containing each of the integers contained in the specified array.
      * @throws ParsingException if the value is not a list of integers, or is not found.
      */
-    @JvmStatic
     @Throws(ParsingException::class)
     fun extractRequiredIntList(json: JsonObject, key: String): List<Int?> =
         extractRequiredList(json, key, "integers") { jsonArray, pos -> jsonArray.getInteger(pos) }
@@ -281,7 +261,6 @@ object JsonUtils {
      * @return optional of a list containing each of the doubles contained in the specified array.
      * @throws ParsingException if the value is not a list of doubles.
      */
-    @JvmStatic
     @Throws(ParsingException::class)
     fun extractOptionalDoubleList(json: JsonObject, key: String): List<Double?>? =
         extractOptionalList(json, key, "doubles") { jsonArray, pos -> JsonValueExtractors.getDouble(jsonArray, pos) }
@@ -294,7 +273,6 @@ object JsonUtils {
      * @return a list containing each of the doubles contained in the specified array.
      * @throws ParsingException if the value is not a list of doubles, or is not found.
      */
-    @JvmStatic
     @Throws(ParsingException::class)
     fun extractRequiredDoubleList(json: JsonObject, key: String): List<Double?> =
         extractRequiredList(json, key, "doubles") { jsonArray, pos -> JsonValueExtractors.getDouble(jsonArray, pos) }
@@ -307,7 +285,6 @@ object JsonUtils {
      * @return optional of a list of lists containing each of the JsonObjects contained in the specified array or arrays.
      * @throws ParsingException if the value is not an object list.
      */
-    @JvmStatic
     @Throws(ParsingException::class)
     fun extractOptionalObjectListOfList(json: JsonObject, key: String): List<List<JsonObject?>?>? =
         try {
@@ -325,7 +302,6 @@ object JsonUtils {
      * @return a list of lists containing each of the JsonObjects contained in the specified array or arrays.
      * @throws ParsingException if the value is not an object list.
      */
-    @JvmStatic
     @Throws(ParsingException::class)
     fun extractRequiredObjectListOfList(json: JsonObject, key: String): List<List<JsonObject?>?> =
         ensureRequired(key, extractOptionalObjectListOfList(json, key))
@@ -335,7 +311,6 @@ object JsonUtils {
      * @return a list of the objects contained in the array.
      * @throws ParsingException if the array does not contain objects.
      */
-    @JvmStatic
     @Throws(ParsingException::class)
     fun convertToObjectList(jsonArray: JsonArray): List<JsonObject?> =
         convertToList(jsonArray) { jsonArray, pos -> jsonArray.getJsonObject(pos) }

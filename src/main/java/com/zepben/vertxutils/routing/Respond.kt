@@ -22,8 +22,6 @@ import io.vertx.ext.web.RoutingContext
  */
 @EverythingIsNonnullByDefault
 object Respond {
-    @JvmStatic
-    @JvmOverloads
     fun with(
         context: RoutingContext,
         status: HttpResponseStatus,
@@ -36,7 +34,6 @@ object Respond {
             .end()
     }
 
-    @JvmStatic
     fun with(
         context: RoutingContext,
         status: HttpResponseStatus,
@@ -47,7 +44,6 @@ object Respond {
         if (withEmptyContentLengthHeader) mapOf(HttpHeaders.CONTENT_LENGTH to "0") else emptyMap()
     )
 
-    @JvmStatic
     fun with(context: RoutingContext, response: Response) {
         context
             .response()
@@ -57,8 +53,6 @@ object Respond {
             .end(response.body())
     }
 
-    @JvmStatic
-    @JvmOverloads
     fun withJson(
         context: RoutingContext,
         status: HttpResponseStatus,
@@ -73,8 +67,6 @@ object Respond {
             .end(json)
     }
 
-    @JvmStatic
-    @JvmOverloads
     fun withJson(
         context: RoutingContext,
         status: HttpResponseStatus,
@@ -92,8 +84,6 @@ object Respond {
 
     // This function breaks the pattern and doesn't actually send the response, it just returns the unsent response.
     //  This is because EWB Network Routes needs it to behave this way and does further manipulation to it. Leave as is.
-    @JvmStatic
-    @JvmOverloads
     fun withJsonChunked(
         context: RoutingContext,
         status: HttpResponseStatus,
