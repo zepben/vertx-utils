@@ -6,7 +6,7 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-package com.zepben.vertxutils.routing.ChunkedResponse;
+package com.zepben.vertxutils.routing.chunked;
 
 import io.vertx.core.http.HttpServerResponse;
 import org.junit.jupiter.api.AfterEach;
@@ -44,7 +44,7 @@ public class HttpChunkedJsonResponseTest {
     }
 
     @Test
-    public void doSend() {
+    public void doCheckWrite() {
         doReturn(null).when(httpServerResponse).write(any(String.class));
 
         ChunkedJsonResponse.JsonArray jsonArray = new HttpChunkedJsonResponse(httpServerResponse, 10).ofArray();

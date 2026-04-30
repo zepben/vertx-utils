@@ -6,7 +6,7 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-package com.zepben.vertxutils.routing.ChunkedResponse;
+package com.zepben.vertxutils.routing.chunked;
 
 import org.junit.jupiter.api.Test;
 

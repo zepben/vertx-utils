@@ -1,13 +1,13 @@
 # Vertx Utils changelog
-## [1.9.0] - UNRELEASED
+## [2.0.0] - UNRELEASED
 ### Breaking Changes
-* None.
+* Rebuilt to be Kotlin, so pretty much everything has changed at least a bit. If you want to use Java, keep using v1.
 
 ### New Features
 * None.
 
 ### Enhancements
-* None.
+* `ChunkedJsonResponse` has been upgraded to a DSL style builder.
 
 ### Fixes
 * None.
