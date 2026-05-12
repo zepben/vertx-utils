@@ -64,6 +64,10 @@ public class FaviconHandlerTest {
     public void cachesIcon() throws Exception {
         handler.handle(context);
         Files.delete(Paths.get(handler.faviconPath()));
+
+        // Previously you got really strange error messages if this was wrong, so make it throw an exception with a useful message.
+        doThrow(new IllegalStateException("should have been cached and not called `setStatusCode`")).when(response).setStatusCode(anyInt());
+
         handler.handle(context);
         verify(response, times(2)).end(buffer);
     }

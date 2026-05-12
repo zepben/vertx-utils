@@ -31,7 +31,7 @@ public class DeployRestVerticleHelperTest {
     public void coverageOnlyTest() throws Exception {
         // TODO: Make this an actual test.
         DeployRestVerticleHelper helper = buildHelper();
-        helper.requestSpec();
+        helper.getRequestSpec();
         helper.getRandomPortNumber();
         helper.close();
 

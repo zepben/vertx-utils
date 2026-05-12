@@ -23,19 +23,19 @@ import static org.hamcrest.Matchers.*;
 
 public class QueryParamsTest {
 
-    private final QueryParamRule<String> p1 = QueryParamRule.of("p1", ParamType.STRING);
-    private final QueryParamRule<String> p2 = QueryParamRule.of("p2", ParamType.STRING, "default2");
-    private final QueryParamRule<String> p3 = QueryParamRule.of("p3", ParamType.STRING);
-    private final QueryParamRule<String> p4 = QueryParamRule.of("p4", ParamType.STRING, "default4");
-    private final QueryParamRule<String> notRegistered = QueryParamRule.of("none", ParamType.STRING);
+    private final QueryParamRule<String> p1 = QueryParamRule.Companion.of("p1", ParamType.INSTANCE.getSTRING());
+    private final QueryParamRule<String> p2 = QueryParamRule.Companion.of("p2", ParamType.INSTANCE.getSTRING(), "default2");
+    private final QueryParamRule<String> p3 = QueryParamRule.Companion.of("p3", ParamType.INSTANCE.getSTRING());
+    private final QueryParamRule<String> p4 = QueryParamRule.Companion.of("p4", ParamType.INSTANCE.getSTRING(), "default4");
+    private final QueryParamRule<String> notRegistered = QueryParamRule.Companion.of("none", ParamType.INSTANCE.getSTRING());
 
     private QueryParams params;
 
     @BeforeEach
     public void setUp() {
         Map<String, List<Object>> paramValues = new HashMap<>();
-        paramValues.put(p1.name(), ImmutableList.of("aString", "4"));
-        paramValues.put(p2.name(), ImmutableList.of("value"));
+        paramValues.put(p1.getName(), ImmutableList.of("aString", "4"));
+        paramValues.put(p2.getName(), ImmutableList.of("value"));
         params = new QueryParams(ImmutableSet.of(p1, p2, p3, p4), paramValues);
     }
 
@@ -44,7 +44,7 @@ public class QueryParamsTest {
         assertThat(params.get(p1), is("aString"));
         assertThat(params.get(p2), is("value"));
         expect(() -> params.get(p3)).toThrow(IllegalArgumentException.class);
-        assertThat(params.get(p4), is(p4.defaultValue()));
+        assertThat(params.get(p4), is(p4.getDefaultValue()));
         expect(() -> params.get(notRegistered)).toThrow(IllegalArgumentException.class);
     }
 
@@ -63,7 +63,7 @@ public class QueryParamsTest {
         assertThat(params.getAll(p1), contains("aString", "4"));
         assertThat(params.getAll(p2), contains("value"));
         expect(() -> params.getAll(p3)).toThrow(IllegalArgumentException.class);
-        assertThat(params.getAll(p4), contains(p4.defaultValue()));
+        assertThat(params.getAll(p4), contains(p4.getDefaultValue()));
         expect(() -> params.getAll(notRegistered)).toThrow(IllegalArgumentException.class);
     }
 
@@ -84,11 +84,11 @@ public class QueryParamsTest {
 
     @Test
     public void exists() {
-        assertThat(params.exists(p1), is(true));
-        assertThat(params.exists(p2), is(true));
-        assertThat(params.exists(p3), is(false));
-        assertThat(params.exists(p4), is(false));
-        assertThat(params.exists(notRegistered), is(false));
+        assertThat(params.contains(p1), is(true));
+        assertThat(params.contains(p2), is(true));
+        assertThat(params.contains(p3), is(false));
+        assertThat(params.contains(p4), is(false));
+        assertThat(params.contains(notRegistered), is(false));
     }
 
 }

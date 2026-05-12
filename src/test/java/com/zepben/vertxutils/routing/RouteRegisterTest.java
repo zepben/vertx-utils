@@ -12,13 +12,14 @@ import io.vertx.core.Handler;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
+import kotlin.Unit;
+import kotlin.jvm.functions.Function2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InOrder;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.BiConsumer;
 
 import static org.mockito.Mockito.*;
 
@@ -27,7 +28,7 @@ public class RouteRegisterTest {
     private final Router router = mock(Router.class);
     private final io.vertx.ext.web.Route vertxRoute = mock(io.vertx.ext.web.Route.class);
 
-    private RouteRegister register = new RouteRegister(router, true);
+    private RouteRegister register = new RouteRegister(router, "", true);
 
     @BeforeEach
     public void setUp() {
@@ -44,7 +45,7 @@ public class RouteRegisterTest {
         Handler<RoutingContext> failureHandler = c -> {
         };
 
-        Route route = Route.builder()
+        Route route = Route.Companion.builder()
             .path("/some/path")
             .methods(HttpMethod.GET, HttpMethod.PUT)
             .addHandler(handler)
@@ -52,7 +53,7 @@ public class RouteRegisterTest {
             .addFailureHandler(failureHandler)
             .build();
 
-        register.add(route);
+        register.add(route, "");
 
         verify(router).route("/some/path");
         verify(vertxRoute).method(HttpMethod.GET);
@@ -67,17 +68,17 @@ public class RouteRegisterTest {
 
     @Test
     public void addRoutesDefaultOrderedBlockingTrue() {
-        register = new RouteRegister(router, true);
+        register = new RouteRegister(router, "", true);
 
         Handler<RoutingContext> blockingHandler = c -> {
         };
 
-        Route route = Route.builder()
+        Route route = Route.Companion.builder()
             .path("/some/path")
             .addBlockingHandler(blockingHandler)
             .build();
 
-        register.add(route);
+        register.add(route, "");
 
         verify(router).route("/some/path");
         verify(vertxRoute).blockingHandler(blockingHandler, true);
@@ -85,17 +86,17 @@ public class RouteRegisterTest {
 
     @Test
     public void addRoutesDefaultOrderedBlockingFalse() {
-        register = new RouteRegister(router, false);
+        register = new RouteRegister(router, "", false);
 
         Handler<RoutingContext> blockingHandler = c -> {
         };
 
-        Route route = Route.builder()
+        Route route = Route.Companion.builder()
             .path("/some/path")
             .addBlockingHandler(blockingHandler)
             .build();
 
-        register.add(route);
+        register.add(route, "");
 
         verify(router).route("/some/path");
         verify(vertxRoute).blockingHandler(blockingHandler, false);
@@ -103,17 +104,17 @@ public class RouteRegisterTest {
 
     @Test
     public void addRoutesOrderedBlockingTrue() {
-        register = new RouteRegister(router, false);
+        register = new RouteRegister(router, "", false);
 
         Handler<RoutingContext> blockingHandler = c -> {
         };
 
-        Route route = Route.builder()
+        Route route = Route.Companion.builder()
             .path("/some/path")
             .addBlockingHandler(blockingHandler, true)
             .build();
 
-        register.add(route);
+        register.add(route, "");
 
         verify(router).route("/some/path");
         verify(vertxRoute).blockingHandler(blockingHandler, true);
@@ -121,17 +122,17 @@ public class RouteRegisterTest {
 
     @Test
     public void addRoutesOrderedBlockingFalse() {
-        register = new RouteRegister(router, true);
+        register = new RouteRegister(router, "", true);
 
         Handler<RoutingContext> blockingHandler = c -> {
         };
 
-        Route route = Route.builder()
+        Route route = Route.Companion.builder()
             .path("/some/path")
             .addBlockingHandler(blockingHandler, false)
             .build();
 
-        register.add(route);
+        register.add(route, "");
 
         verify(router).route("/some/path");
         verify(vertxRoute).blockingHandler(blockingHandler, false);
@@ -140,7 +141,7 @@ public class RouteRegisterTest {
     @Test
     public void usesMountPaths() {
         register = new RouteRegister(router, "/rootMount/", true);
-        Route route = Route.builder()
+        Route route = Route.Companion.builder()
             .path("/some/path")
             .build();
 
@@ -151,9 +152,9 @@ public class RouteRegisterTest {
 
     @Test
     public void addRouteGroup() {
-        Route route1 = Route.builder().path("/route/1").build();
-        Route route2 = Route.builder().path("/route/2").build();
-        RouteGroup group = RouteGroup.create("/group", Arrays.asList(route1, route2));
+        Route route1 = Route.Companion.builder().path("/route/1").build();
+        Route route2 = Route.Companion.builder().path("/route/2").build();
+        RouteGroup group = RouteGroup.Companion.create("/group", Arrays.asList(route1, route2));
 
         register.add(group);
 
@@ -163,10 +164,10 @@ public class RouteRegisterTest {
 
     @Test
     public void addRouteGroups() {
-        Route route1 = Route.builder().path("/route/1").build();
-        Route route2 = Route.builder().path("/route/2").build();
-        RouteGroup group1 = RouteGroup.create("/group1", List.of(route1));
-        RouteGroup group2 = RouteGroup.create("/group2", List.of(route2));
+        Route route1 = Route.Companion.builder().path("/route/1").build();
+        Route route2 = Route.Companion.builder().path("/route/2").build();
+        RouteGroup group1 = RouteGroup.Companion.create("/group1", List.of(route1));
+        RouteGroup group2 = RouteGroup.Companion.create("/group2", List.of(route2));
 
         register.addGroups(List.of(group1, group2));
 
@@ -176,20 +177,20 @@ public class RouteRegisterTest {
 
     @Test
     public void addsRegex() {
-        Route route = Route.builder()
+        Route route = Route.Companion.builder()
             .path("/some/regex/path")
             .hasRegexPath(true)
             .methods(HttpMethod.GET)
             .build();
 
-        register.add(route);
+        register.add(route, "");
 
         verify(router).routeWithRegex("/some/regex/path");
     }
 
     @Test
     public void usesMountPathRegex() {
-        Route route = Route.builder()
+        Route route = Route.Companion.builder()
             .path("/some/regex/path")
             .hasRegexPath(true)
             .build();
@@ -201,7 +202,7 @@ public class RouteRegisterTest {
 
     @Test
     public void mountWithDollarRegexDoesNotAddSlash() {
-        Route route = Route.builder()
+        Route route = Route.Companion.builder()
             .path("$")
             .hasRegexPath(true)
             .build();
@@ -215,28 +216,29 @@ public class RouteRegisterTest {
     @Test
     public void onAddCallback() {
         String path = "/some/regex/path";
-        Route route = Route.builder()
+        Route route = Route.Companion.builder()
             .path(path).build();
 
-        BiConsumer<String, Route> callback = mock(BiConsumer.class);
-        register.onAdd(callback)
-            .add(route);
-        verify(callback).accept(path, route);
+        Function2<String, Route, Unit> callback = mock(Function2.class);
+        register.setOnAdd(callback);
+        register.add(route, "");
+        verify(callback).invoke(path, route);
 
         String mount = "/my/mount";
-        register.onAdd(callback)
-            .add(route, mount);
-        verify(callback).accept(mount + path, route);
+        register.setOnAdd(callback);
+        register.add(route, mount);
+        verify(callback).invoke(mount + path, route);
 
         String rootMount = "/our/root";
         RouteRegister registerWithPath = new RouteRegister(router, rootMount, true);
 
-        registerWithPath.onAdd(callback)
-            .add(route);
-        verify(callback).accept(rootMount + path, route);
+        registerWithPath.setOnAdd(callback);
+        registerWithPath.add(route, "");
+        verify(callback).invoke(rootMount + path, route);
 
-        registerWithPath.onAdd(callback)
-            .add(route, mount);
-        verify(callback).accept(rootMount + mount + path, route);
+        registerWithPath.setOnAdd(callback);
+        registerWithPath.add(route, mount);
+        verify(callback).invoke(rootMount + mount + path, route);
     }
+
 }

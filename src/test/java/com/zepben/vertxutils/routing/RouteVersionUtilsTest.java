@@ -10,11 +10,11 @@ package com.zepben.vertxutils.routing;
 
 import com.zepben.annotations.EverythingIsNonnullByDefault;
 import com.zepben.testutils.junit.SystemLogExtension;
+import kotlin.jvm.functions.Function1;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-import java.util.function.Function;
-
+import static com.zepben.vertxutils.routing.RouteVersionUtilsTestHelpersKt.getVersionRoutes;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.empty;
@@ -32,7 +32,7 @@ public class RouteVersionUtilsTest {
     private final Route route3V2 = mock(Route.class);
     private final Route route3 = mock(Route.class);
 
-    private final Function<AvailableRoute, Route> routeFactory = availableRoute -> {
+    private final Function1<AvailableRoute, Route> routeFactory = availableRoute -> {
         switch (availableRoute) {
             case ROUTE_1:
                 return route1;
@@ -61,20 +61,21 @@ public class RouteVersionUtilsTest {
     }
 
     private void validateVersionRoutes(int version, Route... expectedRoutes) {
+        var routes = getVersionRoutes(AvailableRoute.class, routeFactory, version);
         if (expectedRoutes.length > 0)
-            assertThat(RouteVersionUtils.forVersion(AvailableRoute.values(), version, routeFactory), contains(expectedRoutes));
+            assertThat(routes, contains(expectedRoutes));
         else
-            assertThat(RouteVersionUtils.forVersion(AvailableRoute.values(), version, routeFactory), empty());
+            assertThat(routes, empty());
     }
 
     @EverythingIsNonnullByDefault
     private enum AvailableRoute implements VersionableRoute {
-        ROUTE_1(RouteVersion.since(1)),
-        ROUTE_2_V2(RouteVersion.between(1, 2)),
-        ROUTE_2(RouteVersion.since(3)),
-        ROUTE_3_V1(RouteVersion.between(1, 1)),
-        ROUTE_3_V2(RouteVersion.between(2, 2)),
-        ROUTE_3(RouteVersion.since(3));
+        ROUTE_1(RouteVersion.Companion.since(1)),
+        ROUTE_2_V2(RouteVersion.Companion.between(1, 2)),
+        ROUTE_2(RouteVersion.Companion.since(3)),
+        ROUTE_3_V1(RouteVersion.Companion.between(1, 1)),
+        ROUTE_3_V2(RouteVersion.Companion.between(2, 2)),
+        ROUTE_3(RouteVersion.Companion.since(3));
 
         private final RouteVersion rv;
 
@@ -83,7 +84,7 @@ public class RouteVersionUtilsTest {
         }
 
         @Override
-        public RouteVersion routeVersion() {
+        public RouteVersion getRouteVersion() {
             return rv;
         }
     }

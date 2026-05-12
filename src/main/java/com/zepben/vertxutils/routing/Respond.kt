@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Zeppelin Bend Pty Ltd
+ * Copyright 2026 Zeppelin Bend Pty Ltd
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -9,7 +9,6 @@ package com.zepben.vertxutils.routing
 
 import com.google.common.net.HttpHeaders
 import com.google.common.net.MediaType
-import com.zepben.annotations.EverythingIsNonnullByDefault
 import com.zepben.vertxutils.json.filter.FilterSpecification
 import com.zepben.vertxutils.json.filter.JsonObjectFilter
 import io.netty.handler.codec.http.HttpResponseStatus
@@ -20,50 +19,38 @@ import io.vertx.ext.web.RoutingContext
 /**
  * Class that contains a bunch of helper functions for handling HTTP responses.
  */
-@EverythingIsNonnullByDefault
 object Respond {
-    @JvmStatic
-    @JvmOverloads
+
     fun with(
         context: RoutingContext,
         status: HttpResponseStatus,
-        addHeaders: Map<String, String> = emptyMap()
+        addHeaders: Map<String, String> = emptyMap(),
+        withEmptyContentLengthHeader: Boolean = false,
     ) {
         context
             .response()
             .setStatusCode(status.code())
-            .apply { if (addHeaders.isNotEmpty()) headers().addAll(addHeaders) }
+            .apply {
+                if (addHeaders.isNotEmpty()) headers().addAll(addHeaders)
+                if (withEmptyContentLengthHeader) headers()[HttpHeaders.CONTENT_LENGTH] = "0"
+            }
             .end()
     }
 
-    @JvmStatic
-    fun with(
-        context: RoutingContext,
-        status: HttpResponseStatus,
-        withEmptyContentLengthHeader: Boolean = false
-    ) = with(
-        context,
-        status,
-        if (withEmptyContentLengthHeader) mapOf(HttpHeaders.CONTENT_LENGTH to "0") else emptyMap()
-    )
-
-    @JvmStatic
     fun with(context: RoutingContext, response: Response) {
         context
             .response()
-            .setStatusCode(response.status().code())
-            .setStatusMessage(response.status().reasonPhrase())
-            .apply { if (response.hasHeaders()) headers().addAll(response.headers()) }
-            .end(response.body())
+            .setStatusCode(response.status.code())
+            .setStatusMessage(response.status.reasonPhrase())
+            .apply { if (response.hasHeaders()) headers().addAll(response.headers) }
+            .end(response.body)
     }
 
-    @JvmStatic
-    @JvmOverloads
     fun withJson(
         context: RoutingContext,
         status: HttpResponseStatus,
         json: String,
-        addHeaders: Map<String, String> = emptyMap()
+        addHeaders: Map<String, String> = emptyMap(),
     ) {
         context.response()
             .setStatusCode(status.code())
@@ -73,14 +60,12 @@ object Respond {
             .end(json)
     }
 
-    @JvmStatic
-    @JvmOverloads
     fun withJson(
         context: RoutingContext,
         status: HttpResponseStatus,
         json: JsonObject,
         filterSpecification: FilterSpecification,
-        addHeaders: Map<String, String> = emptyMap()
+        addHeaders: Map<String, String> = emptyMap(),
     ) {
         context.response()
             .setStatusCode(status.code())
@@ -92,12 +77,10 @@ object Respond {
 
     // This function breaks the pattern and doesn't actually send the response, it just returns the unsent response.
     //  This is because EWB Network Routes needs it to behave this way and does further manipulation to it. Leave as is.
-    @JvmStatic
-    @JvmOverloads
     fun withJsonChunked(
         context: RoutingContext,
         status: HttpResponseStatus,
-        addHeaders: Map<String, String> = emptyMap()
+        addHeaders: Map<String, String> = emptyMap(),
     ): HttpServerResponse {
         return context.response()
             .setStatusCode(status.code())

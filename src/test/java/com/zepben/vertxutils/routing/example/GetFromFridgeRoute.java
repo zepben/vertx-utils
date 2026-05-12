@@ -27,30 +27,31 @@ import java.util.Optional;
 public class GetFromFridgeRoute {
 
     private static class Params {
-        private static final PathParamRule<String> ITEM = PathParamRule.of("item", ParamType.STRING);
-        private static final QueryParamRule<Integer> AMOUNT = QueryParamRule.of("amount", ParamType.INT_POSITIVE);
+
+        private static final PathParamRule<String> ITEM = PathParamRule.Companion.of("item", ParamType.INSTANCE.getSTRING());
+        private static final QueryParamRule<Integer> AMOUNT = QueryParamRule.Companion.of("amount", ParamType.INSTANCE.getINT_POSITIVE());
     }
 
     public Route buildRoute() {
         // Alternative if you don't extend Route.
         // All the @Override methods in this class can disappear and you would use a builder like this:
-        return Route.builder()
+        return Route.Companion.builder()
             .method(HttpMethod.GET)
             .path("/api/v1/fridge/:%s", Params.ITEM)
             .queryParams(Params.AMOUNT)
             .bodySizeLimit(1000)
-            .decodeBody(BodyType.JSON_OBJECT, false) // Body required by default, have to specify if not required.
+            .decodeBody(BodyType.INSTANCE.getJSON_OBJECT(), false) // Body required by default, have to specify if not required.
             .addBlockingHandler(this::someHandlerThatBlocks)
             .addHandler(this::aRegularHandler)
             .addFailureHandler(this::logFailure)
-            .addFailureHandler(UtilHandlers.CATCH_ALL_API_FAILURE_HANDLER)
+            .addFailureHandler(UtilHandlers.INSTANCE.getCATCH_ALL_API_FAILURE_HANDLER())
             .build();
     }
 
     private void aRegularHandler(RoutingContext context) {
-        String item = RoutingContextEx.getPathParams(context).get(Params.ITEM);
-        Integer amount = RoutingContextEx.getQueryParams(context).getOrElse(Params.AMOUNT, 1);
-        Optional<JsonObject> body = RoutingContextEx.getOptionalDecodedBody(context);
+        String item = RoutingContextEx.INSTANCE.getPathParams(context).get(Params.ITEM);
+        Integer amount = RoutingContextEx.INSTANCE.getQueryParams(context).getOrElse(Params.AMOUNT, 1);
+        Optional<JsonObject> body = RoutingContextEx.INSTANCE.getOptionalDecodedBody(context);
         // If body was required you would go
         // JsonObject body = RoutingContextEx.getDecodedBody(context);
 
@@ -74,4 +75,5 @@ public class GetFromFridgeRoute {
         System.out.println("This should be a logger!");
         context.next();
     }
+
 }

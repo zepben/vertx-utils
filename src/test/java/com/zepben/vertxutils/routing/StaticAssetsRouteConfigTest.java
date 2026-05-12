@@ -17,12 +17,12 @@ public class StaticAssetsRouteConfigTest {
 
     @Test
     public void accessors() {
-        StaticAssetsRouteConfig config = StaticAssetsRouteConfig.of("root1", true);
-        assertThat(config.webRoot(), equalTo("root1"));
+        StaticAssetsRouteConfig config = StaticAssetsRouteConfig.Companion.of("root1", true);
+        assertThat(config.getWebRoot(), equalTo("root1"));
         assertThat(config.isCaching(), equalTo(true));
 
-        config = StaticAssetsRouteConfig.of("root2", false);
-        assertThat(config.webRoot(), equalTo("root2"));
+        config = StaticAssetsRouteConfig.Companion.of("root2", false);
+        assertThat(config.getWebRoot(), equalTo("root2"));
         assertThat(config.isCaching(), equalTo(false));
     }
 

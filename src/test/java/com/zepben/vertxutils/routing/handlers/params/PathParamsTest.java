@@ -17,12 +17,12 @@ import static org.hamcrest.Matchers.is;
 
 public class PathParamsTest {
 
-    private final PathParamRule<String> p1 = PathParamRule.of("p1", ParamType.STRING);
-    private final PathParamRule<Integer> p2 = PathParamRule.of("p2", ParamType.INT);
-    private final PathParamRule<Integer> p3 = PathParamRule.of("p3", ParamType.INT);
-    private final PathParamRule<String> notRegistered = PathParamRule.of("none", ParamType.STRING);
+    private final PathParamRule<String> p1 = PathParamRule.Companion.of("p1", ParamType.INSTANCE.getSTRING());
+    private final PathParamRule<Integer> p2 = PathParamRule.Companion.of("p2", ParamType.INSTANCE.getINT());
+    private final PathParamRule<Integer> p3 = PathParamRule.Companion.of("p3", ParamType.INSTANCE.getINT());
+    private final PathParamRule<String> notRegistered = PathParamRule.Companion.of("none", ParamType.INSTANCE.getSTRING());
 
-    private final PathParams params = new PathParams(ImmutableMap.of(p1.name(), "aString", p2.name(), 4));
+    private final PathParams params = new PathParams(ImmutableMap.of(p1.getName(), "aString", p2.getName(), 4));
 
     @Test
     public void get() {

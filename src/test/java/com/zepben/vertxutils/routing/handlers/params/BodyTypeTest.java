@@ -11,45 +11,59 @@ package com.zepben.vertxutils.routing.handlers.params;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
+import io.vertx.ext.web.impl.RequestBodyImpl;
 import org.junit.jupiter.api.Test;
 
 import static com.zepben.testutils.exception.ExpectException.expect;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.mockito.Mockito.mock;
 
 public class BodyTypeTest {
+
+    RequestBodyImpl body = new RequestBodyImpl(mock());
 
     @Test
     public void jsonObject() {
         JsonObject jsonObject = new JsonObject().put("test", "value");
-        JsonObject converted = BodyType.JSON_OBJECT.convert(Buffer.buffer(jsonObject.encode()));
+        body.setBuffer(Buffer.buffer(jsonObject.encode()));
+
+        JsonObject converted = BodyType.INSTANCE.getJSON_OBJECT().convert(body);
         assertThat(converted, equalTo(jsonObject));
     }
 
     @Test
     public void badJsonObjectReturnsNull() {
-        expect(() -> BodyType.JSON_OBJECT.convert(Buffer.buffer("rubbish"))).toThrow(ValueConversionException.class);
+        body.setBuffer(Buffer.buffer("rubbish"));
+
+        expect(() -> BodyType.INSTANCE.getJSON_OBJECT().convert(body)).toThrow(ValueConversionException.class);
     }
 
     @Test
     public void emptyJsonObjectReturnsNull() {
-        expect(() -> BodyType.JSON_OBJECT.convert(Buffer.buffer())).toThrow(ValueConversionException.class);
+        body.setBuffer(Buffer.buffer());
+
+        expect(() -> BodyType.INSTANCE.getJSON_OBJECT().convert(body)).toThrow(ValueConversionException.class);
     }
 
     @Test
     public void jsonArray() {
         JsonArray jsonArray = new JsonArray().add(1).add("a string");
-        JsonArray converted = BodyType.JSON_ARRAY.convert(Buffer.buffer(jsonArray.encode()));
+        body.setBuffer(Buffer.buffer(jsonArray.encode()));
+        JsonArray converted = BodyType.INSTANCE.getJSON_ARRAY().convert(body);
         assertThat(converted, equalTo(jsonArray));
     }
 
     @Test
     public void badJsonArrayReturnsNull() {
-        expect(() -> BodyType.JSON_ARRAY.convert(Buffer.buffer("rubbish"))).toThrow(ValueConversionException.class);
+        body.setBuffer(Buffer.buffer("rubbish"));
+        expect(() -> BodyType.INSTANCE.getJSON_ARRAY().convert(body)).toThrow(ValueConversionException.class);
     }
 
     @Test
     public void emptyJsonArrayReturnsNull() {
-        expect(() -> BodyType.JSON_ARRAY.convert(Buffer.buffer())).toThrow(ValueConversionException.class);
+        body.setBuffer(Buffer.buffer());
+        expect(() -> BodyType.INSTANCE.getJSON_ARRAY().convert(body)).toThrow(ValueConversionException.class);
     }
+
 }

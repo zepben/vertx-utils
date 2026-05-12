@@ -27,8 +27,8 @@ import static org.mockito.Mockito.*;
 
 public class PathParamsHandlerTest {
 
-    private final PathParamRule<Integer> numParam = PathParamRule.of("num", ParamType.INT);
-    private final PathParamRule<Integer> num2Param = PathParamRule.of("num2", ParamType.INT);
+    private final PathParamRule<Integer> numParam = PathParamRule.Companion.of("num", ParamType.INSTANCE.getINT());
+    private final PathParamRule<Integer> num2Param = PathParamRule.Companion.of("num2", ParamType.INSTANCE.getINT());
 
     private final ArgumentCaptor<PathParams> paramsCaptor = ArgumentCaptor.forClass(PathParams.class);
     private final RoutingContext context = mock(RoutingContext.class);
@@ -49,10 +49,10 @@ public class PathParamsHandlerTest {
     public void pathParam() {
         PathParamsHandler handler = new PathParamsHandler(numParam);
 
-        doReturn("4").when(context).pathParam(numParam.name());
+        doReturn("4").when(context).pathParam(numParam.getName());
         handler.handle(context);
 
-        verify(context).put(eq(RoutingContextEx.PATH_PARAMS_KEY), paramsCaptor.capture());
+        verify(context).put(eq(RoutingContextEx.INSTANCE.getPATH_PARAMS_KEY()), paramsCaptor.capture());
         PathParams params = paramsCaptor.getValue();
         assertThat(params.get(numParam), is(4));
     }
@@ -60,8 +60,8 @@ public class PathParamsHandlerTest {
     @Test
     public void getFromContext() {
         PathParams expected = new PathParams(Collections.emptyMap());
-        doReturn(expected).when(context).get(RoutingContextEx.PATH_PARAMS_KEY);
-        assertThat(RoutingContextEx.getPathParams(context), is(expected));
+        doReturn(expected).when(context).get(RoutingContextEx.INSTANCE.getPATH_PARAMS_KEY());
+        assertThat(RoutingContextEx.INSTANCE.getPathParams(context), is(expected));
     }
 
     @Test
@@ -69,24 +69,25 @@ public class PathParamsHandlerTest {
         PathParamsHandler handler = new PathParamsHandler(numParam);
         handler.handle(context);
 
-        verifyBadParamResponse(BadParamException.missingParam(numParam.name()));
+        verifyBadParamResponse(BadParamException.Companion.missingParam(numParam.getName()));
     }
 
     @Test
     public void pathParamBad() {
         PathParamsHandler handler = new PathParamsHandler(numParam, num2Param);
-        doReturn("not a number").when(context).pathParam(numParam.name());
-        doReturn("true").when(context).pathParam(num2Param.name());
+        doReturn("not a number").when(context).pathParam(numParam.getName());
+        doReturn("true").when(context).pathParam(num2Param.getName());
 
-        ValueConversionException ex1 = captureException(() -> numParam.converter().convert("not a number"), ValueConversionException.class);
-        ValueConversionException ex2 = captureException(() -> num2Param.converter().convert("true"), ValueConversionException.class);
+        ValueConversionException ex1 = captureException(() -> numParam.getConverter().convert("not a number"), ValueConversionException.class);
+        ValueConversionException ex2 = captureException(() -> num2Param.getConverter().convert("true"), ValueConversionException.class);
         handler.handle(context);
 
         verifyBadParamResponse(
-            BadParamException.invalidParam(numParam, "not a number", ex1.getMessage()),
-            BadParamException.invalidParam(num2Param, "true", ex2.getMessage()));
+            BadParamException.Companion.invalidParam(numParam, "not a number", ex1.getMessage()),
+            BadParamException.Companion.invalidParam(num2Param, "true", ex2.getMessage()));
     }
 
+    @SuppressWarnings("SameParameterValue")
     private <T extends Exception> T captureException(Runnable runnable, Class<T> expectedExType) {
         try {
             runnable.run();
@@ -99,7 +100,7 @@ public class PathParamsHandlerTest {
 
     private void verifyBadParamResponse(BadParamException... e) {
         verify(response).setStatusCode(400);
-        String json = ErrorFormatter.asJson(Arrays.stream(e).map(Throwable::getMessage).collect(toList()));
+        String json = ErrorFormatter.INSTANCE.asJson(Arrays.stream(e).map(Throwable::getMessage).collect(toList()));
         verify(response).end(json);
         verify(context, never()).next();
     }

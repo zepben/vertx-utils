@@ -30,9 +30,9 @@ import static org.mockito.Mockito.*;
 
 public class QueryParamsHandlerTest {
 
-    private final QueryParamRule<String> noDefaultParam = QueryParamRule.of("noDefault", ParamType.STRING);
-    private final QueryParamRule<Integer> defaultParam = QueryParamRule.of("hasDefault", ParamType.INT, 1);
-    private final QueryParamRule<Boolean> requiredParam = QueryParamRule.ofRequired("required", ParamType.BOOL);
+    private final QueryParamRule<String> noDefaultParam = QueryParamRule.Companion.of("noDefault", ParamType.INSTANCE.getSTRING());
+    private final QueryParamRule<Integer> defaultParam = QueryParamRule.Companion.of("hasDefault", ParamType.INSTANCE.getINT(), 1);
+    private final QueryParamRule<Boolean> requiredParam = QueryParamRule.Companion.ofRequired("required", ParamType.INSTANCE.getBOOL());
 
     private final ArgumentCaptor<QueryParams> paramsCaptor = ArgumentCaptor.forClass(QueryParams.class);
     private final RoutingContext context = mock(RoutingContext.class);
@@ -59,9 +59,9 @@ public class QueryParamsHandlerTest {
         QueryParamsHandler handler = new QueryParamsHandler(noDefaultParam);
         handler.handle(context);
 
-        verify(context).put(eq(RoutingContextEx.QUERY_PARAMS_KEY), paramsCaptor.capture());
+        verify(context).put(eq(RoutingContextEx.INSTANCE.getQUERY_PARAMS_KEY()), paramsCaptor.capture());
         QueryParams params = paramsCaptor.getValue();
-        assertThat(params.exists(noDefaultParam), is(false));
+        assertThat(params.contains(noDefaultParam), is(false));
     }
 
     @Test
@@ -69,10 +69,10 @@ public class QueryParamsHandlerTest {
         QueryParamsHandler handler = new QueryParamsHandler(noDefaultParam);
 
         List<String> rawParams = Arrays.asList("a", "b");
-        doReturn(rawParams).when(context).queryParam(noDefaultParam.name());
+        doReturn(rawParams).when(context).queryParam(noDefaultParam.getName());
         handler.handle(context);
 
-        verify(context).put(eq(RoutingContextEx.QUERY_PARAMS_KEY), paramsCaptor.capture());
+        verify(context).put(eq(RoutingContextEx.INSTANCE.getQUERY_PARAMS_KEY()), paramsCaptor.capture());
         QueryParams params = paramsCaptor.getValue();
         assertThat(params.getAll(noDefaultParam), is(rawParams));
     }
@@ -81,25 +81,25 @@ public class QueryParamsHandlerTest {
     public void queryParamWithDefault() {
         QueryParamsHandler handler = new QueryParamsHandler(defaultParam);
 
-        doReturn(emptyList()).when(context).queryParam(defaultParam.name());
+        doReturn(emptyList()).when(context).queryParam(defaultParam.getName());
         handler.handle(context);
 
-        verify(context).put(eq(RoutingContextEx.QUERY_PARAMS_KEY), paramsCaptor.capture());
+        verify(context).put(eq(RoutingContextEx.INSTANCE.getQUERY_PARAMS_KEY()), paramsCaptor.capture());
         QueryParams params = paramsCaptor.getValue();
-        assertThat(params.exists(defaultParam), is(false));
-        assertThat(params.get(defaultParam), is(defaultParam.defaultValue()));
+        assertThat(params.contains(defaultParam), is(false));
+        assertThat(params.get(defaultParam), is(defaultParam.getDefaultValue()));
     }
 
     @Test
     public void queryParamRequired() {
         QueryParamsHandler handler = new QueryParamsHandler(requiredParam);
 
-        doReturn(singletonList("true")).when(context).queryParam(requiredParam.name());
+        doReturn(singletonList("true")).when(context).queryParam(requiredParam.getName());
         handler.handle(context);
 
-        verify(context).put(eq(RoutingContextEx.QUERY_PARAMS_KEY), paramsCaptor.capture());
+        verify(context).put(eq(RoutingContextEx.INSTANCE.getQUERY_PARAMS_KEY()), paramsCaptor.capture());
         QueryParams params = paramsCaptor.getValue();
-        assertThat(params.exists(requiredParam), is(true));
+        assertThat(params.contains(requiredParam), is(true));
         assertThat(params.get(requiredParam), is(true));
     }
 
@@ -109,22 +109,23 @@ public class QueryParamsHandlerTest {
         handler.handle(context);
 
         verify(context, never()).put(any(), any());
-        verifyBadParamResponse(BadParamException.missingParam(requiredParam.name()));
+        verifyBadParamResponse(BadParamException.Companion.missingParam(requiredParam.getName()));
     }
 
     @Test
     public void queryParamBad() {
         QueryParamsHandler handler = new QueryParamsHandler(defaultParam, requiredParam);
-        doReturn(singletonList("not a number")).when(context).queryParam(defaultParam.name());
-        ValueConversionException ex = captureException(() -> defaultParam.converter().convert("not a number"), ValueConversionException.class);
+        doReturn(singletonList("not a number")).when(context).queryParam(defaultParam.getName());
+        ValueConversionException ex = captureException(() -> defaultParam.getConverter().convert("not a number"), ValueConversionException.class);
 
         handler.handle(context);
 
         verifyBadParamResponse(
-            BadParamException.invalidParam(defaultParam, "not a number", ex.getMessage()),
-            BadParamException.missingParam(requiredParam.name()));
+            BadParamException.Companion.invalidParam(defaultParam, "not a number", ex.getMessage()),
+            BadParamException.Companion.missingParam(requiredParam.getName()));
     }
 
+    @SuppressWarnings("SameParameterValue")
     private <T extends Exception> T captureException(Runnable runnable, Class<T> expectedExType) {
         try {
             runnable.run();
@@ -137,8 +138,9 @@ public class QueryParamsHandlerTest {
 
     private void verifyBadParamResponse(BadParamException... e) {
         verify(response).setStatusCode(400);
-        String json = ErrorFormatter.asJson(Arrays.stream(e).map(Throwable::getMessage).collect(toList()));
+        String json = ErrorFormatter.INSTANCE.asJson(Arrays.stream(e).map(Throwable::getMessage).collect(toList()));
         verify(response).end(json);
         verify(context, never()).next();
     }
+
 }

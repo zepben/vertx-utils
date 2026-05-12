@@ -21,13 +21,15 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.stream.Collector;
 import java.util.stream.Stream;
 
 import static com.zepben.testutils.exception.ExpectException.expect;
-import static com.zepben.vertxutils.json.Collectors.toJsonArray;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.IsEqual.equalTo;
 
 @EverythingIsNonnullByDefault
@@ -58,66 +60,59 @@ public class JsonUtilsTest {
     private final JsonArray jsonArrayOfIntegers = createArray(integerVal1, integerVal2, integerVal3);
     private final JsonArray jsonArrayOfMixed = createArray(jsonObjectVal1, integerVal2);
 
-    @SuppressWarnings("InstantiationOfUtilityClass")
     @Test
-    public void coverage() {
-        new JsonUtils();
-        new JsonValueExtractors();
+    public void extractValue() {
+        validateExtractor(JsonUtils.INSTANCE::extractOptionalValue, JsonUtils.INSTANCE::extractRequiredValue, jsonObjectVal1);
+        validateExtractor(JsonUtils.INSTANCE::extractOptionalValue, JsonUtils.INSTANCE::extractRequiredValue, integerVal1);
+        validateExtractor(JsonUtils.INSTANCE::extractOptionalValue, JsonUtils.INSTANCE::extractRequiredValue, stringVal);
     }
 
     @Test
-    public void extractValue() throws Exception {
-        validateExtractor(JsonUtils::extractOptionalValue, JsonUtils::extractRequiredValue, jsonObjectVal1);
-        validateExtractor(JsonUtils::extractOptionalValue, JsonUtils::extractRequiredValue, integerVal1);
-        validateExtractor(JsonUtils::extractOptionalValue, JsonUtils::extractRequiredValue, stringVal);
+    public void extractObject() {
+        validateExtractor(JsonUtils.INSTANCE::extractOptionalObject, JsonUtils.INSTANCE::extractRequiredObject, jsonObjectVal1, stringVal, "object");
     }
 
     @Test
-    public void extractObject() throws Exception {
-        validateExtractor(JsonUtils::extractOptionalObject, JsonUtils::extractRequiredObject, jsonObjectVal1, stringVal, "object");
+    public void extractArray() {
+        validateExtractor(JsonUtils.INSTANCE::extractOptionalArray, JsonUtils.INSTANCE::extractRequiredArray, jsonArrayOfJsonObjects, stringVal, "array");
+        validateExtractor(JsonUtils.INSTANCE::extractOptionalArray, JsonUtils.INSTANCE::extractRequiredArray, jsonArrayOfIntegers, stringVal, "array");
     }
 
     @Test
-    public void extractArray() throws Exception {
-        validateExtractor(JsonUtils::extractOptionalArray, JsonUtils::extractRequiredArray, jsonArrayOfJsonObjects, stringVal, "array");
-        validateExtractor(JsonUtils::extractOptionalArray, JsonUtils::extractRequiredArray, jsonArrayOfIntegers, stringVal, "array");
+    public void extractString() {
+        validateExtractor(JsonUtils.INSTANCE::extractOptionalString, JsonUtils.INSTANCE::extractRequiredString, stringVal, integerVal1, "string");
     }
 
     @Test
-    public void extractString() throws Exception {
-        validateExtractor(JsonUtils::extractOptionalString, JsonUtils::extractRequiredString, stringVal, integerVal1, "string");
+    public void extractInt() {
+        validateExtractor(JsonUtils.INSTANCE::extractOptionalInt, JsonUtils.INSTANCE::extractRequiredInt, integerVal1, stringVal, "integer");
     }
 
     @Test
-    public void extractInt() throws Exception {
-        validateExtractor(JsonUtils::extractOptionalInt, JsonUtils::extractRequiredInt, integerVal1, stringVal, "integer");
+    public void extractDouble() {
+        validateExtractor(JsonUtils.INSTANCE::extractOptionalDouble, JsonUtils.INSTANCE::extractRequiredDouble, doubleVal1, stringVal, "double");
+        validateExtractor(JsonUtils.INSTANCE::extractOptionalDouble, JsonUtils.INSTANCE::extractRequiredDouble, Double.NaN, stringVal, "double");
     }
 
     @Test
-    public void extractDouble() throws Exception {
-        validateExtractor(JsonUtils::extractOptionalDouble, JsonUtils::extractRequiredDouble, doubleVal1, stringVal, "double");
-        validateExtractor(JsonUtils::extractOptionalDouble, JsonUtils::extractRequiredDouble, Double.NaN, stringVal, "double");
+    public void extractPath() {
+        validateExtractor(JsonUtils.INSTANCE::extractOptionalPath, JsonUtils.INSTANCE::extractRequiredPath, pathVal, Path::toString, doubleVal2, "path");
+        validateExtractor(JsonUtils.INSTANCE::extractOptionalPath, JsonUtils.INSTANCE::extractRequiredPath, pathVal, Path::toString, illegalPath, "path");
     }
 
     @Test
-    public void extractPath() throws Exception {
-        validateExtractor(JsonUtils::extractOptionalPath, JsonUtils::extractRequiredPath, pathVal, Path::toString, doubleVal2, "path");
-        validateExtractor(JsonUtils::extractOptionalPath, JsonUtils::extractRequiredPath, pathVal, Path::toString, illegalPath, "path");
-    }
-
-    @Test
-    public void extractObjectList() throws Exception {
+    public void extractObjectList() {
         List<JsonObject> jsonObjects = Arrays.asList(jsonObjectVal1, jsonObjectVal2);
 
-        validateExtractor(JsonUtils::extractOptionalObjectList,
-            JsonUtils::extractRequiredObjectList,
+        validateExtractor(JsonUtils.INSTANCE::extractOptionalObjectList,
+            JsonUtils.INSTANCE::extractRequiredObjectList,
             jsonObjects,
             JsonArray::new,
             Arrays.asList(integerVal1, integerVal2),
             "list of objects");
 
-        validateExtractor(JsonUtils::extractOptionalObjectList,
-            JsonUtils::extractRequiredObjectList,
+        validateExtractor(JsonUtils.INSTANCE::extractOptionalObjectList,
+            JsonUtils.INSTANCE::extractRequiredObjectList,
             jsonObjects,
             JsonArray::new,
             stringVal,
@@ -125,18 +120,18 @@ public class JsonUtilsTest {
     }
 
     @Test
-    public void extractStringList() throws Exception {
+    public void extractStringList() {
         List<String> strings = Arrays.asList(stringVal, stringVal);
 
-        validateExtractor(JsonUtils::extractOptionalStringList,
-            JsonUtils::extractRequiredStringList,
+        validateExtractor(JsonUtils.INSTANCE::extractOptionalStringList,
+            JsonUtils.INSTANCE::extractRequiredStringList,
             strings,
             JsonArray::new,
             Arrays.asList(integerVal1, integerVal2),
             "list of strings");
 
-        validateExtractor(JsonUtils::extractOptionalStringList,
-            JsonUtils::extractRequiredStringList,
+        validateExtractor(JsonUtils.INSTANCE::extractOptionalStringList,
+            JsonUtils.INSTANCE::extractRequiredStringList,
             strings,
             JsonArray::new,
             stringVal,
@@ -144,18 +139,18 @@ public class JsonUtilsTest {
     }
 
     @Test
-    public void extractIntList() throws Exception {
+    public void extractIntList() {
         List<Integer> integers = Arrays.asList(integerVal1, integerVal2);
 
-        validateExtractor(JsonUtils::extractOptionalIntList,
-            JsonUtils::extractRequiredIntList,
+        validateExtractor(JsonUtils.INSTANCE::extractOptionalIntList,
+            JsonUtils.INSTANCE::extractRequiredIntList,
             integers,
             JsonArray::new,
             createArray(stringVal, stringVal),
             "list of integers");
 
-        validateExtractor(JsonUtils::extractOptionalIntList,
-            JsonUtils::extractRequiredIntList,
+        validateExtractor(JsonUtils.INSTANCE::extractOptionalIntList,
+            JsonUtils.INSTANCE::extractRequiredIntList,
             integers,
             JsonArray::new,
             stringVal,
@@ -163,18 +158,18 @@ public class JsonUtilsTest {
     }
 
     @Test
-    public void extractDoubleList() throws Exception {
+    public void extractDoubleList() {
         List<Double> doubles = Arrays.asList(doubleVal1, doubleVal2, Double.NaN);
 
-        validateExtractor(JsonUtils::extractOptionalDoubleList,
-            JsonUtils::extractRequiredDoubleList,
+        validateExtractor(JsonUtils.INSTANCE::extractOptionalDoubleList,
+            JsonUtils.INSTANCE::extractRequiredDoubleList,
             doubles,
             JsonArray::new,
             createArray(stringVal, stringVal),
             "list of doubles");
 
-        validateExtractor(JsonUtils::extractOptionalDoubleList,
-            JsonUtils::extractRequiredDoubleList,
+        validateExtractor(JsonUtils.INSTANCE::extractOptionalDoubleList,
+            JsonUtils.INSTANCE::extractRequiredDoubleList,
             doubles,
             JsonArray::new,
             stringVal,
@@ -182,23 +177,23 @@ public class JsonUtilsTest {
     }
 
     @Test
-    public void extractObjectListOfList() throws Exception {
+    public void extractObjectListOfList() {
         List<List<JsonObject>> lists = Arrays.asList(Arrays.asList(jsonObjectVal1, jsonObjectVal2), Collections.singletonList(jsonObjectVal3));
 
         Function<List<List<JsonObject>>, Object> listsToJsonArray = l -> l
             .stream()
             .map(JsonArray::new)
-            .collect(toJsonArray());
+            .collect(Collector.of(JsonArray::new, JsonArray::add, JsonArray::addAll));
 
-        validateExtractor(JsonUtils::extractOptionalObjectListOfList,
-            JsonUtils::extractRequiredObjectListOfList,
+        validateExtractor(JsonUtils.INSTANCE::extractOptionalObjectListOfList,
+            JsonUtils.INSTANCE::extractRequiredObjectListOfList,
             lists,
             listsToJsonArray,
             createArray(stringVal, stringVal),
             "list of object lists");
 
-        validateExtractor(JsonUtils::extractOptionalObjectListOfList,
-            JsonUtils::extractRequiredObjectListOfList,
+        validateExtractor(JsonUtils.INSTANCE::extractOptionalObjectListOfList,
+            JsonUtils.INSTANCE::extractRequiredObjectListOfList,
             lists,
             listsToJsonArray,
             createArray(jsonArrayOfIntegers),
@@ -206,52 +201,52 @@ public class JsonUtilsTest {
     }
 
     @Test
-    public void convertsJsonArrayToObjectList() throws Exception {
-        assertThat(JsonUtils.convertToObjectList(jsonArrayOfJsonObjects), contains(jsonObjectVal1, jsonObjectVal2));
+    public void convertsJsonArrayToObjectList() {
+        assertThat(JsonUtils.INSTANCE.convertToObjectList(jsonArrayOfJsonObjects), contains(jsonObjectVal1, jsonObjectVal2));
 
-        expect(() -> JsonUtils.convertToObjectList(jsonArrayOfIntegers))
+        expect(() -> JsonUtils.INSTANCE.convertToObjectList(jsonArrayOfIntegers))
             .toThrow(JsonUtils.ParsingException.class)
             .withMessage("JSON array is not a collection of expected types.");
 
-        expect(() -> JsonUtils.convertToObjectList(jsonArrayOfMixed))
-            .toThrow(JsonUtils.ParsingException.class)
-            .withMessage("JSON array is not a collection of expected types.");
-    }
-
-    @Test
-    public void convertsJsonArrayToList() throws Exception {
-        assertThat(JsonUtils.convertToList(jsonArrayOfJsonObjects, JsonArray::getJsonObject), contains(jsonObjectVal1, jsonObjectVal2));
-        assertThat(JsonUtils.convertToList(jsonArrayOfIntegers, JsonArray::getInteger), contains(integerVal1, integerVal2, integerVal3));
-        assertThat(JsonUtils.convertToList(jsonArrayOfMixed, JsonArray::getValue), contains(jsonObjectVal1, integerVal2));
-
-        expect(() -> JsonUtils.convertToList(jsonArrayOfJsonObjects, JsonArray::getInteger))
-            .toThrow(JsonUtils.ParsingException.class)
-            .withMessage("JSON array is not a collection of expected types.");
-
-        expect(() -> JsonUtils.convertToList(jsonArrayOfIntegers, JsonArray::getJsonObject))
-            .toThrow(JsonUtils.ParsingException.class)
-            .withMessage("JSON array is not a collection of expected types.");
-
-        expect(() -> JsonUtils.convertToList(jsonArrayOfMixed, JsonArray::getDouble))
+        expect(() -> JsonUtils.INSTANCE.convertToObjectList(jsonArrayOfMixed))
             .toThrow(JsonUtils.ParsingException.class)
             .withMessage("JSON array is not a collection of expected types.");
     }
 
     @Test
-    public void convertsJsonArrayToListWithExpectedCount() throws Exception {
-        assertThat(JsonUtils.convertToList(jsonArrayOfJsonObjects, JsonArray::getJsonObject, jsonArrayOfJsonObjects.size()), contains(jsonObjectVal1, jsonObjectVal2));
-        assertThat(JsonUtils.convertToList(jsonArrayOfIntegers, JsonArray::getInteger, jsonArrayOfIntegers.size()), contains(integerVal1, integerVal2, integerVal3));
-        assertThat(JsonUtils.convertToList(jsonArrayOfMixed, JsonArray::getValue, jsonArrayOfMixed.size()), contains(jsonObjectVal1, integerVal2));
+    public void convertsJsonArrayToList() {
+        assertThat(JsonUtils.INSTANCE.convertToList(jsonArrayOfJsonObjects, JsonArray::getJsonObject), contains(jsonObjectVal1, jsonObjectVal2));
+        assertThat(JsonUtils.INSTANCE.convertToList(jsonArrayOfIntegers, JsonArray::getInteger), contains(integerVal1, integerVal2, integerVal3));
+        assertThat(JsonUtils.INSTANCE.convertToList(jsonArrayOfMixed, JsonArray::getValue), contains(jsonObjectVal1, integerVal2));
 
-        expect(() -> JsonUtils.convertToList(jsonArrayOfJsonObjects, JsonArray::getJsonObject, 3))
+        expect(() -> JsonUtils.INSTANCE.convertToList(jsonArrayOfJsonObjects, JsonArray::getInteger))
+            .toThrow(JsonUtils.ParsingException.class)
+            .withMessage("JSON array is not a collection of expected types.");
+
+        expect(() -> JsonUtils.INSTANCE.convertToList(jsonArrayOfIntegers, JsonArray::getJsonObject))
+            .toThrow(JsonUtils.ParsingException.class)
+            .withMessage("JSON array is not a collection of expected types.");
+
+        expect(() -> JsonUtils.INSTANCE.convertToList(jsonArrayOfMixed, JsonArray::getDouble))
+            .toThrow(JsonUtils.ParsingException.class)
+            .withMessage("JSON array is not a collection of expected types.");
+    }
+
+    @Test
+    public void convertsJsonArrayToListWithExpectedCount() {
+        assertThat(JsonUtils.INSTANCE.convertToList(jsonArrayOfJsonObjects, JsonArray::getJsonObject, jsonArrayOfJsonObjects.size()), contains(jsonObjectVal1, jsonObjectVal2));
+        assertThat(JsonUtils.INSTANCE.convertToList(jsonArrayOfIntegers, JsonArray::getInteger, jsonArrayOfIntegers.size()), contains(integerVal1, integerVal2, integerVal3));
+        assertThat(JsonUtils.INSTANCE.convertToList(jsonArrayOfMixed, JsonArray::getValue, jsonArrayOfMixed.size()), contains(jsonObjectVal1, integerVal2));
+
+        expect(() -> JsonUtils.INSTANCE.convertToList(jsonArrayOfJsonObjects, JsonArray::getJsonObject, 3))
             .toThrow(JsonUtils.ParsingException.class)
             .withMessage("Invalid number of records in list. Expected exactly 3, found 2.");
 
-        expect(() -> JsonUtils.convertToList(jsonArrayOfIntegers, JsonArray::getJsonObject, 2))
+        expect(() -> JsonUtils.INSTANCE.convertToList(jsonArrayOfIntegers, JsonArray::getJsonObject, 2))
             .toThrow(JsonUtils.ParsingException.class)
             .withMessage("Invalid number of records in list. Expected exactly 2, found 3.");
 
-        expect(() -> JsonUtils.convertToList(jsonArrayOfMixed, JsonArray::getInteger))
+        expect(() -> JsonUtils.INSTANCE.convertToList(jsonArrayOfMixed, JsonArray::getInteger))
             .toThrow(JsonUtils.ParsingException.class)
             .withMessage("JSON array is not a collection of expected types.");
     }
@@ -274,52 +269,52 @@ public class JsonUtilsTest {
         return new JsonArray(json.encode());
     }
 
-    private <T> void validateExtractor(OptionalValueExtractor<T> optionalValueExtractor,
-                                       ValueExtractor<T> requiredValueExtractor,
-                                       T expectedValue) throws Exception {
+    private <T> void validateExtractor(BiFunction<JsonObject, String, T> optionalValueExtractor,
+                                       BiFunction<JsonObject, String, T> requiredValueExtractor,
+                                       T expectedValue) {
         validateExtractor(optionalValueExtractor, requiredValueExtractor, expectedValue, value -> value);
     }
 
-    private <T> void validateExtractor(OptionalValueExtractor<T> optionalValueExtractor,
-                                       ValueExtractor<T> requiredValueExtractor,
+    private <T> void validateExtractor(BiFunction<JsonObject, String, T> optionalValueExtractor,
+                                       BiFunction<JsonObject, String, T> requiredValueExtractor,
                                        T expectedValue,
-                                       Function<T, Object> valueConverter) throws Exception {
+                                       Function<T, Object> valueConverter) {
         JsonObject validObject = createObjectWithValue(valueConverter.apply(expectedValue));
 
-        assertThat(optionalValueExtractor.extract(validObject, VALID_KEY).orElseThrow(AssertionError::new), equalTo(expectedValue));
-        assertThat(optionalValueExtractor.extract(validObject, MISSING_KEY).isPresent(), equalTo(false));
+        assertThat(optionalValueExtractor.apply(validObject, VALID_KEY), equalTo(expectedValue));
+        assertThat(optionalValueExtractor.apply(validObject, MISSING_KEY), nullValue());
 
-        assertThat(requiredValueExtractor.extract(validObject, VALID_KEY), equalTo(expectedValue));
+        assertThat(requiredValueExtractor.apply(validObject, VALID_KEY), equalTo(expectedValue));
 
-        expect(() -> requiredValueExtractor.extract(validObject, MISSING_KEY))
+        expect(() -> {@SuppressWarnings("unused") var unused = requiredValueExtractor.apply(validObject, MISSING_KEY);})
             .toThrow(JsonUtils.ParsingException.class)
             .withMessage("No value found for required key 'key2'.");
 
     }
 
-    private <T> void validateExtractor(OptionalValueExtractor<T> optionalValueExtractor,
-                                       ValueExtractor<T> requiredValueExtractor,
+    private <T> void validateExtractor(BiFunction<JsonObject, String, T> optionalValueExtractor,
+                                       BiFunction<JsonObject, String, T> requiredValueExtractor,
                                        T expectedValue,
                                        Object invalidValue,
-                                       String description) throws Exception {
+                                       String description) {
         validateExtractor(optionalValueExtractor, requiredValueExtractor, expectedValue, value -> value, invalidValue, description);
     }
 
-    private <T> void validateExtractor(OptionalValueExtractor<T> optionalValueExtractor,
-                                       ValueExtractor<T> requiredValueExtractor,
+    private <T> void validateExtractor(BiFunction<JsonObject, String, T> optionalValueExtractor,
+                                       BiFunction<JsonObject, String, T> requiredValueExtractor,
                                        T expectedValue,
                                        Function<T, Object> valueConverter,
                                        Object invalidValue,
-                                       String description) throws Exception {
+                                       String description) {
         validateExtractor(optionalValueExtractor, requiredValueExtractor, expectedValue, valueConverter);
 
         JsonObject invalidObject = createObjectWithValue(invalidValue);
 
-        expect(() -> optionalValueExtractor.extract(invalidObject, VALID_KEY))
+        expect(() -> {@SuppressWarnings("unused") var unused = optionalValueExtractor.apply(invalidObject, VALID_KEY);})
             .toThrow(JsonUtils.ParsingException.class)
             .withMessage(String.format("Value for 'key' is not a valid %s.", description));
 
-        expect(() -> requiredValueExtractor.extract(invalidObject, VALID_KEY))
+        expect(() -> {@SuppressWarnings("unused") var unused = requiredValueExtractor.apply(invalidObject, VALID_KEY);})
             .toThrow(JsonUtils.ParsingException.class)
             .withMessage(String.format("Value for 'key' is not a valid %s.", description));
     }

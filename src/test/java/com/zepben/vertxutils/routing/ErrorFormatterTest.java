@@ -25,7 +25,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.*;
 
-@SuppressWarnings("UnstableApiUsage")
 public class ErrorFormatterTest {
 
     @SuppressWarnings("ThrowableNotThrown")
@@ -37,10 +36,10 @@ public class ErrorFormatterTest {
 
         Throwable failure = new RuntimeException("test");
         doReturn(failure).when(context).failure();
-        UtilHandlers.CATCH_ALL_API_FAILURE_HANDLER.handle(context);
+        UtilHandlers.INSTANCE.getCATCH_ALL_API_FAILURE_HANDLER().handle(context);
 
         verify(response).putHeader(HttpHeaders.CONTENT_TYPE, MediaType.JSON_UTF_8.toString());
-        verify(response).end(ErrorFormatter.asJson(failure.toString()));
+        verify(response).end(ErrorFormatter.INSTANCE.asJson(failure.toString()));
     }
 
     @Test
@@ -53,7 +52,7 @@ public class ErrorFormatterTest {
         doReturn("/some/path/without/slash").when(request).path();
         doReturn("test=true").when(request).query();
 
-        UtilHandlers.REDIRECT_NO_TRAILING_SLASH_TO_TRAILING_SLASH_HANDLER.handle(context);
+        UtilHandlers.INSTANCE.getREDIRECT_NO_TRAILING_SLASH_TO_TRAILING_SLASH_HANDLER().handle(context);
 
         verify(response).putHeader("Location", "/some/path/without/slash/?test=true");
         verify(response).setStatusCode(301);
@@ -63,7 +62,7 @@ public class ErrorFormatterTest {
     @Test
     public void errorToJson() {
         String err = "err";
-        String actual = ErrorFormatter.asJson(err);
+        String actual = ErrorFormatter.INSTANCE.asJson(err);
         String expected = new JsonObject().put("errors", Collections.singletonList(err)).encode();
         assertThat(actual, equalTo(expected));
     }
@@ -71,7 +70,7 @@ public class ErrorFormatterTest {
     @Test
     public void errorsToJson() {
         List<String> errs = Arrays.asList("err1", "err2");
-        String actual = ErrorFormatter.asJson(errs);
+        String actual = ErrorFormatter.INSTANCE.asJson(errs);
         String expected = new JsonObject().put("errors", errs).encode();
         assertThat(actual, equalTo(expected));
     }

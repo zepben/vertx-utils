@@ -23,7 +23,7 @@ public class JsonObjectFilterTest {
     static SystemLogExtension systemOut = SystemLogExtension.SYSTEM_OUT.captureLog().muteOnSuccess();
 
     @Test
-    public void filtersObject() throws Exception {
+    public void filtersObject() {
         JsonObject jsonObject = filteredObject("key1,key3(key31,key32)");
 
         validateTopLevelKeys(jsonObject, true, false, true, false);
@@ -59,11 +59,11 @@ public class JsonObjectFilterTest {
     }
 
     @Test
-    public void filtersDoNotRemoveEmptyArrays() throws Exception {
+    public void filtersDoNotRemoveEmptyArrays() {
         JsonObject jsonObject = createObject();
         jsonObject.getJsonArray("key4").clear();
 
-        JsonObjectFilter.applyFilter(jsonObject, new FilterSpecification("key4.key43.key431"));
+        JsonObjectFilter.Companion.applyFilter(jsonObject, new FilterSpecification("key4.key43.key431"));
 
         validateTopLevelKeys(jsonObject, false, false, false, true);
         JsonArray key4 = jsonObject.getJsonArray("key4");
@@ -72,9 +72,9 @@ public class JsonObjectFilterTest {
     }
 
     @Test
-    public void isFluent() throws Exception {
+    public void isFluent() {
         JsonObject jsonObject = new JsonObject();
-        assertThat(JsonObjectFilter.applyFilter(jsonObject, new FilterSpecification("test")), equalTo(jsonObject));
+        assertThat(JsonObjectFilter.Companion.applyFilter(jsonObject, new FilterSpecification("test")), equalTo(jsonObject));
     }
 
     private void validateTopLevelKeys(JsonObject jsonObject, boolean expect1, boolean expect2, boolean expect3, boolean expect4) {
@@ -120,9 +120,9 @@ public class JsonObjectFilterTest {
         }
     }
 
-    private JsonObject filteredObject(String filter) throws Exception {
+    private JsonObject filteredObject(String filter) {
         JsonObject jsonObject = createObject();
-        JsonObjectFilter.applyFilter(jsonObject, new FilterSpecification(filter));
+        JsonObjectFilter.Companion.applyFilter(jsonObject, new FilterSpecification(filter));
         return jsonObject;
     }
 

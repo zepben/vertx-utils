@@ -9,6 +9,7 @@
 package com.zepben.vertxutils.json;
 
 import io.vertx.core.json.JsonArray;
+import kotlin.sequences.SequencesKt;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -19,16 +20,10 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class CollectorsTest {
 
-    @SuppressWarnings("InstantiationOfUtilityClass")
-    @Test
-    public void coverage() {
-        new Collectors();
-    }
-
     @Test
     public void toJsonArray() {
         List<Integer> list = Arrays.asList(1, 2, 3, 4, 5);
-        JsonArray jsonArray = list.stream().collect(Collectors.toJsonArray());
+        JsonArray jsonArray = Collectors.INSTANCE.toJsonArray(SequencesKt.asSequence(list.stream().iterator()));
 
         assertThat(list.size(), equalTo(jsonArray.size()));
         for (int i = 0; i < list.size(); i++)

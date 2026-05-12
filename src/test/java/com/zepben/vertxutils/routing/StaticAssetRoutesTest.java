@@ -124,7 +124,7 @@ public class StaticAssetRoutesTest {
         CountDownLatch latch = new CountDownLatch(1);
         Router router = Router.router(vertx);
         vertx.createHttpServer()
-            .requestHandler(new RouteRegister(router, true).add(routes).router())
+            .requestHandler(new RouteRegister(router, "", true).add(routes).getRouter())
             .listen(port, r -> {
                 latch.countDown();
                 if (r.failed())

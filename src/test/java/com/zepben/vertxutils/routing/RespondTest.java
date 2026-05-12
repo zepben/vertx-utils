@@ -23,6 +23,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 
 import java.util.Map;
 
+import static java.util.Collections.emptyMap;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.*;
@@ -42,7 +43,7 @@ public class RespondTest {
 
     @Test
     public void withStatus() {
-        Respond.with(context, HttpResponseStatus.OK);
+        Respond.INSTANCE.with(context, HttpResponseStatus.OK, emptyMap(), false);
         verify(response).setStatusCode(HttpResponseStatus.OK.code());
         verify(response).end();
     }
@@ -52,7 +53,7 @@ public class RespondTest {
         MultiMap existingHeaders = mock(MultiMap.class);
         doReturn(existingHeaders).when(this.response).headers();
         Map<String, String> addHeaders = Map.of("X-Test-Header", "value", "X-Test-Header-2", "value2");
-        Respond.with(context, HttpResponseStatus.OK, addHeaders);
+        Respond.INSTANCE.with(context, HttpResponseStatus.OK, addHeaders, false);
         verify(response).setStatusCode(HttpResponseStatus.OK.code());
         verify(existingHeaders).addAll(addHeaders);
         verify(response).end();
@@ -62,27 +63,26 @@ public class RespondTest {
     public void withStatusPlusEmptyContentLengthHeader() {
         MultiMap existingHeaders = mock(MultiMap.class);
         doReturn(existingHeaders).when(this.response).headers();
-        Map<String, String> addHeaders = Map.of(HttpHeaders.CONTENT_LENGTH, "0");
-        Respond.with(context, HttpResponseStatus.OK, true);
+        Respond.INSTANCE.with(context, HttpResponseStatus.OK, emptyMap(), true);
         verify(response).setStatusCode(HttpResponseStatus.OK.code());
-        verify(existingHeaders).addAll(addHeaders);
+        verify(existingHeaders).set(HttpHeaders.CONTENT_LENGTH, "0");
         verify(response).end();
     }
 
     @Test
     public void withResponse() {
-        Response response = Response.ofText(HttpResponseStatus.OK, "test");
+        Response response = Response.Companion.ofText(HttpResponseStatus.OK, "test");
         MultiMap headers = mock(MultiMap.class);
         doReturn(headers).when(this.response).headers();
-        Respond.with(context, response);
+        Respond.INSTANCE.with(context, response);
         verify(this.response).setStatusCode(HttpResponseStatus.OK.code());
-        verify(headers).addAll(response.headers());
-        verify(this.response).end(response.body());
+        verify(headers).addAll(response.getHeaders());
+        verify(this.response).end(response.getBody());
     }
 
     @Test
     public void withJson() {
-        Respond.withJson(context, HttpResponseStatus.OK, "json");
+        Respond.INSTANCE.withJson(context, HttpResponseStatus.OK, "json", emptyMap());
         verify(response).setStatusCode(HttpResponseStatus.OK.code());
         verify(response).putHeader(HttpHeaders.CONTENT_TYPE, MediaType.JSON_UTF_8.toString());
         verify(response).end("json");
@@ -94,7 +94,7 @@ public class RespondTest {
         doReturn(existingHeaders).when(this.response).headers();
         Map<String, String> addHeaders = Map.of("X-Test-Header", "value", "X-Test-Header-2", "value2");
 
-        Respond.withJson(context, HttpResponseStatus.OK, "json", addHeaders);
+        Respond.INSTANCE.withJson(context, HttpResponseStatus.OK, "json", addHeaders);
         verify(response).setStatusCode(HttpResponseStatus.OK.code());
         verify(response).putHeader(HttpHeaders.CONTENT_TYPE, MediaType.JSON_UTF_8.toString());
         verify(existingHeaders).addAll(addHeaders);
@@ -102,7 +102,7 @@ public class RespondTest {
     }
 
     @Test
-    public void withJsonFilter() throws Exception {
+    public void withJsonFilter() {
         FilterSpecification filterSpecification = new FilterSpecification("a.b");
 
         JsonObject jsonObject = new JsonObject()
@@ -111,27 +111,27 @@ public class RespondTest {
                 .put("c", 2))
             .put("d", 3);
 
-        Respond.withJson(context, HttpResponseStatus.OK, jsonObject, filterSpecification);
+        Respond.INSTANCE.withJson(context, HttpResponseStatus.OK, jsonObject, filterSpecification, emptyMap());
         verify(response).setStatusCode(HttpResponseStatus.OK.code());
         verify(response).putHeader(HttpHeaders.CONTENT_TYPE, MediaType.JSON_UTF_8.toString());
         verify(response).end("{\"a\":{\"b\":1}}");
     }
 
     @Test
-    public void withJsonFilterPlusHeaders() throws Exception {
+    public void withJsonFilterPlusHeaders() {
         FilterSpecification filterSpecification = new FilterSpecification("a.b");
 
         JsonObject jsonObject = new JsonObject()
-                .put("a", new JsonObject()
-                        .put("b", 1)
-                        .put("c", 2))
-                .put("d", 3);
+            .put("a", new JsonObject()
+                .put("b", 1)
+                .put("c", 2))
+            .put("d", 3);
 
         MultiMap existingHeaders = mock(MultiMap.class);
         doReturn(existingHeaders).when(this.response).headers();
         Map<String, String> addHeaders = Map.of("X-Test-Header", "value", "X-Test-Header-2", "value2");
 
-        Respond.withJson(context, HttpResponseStatus.OK, jsonObject, filterSpecification, addHeaders);
+        Respond.INSTANCE.withJson(context, HttpResponseStatus.OK, jsonObject, filterSpecification, addHeaders);
         verify(response).setStatusCode(HttpResponseStatus.OK.code());
         verify(response).putHeader(HttpHeaders.CONTENT_TYPE, MediaType.JSON_UTF_8.toString());
         verify(existingHeaders).addAll(addHeaders);
@@ -140,7 +140,7 @@ public class RespondTest {
 
     @Test
     public void withJsonChunked() {
-        HttpServerResponse returnedResponse = Respond.withJsonChunked(context, HttpResponseStatus.OK);
+        HttpServerResponse returnedResponse = Respond.INSTANCE.withJsonChunked(context, HttpResponseStatus.OK, emptyMap());
         assertThat(returnedResponse, is(response));
         verify(response).setStatusCode(HttpResponseStatus.OK.code());
         verify(response).putHeader(HttpHeaders.CONTENT_TYPE, MediaType.JSON_UTF_8.toString());
@@ -153,7 +153,7 @@ public class RespondTest {
         doReturn(existingHeaders).when(this.response).headers();
         Map<String, String> addHeaders = Map.of("X-Test-Header", "value", "X-Test-Header-2", "value2");
 
-        HttpServerResponse returnedResponse = Respond.withJsonChunked(context, HttpResponseStatus.OK, addHeaders);
+        HttpServerResponse returnedResponse = Respond.INSTANCE.withJsonChunked(context, HttpResponseStatus.OK, addHeaders);
         assertThat(returnedResponse, is(response));
         verify(response).setStatusCode(HttpResponseStatus.OK.code());
         verify(response).putHeader(HttpHeaders.CONTENT_TYPE, MediaType.JSON_UTF_8.toString());

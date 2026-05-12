@@ -16,32 +16,33 @@ import static org.hamcrest.Matchers.nullValue;
 
 public class QueryParamRuleTest {
 
-    private final RequestValueConverter<String, String> converter = RequestValueConverter.create("string", s -> s);
+    private final RequestValueConverter<String, String> converter = RequestValueConverter.Companion.create("string", s -> s);
 
     @Test
     public void basicConstructor() {
-        QueryParamRule<String> rule = QueryParamRule.of("test", converter);
-        assertThat(rule.name(), is("test"));
-        assertThat(rule.converter(), is(converter));
+        QueryParamRule<String> rule = QueryParamRule.Companion.of("test", converter);
+        assertThat(rule.getName(), is("test"));
+        assertThat(rule.getConverter(), is(converter));
         assertThat(rule.isRequired(), is(false));
-        assertThat(rule.defaultValue(), is(nullValue()));
+        assertThat(rule.getDefaultValue(), is(nullValue()));
     }
 
     @Test
     public void defaultValueConstructor() {
-        QueryParamRule<String> rule = QueryParamRule.of("test", converter, "default");
-        assertThat(rule.name(), is("test"));
-        assertThat(rule.converter(), is(converter));
+        QueryParamRule<String> rule = QueryParamRule.Companion.of("test", converter, "default");
+        assertThat(rule.getName(), is("test"));
+        assertThat(rule.getConverter(), is(converter));
         assertThat(rule.isRequired(), is(false));
-        assertThat(rule.defaultValue(), is("default"));
+        assertThat(rule.getDefaultValue(), is("default"));
     }
 
     @Test
     public void isRequiredConstructor() {
-        QueryParamRule<String> rule = QueryParamRule.ofRequired("test", converter);
-        assertThat(rule.name(), is("test"));
-        assertThat(rule.converter(), is(converter));
+        QueryParamRule<String> rule = QueryParamRule.Companion.ofRequired("test", converter);
+        assertThat(rule.getName(), is("test"));
+        assertThat(rule.getConverter(), is(converter));
         assertThat(rule.isRequired(), is(true));
-        assertThat(rule.defaultValue(), is(nullValue()));
+        assertThat(rule.getDefaultValue(), is(nullValue()));
     }
+
 }

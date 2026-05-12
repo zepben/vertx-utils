@@ -12,6 +12,7 @@ import io.vertx.core.http.HttpMethod;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 
+import static com.zepben.vertxutils.routing.RouteRegisterLoggerKt.logRegisteredRoutes;
 import static io.vertx.core.http.HttpMethod.GET;
 import static io.vertx.core.http.HttpMethod.PUT;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -28,9 +29,9 @@ public class RouteRegisterLoggerTest {
         HttpMethod[][] methods = {{GET}, {PUT}, {GET, PUT}};
         assertThat(paths.length, equalTo(methods.length));
 
-        RouteRegisterLogger routeRegisterLogger = new RouteRegisterLogger(logger);
+        var routeRegisterLogger = logRegisteredRoutes(logger);
         for (int i = 0; i < paths.length; ++i) {
-            routeRegisterLogger.accept("/mount" + paths[i], Route.builder().path(paths[i]).methods(methods[i]).build());
+            routeRegisterLogger.invoke("/mount" + paths[i], Route.Companion.builder().path(paths[i]).methods(methods[i]).build());
 
             for (int j = 0; j < methods[i].length; ++j)
                 verify(logger, times(1)).info(methods[i][j] + ": /mount" + paths[i]);

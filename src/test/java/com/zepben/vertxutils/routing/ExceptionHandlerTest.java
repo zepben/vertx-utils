@@ -9,10 +9,11 @@
 package com.zepben.vertxutils.routing;
 
 import io.vertx.ext.web.RoutingContext;
+import kotlin.Unit;
+import kotlin.jvm.functions.Function2;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.util.function.BiConsumer;
 
 import static org.mockito.Mockito.*;
 
@@ -24,31 +25,32 @@ public class ExceptionHandlerTest {
     @Test
     public void handlesExceptions() {
         IOException ioEx = new IOException("test");
-        BiConsumer<IOException, RoutingContext> ioExHandler = mock(BiConsumer.class);
+        Function2<IOException, RoutingContext, Unit> ioExHandler = mock(Function2.class);
         doReturn(ioEx).when(context).failure();
 
         ExceptionHandler<IOException> handler = new ExceptionHandler<>(IOException.class, ioExHandler);
         handler.handle(context);
 
-        verify(ioExHandler).accept(ioEx, context);
+        verify(ioExHandler).invoke(ioEx, context);
         verify(context, never()).next();
     }
 
     @Test
     public void handlesNoFailure() {
-        new ExceptionHandler<>(RuntimeException.class, (t, c) -> {}).handle(context);
+        new ExceptionHandler<>(RuntimeException.class, (t, c) -> Unit.INSTANCE).handle(context);
         verify(context).next();
     }
 
     @Test
     public void handlesNoMatch() {
         doReturn(new RuntimeException()).when(context).failure();
-        BiConsumer<IOException, RoutingContext> ioExHandler = mock(BiConsumer.class);
+        Function2<IOException, RoutingContext, Unit> ioExHandler = mock(Function2.class);
 
         ExceptionHandler<IOException> handler = new ExceptionHandler<>(IOException.class, ioExHandler);
         handler.handle(context);
 
-        verify(ioExHandler, never()).accept(any(), any());
+        verify(ioExHandler, never()).invoke(any(), any());
         verify(context).next();
     }
+
 }

@@ -20,53 +20,53 @@ public class ParserTest {
 
     @Test
     public void exceptions() {
-        expect(() -> Parser.parse(""))
+        expect(() -> Parser.INSTANCE.parse(""))
             .toThrow(FilterException.class)
             .withMessage("Error parsing []. After [] expected one of [IDENTIFIER,DASH] but found []");
 
-        expect(() -> Parser.parse("asd("))
+        expect(() -> Parser.INSTANCE.parse("asd("))
             .toThrow(FilterException.class)
             .withMessage("Error parsing [asd(]. After [asd(] expected one of [IDENTIFIER] but found []");
     }
 
     @Test
     public void simple1() throws FilterException {
-        Node node = Parser.parse("feeders");
+        Node node = Parser.INSTANCE.parse("feeders");
         assertEquals("feeders", node.toString());
         assertEquals(2, node.countAllNodes());
     }
 
     @Test
     public void simple2() throws FilterException {
-        Node node = Parser.parse("a.b");
+        Node node = Parser.INSTANCE.parse("a.b");
         assertEquals("a.b", node.toString());
         assertEquals(3, node.countAllNodes());
     }
 
     @Test
     public void exclude() throws FilterException {
-        Node node = Parser.parse("-a.b");
+        Node node = Parser.INSTANCE.parse("-a.b");
         assertEquals("-a.b", node.toString());
         assertEquals(3, node.countAllNodes());
     }
 
     @Test
     public void medium1() throws FilterException {
-        Node node = Parser.parse("feeders(assets,feeder)");
+        Node node = Parser.INSTANCE.parse("feeders(assets,feeder)");
         assertEquals("feeders(assets,feeder)", node.toString());
         assertEquals(4, node.countAllNodes());
     }
 
     @Test
     public void medium2() throws FilterException {
-        Node node = Parser.parse("a(b,c),a.d");
+        Node node = Parser.INSTANCE.parse("a(b,c),a.d");
         assertEquals("a(b,c,d)", node.toString());
         assertEquals(5, node.countAllNodes());
     }
 
     @Test
     public void complex() throws FilterException {
-        Node node = Parser.parse("feeders(assets(id,isOpen,lngLat,name,symbol),feeder(id,name,state))");
+        Node node = Parser.INSTANCE.parse("feeders(assets(id,isOpen,lngLat,name,symbol),feeder(id,name,state))");
         assertEquals("feeders(assets(id,isOpen,lngLat,name,symbol),feeder(id,name,state))", node.toString());
         assertEquals(12, node.countAllNodes());
     }

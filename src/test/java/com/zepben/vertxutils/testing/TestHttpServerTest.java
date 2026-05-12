@@ -19,7 +19,7 @@ public class TestHttpServerTest {
     @Test
     public void canServe() {
         try (TestHttpServer server = new TestHttpServer()) {
-            Route route = Route.builder().path("/").addHandler(ctx -> ctx.response().end("The response!")).build();
+            Route route = Route.Companion.builder().path("/").addHandler(ctx -> ctx.response().end("The response!")).build();
             int port = server.addRoute(route).listen();
 
             given()
