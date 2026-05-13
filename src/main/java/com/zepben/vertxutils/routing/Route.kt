@@ -33,7 +33,7 @@ class Route private constructor(
     val hasRegexPath: Boolean,
     val methods: Set<HttpMethod>,
     val handlers: List<RouteHandler>,
-    val failureHandlers: List<Handler<RoutingContext?>>,
+    val failureHandlers: List<Handler<RoutingContext>>,
     val isPublic: Boolean,
 ) {
 
@@ -47,7 +47,7 @@ class Route private constructor(
         private var bodyHandler: BodyHandler? = null
         private var decodeBodyHandler: DecodeBodyHandler? = null
         private val handlers = mutableListOf<RouteHandler>()
-        private val failureHandlers = mutableListOf<Handler<RoutingContext?>>()
+        private val failureHandlers = mutableListOf<Handler<RoutingContext>>()
         private var isPublic = true
 
         fun path(path: String): Builder = also { builder ->
@@ -125,7 +125,7 @@ class Route private constructor(
             handlers.add(handler)
         }
 
-        fun addHandler(handler: Handler<RoutingContext?>): Builder =
+        fun addHandler(handler: Handler<RoutingContext>): Builder =
             addHandler(RouteHandler(handler, false))
 
         /**
@@ -136,7 +136,7 @@ class Route private constructor(
          * @param blockingHandler The handler that contains blocking code.
          * @return This builder.
          */
-        fun addBlockingHandler(blockingHandler: Handler<RoutingContext?>): Builder =
+        fun addBlockingHandler(blockingHandler: Handler<RoutingContext>): Builder =
             addHandler(RouteHandler(blockingHandler, true, null))
 
         /**
@@ -147,10 +147,10 @@ class Route private constructor(
          * @param blockingHandler The handler that contains blocking code.
          * @return This builder.
          */
-        fun addBlockingHandler(blockingHandler: Handler<RoutingContext?>, ordered: Boolean): Builder =
+        fun addBlockingHandler(blockingHandler: Handler<RoutingContext>, ordered: Boolean): Builder =
             addHandler(RouteHandler(blockingHandler, true, ordered))
 
-        fun addFailureHandler(failureHandler: Handler<RoutingContext?>): Builder = apply {
+        fun addFailureHandler(failureHandler: Handler<RoutingContext>): Builder = apply {
             failureHandlers.add(failureHandler)
         }
 

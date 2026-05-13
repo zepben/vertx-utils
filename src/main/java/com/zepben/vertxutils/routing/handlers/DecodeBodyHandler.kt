@@ -19,12 +19,9 @@ import io.vertx.ext.web.RoutingContext
 
 class DecodeBodyHandler(
     val bodyRule: BodyRule<*>,
-) : Handler<RoutingContext?> {
+) : Handler<RoutingContext> {
 
-    override fun handle(context: RoutingContext?) {
-        // The context shouldn't ever be null in our use case.
-        requireNotNull(context)
-
+    override fun handle(context: RoutingContext) {
         try {
             handleBody(context)?.also {
                 RoutingContextEx.putRequestBody(context, it)

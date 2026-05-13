@@ -45,10 +45,7 @@ class GetFromFridgeRoute {
             .build()
     }
 
-    private fun aRegularHandler(context: RoutingContext?) {
-        // The context shouldn't ever be null in our use case.
-        requireNotNull(context)
-
+    private fun aRegularHandler(context: RoutingContext) {
         val item = getPathParams(context)[Params.ITEM]
         val amount: Int = getQueryParams(context).getOrElse(Params.AMOUNT, 1)!!
         val body = getOptionalDecodedBody<JsonObject>(context)
@@ -66,12 +63,12 @@ class GetFromFridgeRoute {
         }
     }
 
-    private fun someHandlerThatBlocks(context: RoutingContext?) {
+    private fun someHandlerThatBlocks(context: RoutingContext) {
         println("Someone is using the fridge, waiting for my turn...")
         context?.next()
     }
 
-    private fun logFailure(context: RoutingContext?) {
+    private fun logFailure(context: RoutingContext) {
         println("This should be a logger!")
         context?.next()
     }

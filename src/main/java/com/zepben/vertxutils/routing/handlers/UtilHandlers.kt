@@ -22,11 +22,8 @@ object UtilHandlers {
      * 500 message with our own "standardised" errors JSON response (See [ErrorFormatter.asJson])
      * containing the message from the failure. If a logger is specified, it will also log the stacktrace on the server side
      */
-    val CATCH_ALL_API_FAILURE_HANDLER_WITH_EXCEPTION_LOGGING: (Logger?) -> Handler<RoutingContext?> = { logger ->
-        Handler { context: RoutingContext? ->
-            // The context shouldn't ever be null in our use case.
-            requireNotNull(context)
-
+    val CATCH_ALL_API_FAILURE_HANDLER_WITH_EXCEPTION_LOGGING: (Logger?) -> Handler<RoutingContext> = { logger ->
+        Handler { context: RoutingContext ->
             val failure = context.failure()
             if (failure != null && !context.response().ended()) {
                 logger?.error("Error stack trace:", failure)
@@ -41,17 +38,14 @@ object UtilHandlers {
         }
     }
 
-    val CATCH_ALL_API_FAILURE_HANDLER: Handler<RoutingContext?> = { context ->
+    val CATCH_ALL_API_FAILURE_HANDLER: Handler<RoutingContext> = { context ->
         CATCH_ALL_API_FAILURE_HANDLER_WITH_EXCEPTION_LOGGING(null).handle(context)
     }
 
     /**
      * Route handler to redirect routes with no trailing slash to one with a trailing slash.
      */
-    val REDIRECT_NO_TRAILING_SLASH_TO_TRAILING_SLASH_HANDLER: Handler<RoutingContext?> = Handler { context ->
-        // The context shouldn't ever be null in our use case.
-        requireNotNull(context)
-
+    val REDIRECT_NO_TRAILING_SLASH_TO_TRAILING_SLASH_HANDLER: Handler<RoutingContext> = Handler { context ->
         var location = "${context.request()?.path()}/${if (context.request().query() != null) "?" + context.request().query() else ""}"
 
         context.response().putHeader("Location", location)

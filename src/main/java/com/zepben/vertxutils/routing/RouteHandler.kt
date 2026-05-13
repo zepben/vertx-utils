@@ -11,7 +11,7 @@ import io.vertx.core.Handler
 import io.vertx.ext.web.RoutingContext
 
 class RouteHandler(
-    val handler: Handler<RoutingContext?>,
+    val handler: Handler<RoutingContext>,
     val isBlocking: Boolean,
     val blockingOrdered: Boolean? = null,
 )

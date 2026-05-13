@@ -20,7 +20,7 @@ import io.vertx.ext.web.RoutingContext
 
 class QueryParamsHandler(
     rules: Collection<QueryParamRule<*>>,
-) : Handler<RoutingContext?> {
+) : Handler<RoutingContext> {
 
     val rules: Map<String, QueryParamRule<*>> = rules.associateBy { it.name }
 
@@ -32,10 +32,7 @@ class QueryParamsHandler(
         require(rules.size == this.rules.size) { "INTERNAL ERROR: The rules you have passed have a duplicate key." }
     }
 
-    override fun handle(context: RoutingContext?) {
-        // The context shouldn't ever be null in our use case.
-        requireNotNull(context)
-
+    override fun handle(context: RoutingContext) {
         val params = mutableMapOf<String, List<Any>>()
         val errors = rules.values.mapNotNull { rule ->
             try {

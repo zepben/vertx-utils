@@ -26,7 +26,7 @@ import io.vertx.ext.web.RoutingContext
 class FaviconHandler(
     private val filePath: String,
     private val maxAgeSeconds: Long,
-) : Handler<RoutingContext?> {
+) : Handler<RoutingContext> {
 
     private var cachedIcon: Buffer? = null
 
@@ -38,10 +38,7 @@ class FaviconHandler(
         return filePath
     }
 
-    override fun handle(ctx: RoutingContext?) {
-        // The context shouldn't ever be null in our use case.
-        requireNotNull(ctx)
-
+    override fun handle(ctx: RoutingContext) {
         val icon = cachedIcon ?: loadIcon(ctx).also { cachedIcon = it }
 
         if (icon.length() > 0) {

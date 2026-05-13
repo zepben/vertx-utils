@@ -35,9 +35,9 @@ class RouteRegisterTest {
         doReturn(vertxRoute).`when`(it).routeWithRegex(anyString())
     }
 
-    private val handler = Handler<RoutingContext?> {}
-    private val blockingHandler = Handler<RoutingContext?> {}
-    private val failureHandler = Handler<RoutingContext?> {}
+    private val handler = Handler<RoutingContext> {}
+    private val blockingHandler = Handler<RoutingContext> {}
+    private val failureHandler = Handler<RoutingContext> {}
 
     private var register = RouteRegister(router, "", true)
 

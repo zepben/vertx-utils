@@ -12,13 +12,10 @@ import io.vertx.ext.web.RoutingContext
 
 class ExceptionHandler<T : Throwable> internal constructor(
     private val tClass: Class<T>,
-    private val handler: (T, RoutingContext?) -> Unit,
-) : Handler<RoutingContext?> {
+    private val handler: (T, RoutingContext) -> Unit,
+) : Handler<RoutingContext> {
 
-    override fun handle(context: RoutingContext?) {
-        // The context shouldn't ever be null in our use case.
-        requireNotNull(context)
-
+    override fun handle(context: RoutingContext) {
         if (!tClass.isInstance(context.failure())) {
             context.next()
             return
@@ -29,7 +26,7 @@ class ExceptionHandler<T : Throwable> internal constructor(
 
     companion object {
 
-        internal inline fun <reified T : Exception> of(noinline handler: (T, RoutingContext?) -> Unit): ExceptionHandler<T> =
+        internal inline fun <reified T : Exception> of(noinline handler: (T, RoutingContext) -> Unit): ExceptionHandler<T> =
             ExceptionHandler(T::class.java, handler)
 
     }

@@ -20,16 +20,13 @@ import io.vertx.ext.web.RoutingContext
 
 class PathParamsHandler(
     rules: Collection<PathParamRule<*>>,
-) : Handler<RoutingContext?> {
+) : Handler<RoutingContext> {
 
     val rules: Map<String, PathParamRule<*>> = rules.associateBy { it.name }
 
     constructor(vararg rules: PathParamRule<*>) : this(rules.toList())
 
-    override fun handle(context: RoutingContext?) {
-        // The context shouldn't ever be null in our use case.
-        requireNotNull(context)
-
+    override fun handle(context: RoutingContext) {
         val params = mutableMapOf<String, Any>()
         val errors = rules.values.mapNotNull { rule ->
             try {
