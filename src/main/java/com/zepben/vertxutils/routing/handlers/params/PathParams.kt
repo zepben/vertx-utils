@@ -20,6 +20,6 @@ class PathParams(
         return value as T
     }
 
-    fun <T> exists(rule: PathParamRule<T>): Boolean = rule.name in params
+    operator fun <T> contains(rule: PathParamRule<T>): Boolean = rule.name in params
 
 }

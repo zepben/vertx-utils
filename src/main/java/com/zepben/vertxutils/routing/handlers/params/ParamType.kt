@@ -131,6 +131,8 @@ object ParamType {
             }
         }
 
+    inline fun <reified T : Enum<T>> ofEnum(): RequestValueConverter<String, T> = ofEnum(T::class.java)
+
     fun <T : Enum<T>> ofEnum(clazz: Class<T>): RequestValueConverter<String, T> {
         val enumConstants = clazz.getEnumConstants()
 

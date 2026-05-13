@@ -18,255 +18,255 @@ object JsonUtils {
     /**
      * Get the value from the specified key.
      * 
-     * @param json json object to extract the value from
+     * @receiver json object to extract the value from
      * @param key  the key containing the value
      * @return optional of the value
      */
-    fun extractOptionalValue(json: JsonObject, key: String): Any? =
-        json.getValue(key)
+    fun JsonObject.extractOptionalValue(key: String): Any? =
+        getValue(key)
 
     /**
      * Get the value from the specified key.
      * 
-     * @param json json object to extract the value from
+     * @receiver json object to extract the value from
      * @param key  the key containing the value
      * @return the value
      * @throws ParsingException if the key is not found
      */
-    fun extractRequiredValue(json: JsonObject, key: String): Any =
-        extractRequired(json, key, "value") { obj, key -> obj.getValue(key) }
+    fun JsonObject.extractRequiredValue(key: String): Any =
+        this.extractRequired(key, "value") { obj, key -> obj.getValue(key) }
 
     /**
      * Get the object value from the specified key.
      * 
-     * @param json json object to extract the object from
+     * @receiver json object to extract the object from
      * @param key  the key containing the object
      * @return optional of the value
      * @throws ParsingException if the value is not an object
      */
-    fun extractOptionalObject(json: JsonObject, key: String): JsonObject? =
-        extractOptional(json, key, "object") { obj, key -> obj.getJsonObject(key) }
+    fun JsonObject.extractOptionalObject(key: String): JsonObject? =
+        this.extractOptional(key, "object") { obj, key -> obj.getJsonObject(key) }
 
     /**
      * Get the object value from the specified key.
      * 
-     * @param json json object to extract the object from
+     * @receiver json object to extract the object from
      * @param key  the key containing the object
      * @return the value
      * @throws ParsingException if the value is not an object, or is not found
      */
-    fun extractRequiredObject(json: JsonObject, key: String): JsonObject =
-        extractRequired(json, key, "object") { obj, key -> obj.getJsonObject(key) }
+    fun JsonObject.extractRequiredObject(key: String): JsonObject =
+        this.extractRequired(key, "object") { obj, key -> obj.getJsonObject(key) }
 
     /**
      * Get the array value from the specified key.
      * 
-     * @param json json object to extract the array from
+     * @receiver json object to extract the array from
      * @param key  the key containing the array
      * @return optional of the value
      * @throws ParsingException if the value is not an array
      */
-    fun extractOptionalArray(json: JsonObject, key: String): JsonArray? =
-        extractOptional(json, key, "array") { obj, key -> obj.getJsonArray(key) }
+    fun JsonObject.extractOptionalArray(key: String): JsonArray? =
+        this.extractOptional(key, "array") { obj, key -> obj.getJsonArray(key) }
 
     /**
      * Get the array value from the specified key.
      * 
-     * @param json json object to extract the array from
+     * @receiver json object to extract the array from
      * @param key  the key containing the array
      * @return the value
      * @throws ParsingException if the value is not an array, or is not found
      */
-    fun extractRequiredArray(json: JsonObject, key: String): JsonArray =
-        extractRequired(json, key, "array") { obj, key -> obj.getJsonArray(key) }
+    fun JsonObject.extractRequiredArray(key: String): JsonArray =
+        this.extractRequired(key, "array") { obj, key -> obj.getJsonArray(key) }
 
     /**
      * Get the string value from the specified key.
      * 
-     * @param json json object to extract the string from
+     * @receiver json object to extract the string from
      * @param key  the key containing the string
      * @return optional of the value
      * @throws ParsingException if the value is not a string
      */
-    fun extractOptionalString(json: JsonObject, key: String): String? =
-        extractOptional(json, key, "string") { obj, key -> JsonValueExtractors.getStringStrict(obj, key) }
+    fun JsonObject.extractOptionalString(key: String): String? =
+        this.extractOptional(key, "string") { obj, key -> JsonValueExtractors.getStringStrict(obj, key) }
 
     /**
      * Get the string value from the specified key.
      * 
-     * @param json json object to extract the string from
+     * @receiver json object to extract the string from
      * @param key  the key containing the string
      * @return the value
      * @throws ParsingException if the value is not a string, or is not found
      */
-    fun extractRequiredString(json: JsonObject, key: String): String =
-        extractRequired(json, key, "string") { obj, key -> JsonValueExtractors.getStringStrict(obj, key) }
+    fun JsonObject.extractRequiredString(key: String): String =
+        this.extractRequired(key, "string") { obj, key -> JsonValueExtractors.getStringStrict(obj, key) }
 
     /**
      * Get the integer value from the specified key.
      * 
-     * @param json json object to extract the integer from
+     * @receiver json object to extract the integer from
      * @param key  the key containing the integer
      * @return optional of the value
      * @throws ParsingException if the value is not an integer
      */
-    fun extractOptionalInt(json: JsonObject, key: String): Int? =
-        extractOptional(json, key, "integer") { obj, key -> obj.getInteger(key) }
+    fun JsonObject.extractOptionalInt(key: String): Int? =
+        this.extractOptional(key, "integer") { obj, key -> obj.getInteger(key) }
 
     /**
      * Get the integer value from the specified key.
      * 
-     * @param json json object to extract the integer from
+     * @receiver json object to extract the integer from
      * @param key  the key containing the integer
      * @return the value
      * @throws ParsingException if the value is not an integer, or is not found
      */
-    fun extractRequiredInt(json: JsonObject, key: String): Int =
-        extractRequired(json, key, "integer") { obj, key -> obj.getInteger(key) }
+    fun JsonObject.extractRequiredInt(key: String): Int =
+        this.extractRequired(key, "integer") { obj, key -> obj.getInteger(key) }
 
     /**
      * Get the double value from the specified key.
      * 
-     * @param json json object to extract the double from
+     * @receiver json object to extract the double from
      * @param key  the key containing the double
      * @return optional of the value
      * @throws ParsingException if the value is not a double
      */
-    fun extractOptionalDouble(json: JsonObject, key: String): Double? =
-        extractOptional(json, key, "double") { obj, key -> JsonValueExtractors.getDouble(obj, key) }
+    fun JsonObject.extractOptionalDouble(key: String): Double? =
+        this.extractOptional(key, "double") { obj, key -> JsonValueExtractors.getDouble(obj, key) }
 
     /**
      * Get the double value from the specified key.
      * 
-     * @param json json object to extract the double from
+     * @receiver json object to extract the double from
      * @param key  the key containing the double
      * @return the value
      * @throws ParsingException if the value is not a double, or is not found
      */
-    fun extractRequiredDouble(json: JsonObject, key: String): Double =
-        extractRequired(json, key, "double") { obj, key -> JsonValueExtractors.getDouble(obj, key) }
+    fun JsonObject.extractRequiredDouble(key: String): Double =
+        this.extractRequired(key, "double") { obj, key -> JsonValueExtractors.getDouble(obj, key) }
 
     /**
      * Get the path value from the specified key.
      * 
-     * @param json json object to extract the path from
+     * @receiver json object to extract the path from
      * @param key  the key containing the path
      * @return optional of the value
      * @throws ParsingException if the value is not a path
      */
-    fun extractOptionalPath(json: JsonObject, key: String): Path? =
-        extractOptional(json, key, "path") { obj, key -> JsonValueExtractors.getPath(obj, key) }
+    fun JsonObject.extractOptionalPath(key: String): Path? =
+        this.extractOptional(key, "path") { obj, key -> JsonValueExtractors.getPath(obj, key) }
 
     /**
      * Get the path value from the specified key.
      * 
-     * @param json json object to extract the path from
+     * @receiver json object to extract the path from
      * @param key  the key containing the path
      * @return the value
      * @throws ParsingException if the value is not a path, or is not found
      */
-    fun extractRequiredPath(json: JsonObject, key: String): Path =
-        extractRequired(json, key, "path") { obj, key -> JsonValueExtractors.getPath(obj, key) }
+    fun JsonObject.extractRequiredPath(key: String): Path =
+        this.extractRequired(key, "path") { obj, key -> JsonValueExtractors.getPath(obj, key) }
 
     /**
      * Get the JsonObjects from a JsonArray with the specified key as a list.
      * 
-     * @param json the object containing the array.
+     * @receiver the object containing the array.
      * @param key  the key of the array in the object.
      * @return optional of a list containing each of the JsonObjects contained in the specified array.
      * @throws ParsingException if the value is not a list of objects.
      */
-    fun extractOptionalObjectList(json: JsonObject, key: String): List<JsonObject?>? =
-        extractOptionalList(json, key, "objects") { jsonArray, pos -> jsonArray.getJsonObject(pos) }
+    fun JsonObject.extractOptionalObjectList(key: String): List<JsonObject?>? =
+        this.extractOptionalList(key, "objects") { jsonArray, pos -> jsonArray.getJsonObject(pos) }
 
     /**
      * Get the JsonObjects from a JsonArray with the specified key as a list.
      * 
-     * @param json the object containing the array.
+     * @receiver the object containing the array.
      * @param key  the key of the array in the object.
      * @return a list containing each of the JsonObjects contained in the specified array.
      * @throws ParsingException if the value is not a list of objects, or is not found.
      */
-    fun extractRequiredObjectList(json: JsonObject, key: String): List<JsonObject?> =
-        extractRequiredList(json, key, "objects") { jsonArray, pos -> jsonArray.getJsonObject(pos) }
+    fun JsonObject.extractRequiredObjectList(key: String): List<JsonObject?> =
+        this.extractRequiredList(key, "objects") { jsonArray, pos -> jsonArray.getJsonObject(pos) }
 
     /**
      * Get the strings from a JsonArray with the specified key as a list.
      * 
-     * @param json the object containing the array.
+     * @receiver the object containing the array.
      * @param key  the key of the array in the object.
      * @return optional of a list containing each of the strings contained in the specified array.
      * @throws ParsingException if the value is not a list of strings.
      */
-    fun extractOptionalStringList(json: JsonObject, key: String): List<String?>? =
-        extractOptionalList(json, key, "strings") { jsonArray, pos -> JsonValueExtractors.getStringStrict(jsonArray, pos) }
+    fun JsonObject.extractOptionalStringList(key: String): List<String?>? =
+        this.extractOptionalList(key, "strings") { jsonArray, pos -> JsonValueExtractors.getStringStrict(jsonArray, pos) }
 
     /**
      * Get the strings from a JsonArray with the specified key as a list.
      * 
-     * @param json the object containing the array.
+     * @receiver the object containing the array.
      * @param key  the key of the array in the object.
      * @return a list containing each of the strings contained in the specified array.
      * @throws ParsingException if the value is not a list of strings, or is not found.
      */
-    fun extractRequiredStringList(json: JsonObject, key: String): List<String?> =
-        extractRequiredList(json, key, "strings") { jsonArray, pos -> JsonValueExtractors.getStringStrict(jsonArray, pos) }
+    fun JsonObject.extractRequiredStringList(key: String): List<String?> =
+        this.extractRequiredList(key, "strings") { jsonArray, pos -> JsonValueExtractors.getStringStrict(jsonArray, pos) }
 
     /**
      * Get the integers from a JsonArray with the specified key as a list.
      * 
-     * @param json the object containing the array.
+     * @receiver the object containing the array.
      * @param key  the key of the array in the object.
      * @return optional of a list containing each of the integers contained in the specified array.
      * @throws ParsingException if the value is not a list of integers.
      */
-    fun extractOptionalIntList(json: JsonObject, key: String): List<Int?>? =
-        extractOptionalList(json, key, "integers") { jsonArray, pos -> jsonArray.getInteger(pos) }
+    fun JsonObject.extractOptionalIntList(key: String): List<Int?>? =
+        this.extractOptionalList(key, "integers") { jsonArray, pos -> jsonArray.getInteger(pos) }
 
     /**
      * Get the integers from a JsonArray with the specified key as a list.
      * 
-     * @param json the object containing the array.
+     * @receiver the object containing the array.
      * @param key  the key of the array in the object.
      * @return a list containing each of the integers contained in the specified array.
      * @throws ParsingException if the value is not a list of integers, or is not found.
      */
-    fun extractRequiredIntList(json: JsonObject, key: String): List<Int?> =
-        extractRequiredList(json, key, "integers") { jsonArray, pos -> jsonArray.getInteger(pos) }
+    fun JsonObject.extractRequiredIntList(key: String): List<Int?> =
+        this.extractRequiredList(key, "integers") { jsonArray, pos -> jsonArray.getInteger(pos) }
 
     /**
      * Get the doubles from a JsonArray with the specified key as a list.
      * 
-     * @param json the object containing the array.
+     * @receiver the object containing the array.
      * @param key  the key of the array in the object.
      * @return optional of a list containing each of the doubles contained in the specified array.
      * @throws ParsingException if the value is not a list of doubles.
      */
-    fun extractOptionalDoubleList(json: JsonObject, key: String): List<Double?>? =
-        extractOptionalList(json, key, "doubles") { jsonArray, pos -> JsonValueExtractors.getDouble(jsonArray, pos) }
+    fun JsonObject.extractOptionalDoubleList(key: String): List<Double?>? =
+        this.extractOptionalList(key, "doubles") { jsonArray, pos -> JsonValueExtractors.getDouble(jsonArray, pos) }
 
     /**
      * Get the doubles from a JsonArray with the specified key as a list.
      * 
-     * @param json the object containing the array.
+     * @receiver the object containing the array.
      * @param key  the key of the array in the object.
      * @return a list containing each of the doubles contained in the specified array.
      * @throws ParsingException if the value is not a list of doubles, or is not found.
      */
-    fun extractRequiredDoubleList(json: JsonObject, key: String): List<Double?> =
-        extractRequiredList(json, key, "doubles") { jsonArray, pos -> JsonValueExtractors.getDouble(jsonArray, pos) }
+    fun JsonObject.extractRequiredDoubleList(key: String): List<Double?> =
+        this.extractRequiredList(key, "doubles") { jsonArray, pos -> JsonValueExtractors.getDouble(jsonArray, pos) }
 
     /**
      * Get the JsonObjects from a JsonArray of JsonArrays with the specified key as a list.
      * 
-     * @param json the object containing the array.
+     * @receiver the object containing the array.
      * @param key  the key of the array in the object.
      * @return optional of a list of lists containing each of the JsonObjects contained in the specified array or arrays.
      * @throws ParsingException if the value is not an object list.
      */
-    fun extractOptionalObjectListOfList(json: JsonObject, key: String): List<List<JsonObject?>?>? =
+    fun JsonObject.extractOptionalObjectListOfList(key: String): List<List<JsonObject?>?>? =
         try {
-            extractOptionalList(json, key, "object lists") { jsonArray, pos -> jsonArray.getJsonArray(pos) }
+            this.extractOptionalList(key, "object lists") { jsonArray, pos -> jsonArray.getJsonArray(pos) }
                 ?.map { it?.doConvertToList { jsonArray, pos -> jsonArray.getJsonObject(pos) } }
         } catch (e: ClassCastException) {
             throw ParsingException("Value for '$key' is not a valid list of object lists.", e)
@@ -275,67 +275,67 @@ object JsonUtils {
     /**
      * Get the JsonObjects from a JsonArray of JsonArrays with the specified key as a list.
      * 
-     * @param json the object containing the array.
+     * @receiver the object containing the array.
      * @param key  the key of the array in the object.
      * @return a list of lists containing each of the JsonObjects contained in the specified array or arrays.
      * @throws ParsingException if the value is not an object list.
      */
-    fun extractRequiredObjectListOfList(json: JsonObject, key: String): List<List<JsonObject?>?> =
-        ensureRequired(key, extractOptionalObjectListOfList(json, key))
+    fun JsonObject.extractRequiredObjectListOfList(key: String): List<List<JsonObject?>?> =
+        ensureRequired(key, extractOptionalObjectListOfList(key))
 
     /**
-     * @param jsonArray the array containing the objects.
+     * @receiver the array containing the objects.
      * @return a list of the objects contained in the array.
      * @throws ParsingException if the array does not contain objects.
      */
-    fun convertToObjectList(jsonArray: JsonArray): List<JsonObject?> =
-        convertToList(jsonArray) { jsonArray, pos -> jsonArray.getJsonObject(pos) }
+    fun JsonArray.convertToObjectList(): List<JsonObject?> =
+        this.convertToList { jsonArray, pos -> jsonArray.getJsonObject(pos) }
 
     /**
-     * @param jsonArray the array containing the objects.
+     * @receiver the array containing the objects.
      * @param valueExtractor the method used to extract the value from the array.
      * @return a list of the objects contained in the array.
      * @throws ParsingException if the array does not contain objects.
      */
-    fun <T> convertToList(jsonArray: JsonArray, valueExtractor: JsonArrayValueExtractor<T>): List<T?> =
+    fun <T> JsonArray.convertToList(valueExtractor: JsonArrayValueExtractor<T>): List<T?> =
         try {
-            jsonArray.doConvertToList(valueExtractor)
+            doConvertToList(valueExtractor)
         } catch (e: ClassCastException) {
             throw ParsingException("JSON array is not a collection of expected types.", e)
         }
 
     /**
-     * @param jsonArray the array containing the objects.
+     * @receiver the array containing the objects.
      * @param valueExtractor the method used to extract the value from the array.
      * @param expectedCount the expected number of entries in the list.
      * @return a list of the objects contained in the array.
      * @throws ParsingException if the array does not contain objects.
      */
-    fun <T> convertToList(jsonArray: JsonArray, valueExtractor: JsonArrayValueExtractor<T>, expectedCount: Int): List<T?> =
-        if (jsonArray.size() == expectedCount)
-            convertToList(jsonArray, valueExtractor)
+    fun <T> JsonArray.convertToList(expectedCount: Int, valueExtractor: JsonArrayValueExtractor<T>): List<T?> =
+        if (size() == expectedCount)
+            convertToList(valueExtractor)
         else
-            throw ParsingException("Invalid number of records in list. Expected exactly $expectedCount, found ${jsonArray.size()}.")
+            throw ParsingException("Invalid number of records in list. Expected exactly $expectedCount, found ${size()}.")
 
-    private fun <T> extractOptional(json: JsonObject, key: String, description: String, valueExtractor: (JsonObject, String) -> T?): T? =
+    private fun <T> JsonObject.extractOptional(key: String, description: String, valueExtractor: (JsonObject, String) -> T?): T? =
         try {
-            valueExtractor(json, key)
+            valueExtractor(this, key)
         } catch (e: Exception) {
             throw ParsingException("Value for '$key' is not a valid $description.", e)
         }
 
-    private fun <T> extractOptionalList(json: JsonObject, key: String, description: String, valueExtractor: JsonArrayValueExtractor<T>): List<T?>? =
+    private fun <T> JsonObject.extractOptionalList(key: String, description: String, valueExtractor: JsonArrayValueExtractor<T>): List<T?>? =
         try {
-            extractOptionalArray(json, key)?.doConvertToList(valueExtractor)
+            extractOptionalArray(key)?.doConvertToList(valueExtractor)
         } catch (e: ClassCastException) {
             throw ParsingException("Value for '$key' is not a valid list of $description.", e)
         }
 
-    fun <T> extractRequired(json: JsonObject, key: String, description: String, valueExtractor: (JsonObject, String) -> T?): T =
-        ensureRequired(key, extractOptional(json, key, description, valueExtractor))
+    fun <T> JsonObject.extractRequired(key: String, description: String, valueExtractor: (JsonObject, String) -> T?): T =
+        ensureRequired(key, extractOptional(key, description, valueExtractor))
 
-    fun <T> extractRequiredList(json: JsonObject, key: String, description: String, valueExtractor: JsonArrayValueExtractor<T>): List<T?> =
-        ensureRequired(key, extractOptionalList(json, key, description, valueExtractor))
+    fun <T> JsonObject.extractRequiredList(key: String, description: String, valueExtractor: JsonArrayValueExtractor<T>): List<T?> =
+        ensureRequired(key, extractOptionalList(key, description, valueExtractor))
 
     fun <T> ensureRequired(key: String, value: T?): T =
         value ?: throw ParsingException("No value found for required key '$key'.")

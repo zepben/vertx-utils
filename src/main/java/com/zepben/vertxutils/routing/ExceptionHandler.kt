@@ -27,4 +27,11 @@ class ExceptionHandler<T : Throwable> internal constructor(
         handler(tClass.cast(context.failure()), context)
     }
 
+    companion object {
+
+        internal inline fun <reified T : Exception> of(noinline handler: (T, RoutingContext?) -> Unit): ExceptionHandler<T> =
+            ExceptionHandler(T::class.java, handler)
+
+    }
+
 }
