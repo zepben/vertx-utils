@@ -108,4 +108,19 @@ class QueryParamsTest {
         assertThat(params.contains(notRegistered), equalTo(false))
     }
 
+    @Test
+    internal fun `has non-nullable default or throws when using get`() {
+        //
+        // NOTE: This is here to make sure we return non-null query parameters, as this is not detected with passing stuff
+        //       directly to hamcrest.
+        fun validate(value: String, expected: String) =
+            assertThat(value, equalTo(expected))
+
+        validate(params[p4], p4.defaultValue!!)
+
+        expect { params[p3] }.toThrow<IllegalArgumentException>().withMessage(
+            "INTERNAL ERROR: Param ${p3.name} has no values and no default. Either mark the param as required, provide a default or use with getOrElse or getAllOrElse.",
+        )
+    }
+
 }

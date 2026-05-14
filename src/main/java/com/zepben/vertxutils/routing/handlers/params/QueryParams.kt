@@ -21,7 +21,7 @@ class QueryParams(
      * @param <T>  The value type defined by the `rule`.
      * @return The first values passed via the query string or the rules default value if no values were passed.
      */
-    operator fun <T> get(rule: QueryParamRule<T>): T? =
+    operator fun <T> get(rule: QueryParamRule<T>): T =
         getAll(rule)[0]
 
     /**
