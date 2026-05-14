@@ -82,6 +82,21 @@
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-lang-kotlin</artifactId>
+            <!--
+            NOTE: Vertx 4.x is based on Kotlin 1.7, so we need to exclude it from importing the libraries
+                  that were moved around in Kotlin 1.8, otherwise we get compile errors when using calls
+                  from these libraries. e.g. `kotlin.io.path.createParentDirectories`
+            -->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.jetbrains.kotlin</groupId>
+                    <artifactId>kotlin-stdlib-jdk8</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.jetbrains.kotlin</groupId>
+                    <artifactId>kotlin-stdlib-jdk7</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
