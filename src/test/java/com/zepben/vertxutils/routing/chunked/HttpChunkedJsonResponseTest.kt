@@ -7,8 +7,12 @@
  */
 package com.zepben.vertxutils.routing.chunked
 
+import com.zepben.testutils.exception.ExpectException.Companion.expect
 import com.zepben.testutils.junit.SystemLogExtension
+import io.netty.handler.codec.http.HttpResponseStatus
 import io.vertx.core.http.HttpServerResponse
+import org.hamcrest.MatcherAssert.assertThat
+import org.hamcrest.Matchers.equalTo
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.RegisterExtension
 import org.mockito.Mockito.*
@@ -39,7 +43,7 @@ class HttpChunkedJsonResponseTest {
         doReturn(null).`when`(httpServerResponse).write(anyString())
 
         // NOTE: Buffer needs to be big enough for the added escaping.
-        HttpChunkedJsonResponse(httpServerResponse!!, 14).ofArray {
+        HttpChunkedJsonResponse(httpServerResponse, 14).ofArray {
             //
             // NOTE: Every add of an item does a non-forced write check.
             //
@@ -67,7 +71,7 @@ class HttpChunkedJsonResponseTest {
     @Test
     fun responseCheck() {
         doReturn(true).`when`(httpServerResponse).closed()
-        HttpChunkedJsonResponse(httpServerResponse!!, ChunkedJsonResponse.DEFAULT_BUFFER_SIZE).ofArray { }
+        HttpChunkedJsonResponse(httpServerResponse, ChunkedJsonResponse.DEFAULT_BUFFER_SIZE).ofArray { }
         verify(httpServerResponse, never()).end(anyString())
 
         doReturn(false).`when`(httpServerResponse).closed()
@@ -91,6 +95,61 @@ class HttpChunkedJsonResponseTest {
         }
 
         verify(httpServerResponse).end("[\"this\",\"is\",\"my\",\"test data\"]")
+    }
+
+    @Test
+    internal fun `can read and change status code`() {
+        var statusCode = HttpResponseStatus.EARLY_HINTS.code()
+        doAnswer { statusCode = it.getArgument(0); null }.`when`(httpServerResponse).statusCode = anyInt()
+        doAnswer { statusCode }.`when`(httpServerResponse).statusCode
+
+        val response = HttpChunkedJsonResponse(httpServerResponse)
+        assertThat(response.statusCode, equalTo(HttpResponseStatus.EARLY_HINTS))
+        assertThat(statusCode, equalTo(HttpResponseStatus.EARLY_HINTS.code()))
+
+        fun validateChange(newStatus: HttpResponseStatus) {
+            response.statusCode = newStatus
+            // Did the mock get called with the correct value?
+            assertThat(statusCode, equalTo(newStatus.code()))
+            // Did we return the code for the value set?
+            assertThat(response.statusCode, equalTo(newStatus))
+        }
+
+        validateChange(HttpResponseStatus.PROCESSING)
+        validateChange(HttpResponseStatus.OK)
+    }
+
+    @Test
+    internal fun `can't change status code after the response has been committed via write`() {
+        // Ensure once a response is committed (first write or end), it is too late to change the status.
+        val response = HttpChunkedJsonResponse(httpServerResponse)
+        response.ofObject {
+            // Should be able to set it before we send anything
+            response.statusCode = HttpResponseStatus.OK
+
+            checkWrite(force = true)
+
+            // Now we have committed the message via a `write`, we shouldn't be able to change the status.
+            expect { response.statusCode = HttpResponseStatus.NOT_FOUND }
+                .toThrow<IllegalStateException>()
+                .withMessage("You can't set the status after the response has been committed")
+        }
+    }
+
+    @Test
+    internal fun `can't change status code after the response has been committed via end`() {
+        // Ensure once a response is committed (first write or end), it is too late to change the status.
+        val response = HttpChunkedJsonResponse(httpServerResponse)
+
+        // Should be able to set it before we send anything
+        response.statusCode = HttpResponseStatus.OK
+
+        response.ofObject {}
+
+        // Now we have committed the message via ending the response, we shouldn't be able to change the status.
+        expect { response.statusCode = HttpResponseStatus.NOT_FOUND }
+            .toThrow<IllegalStateException>()
+            .withMessage("You can't set the status after the response has been committed")
     }
 
 }

@@ -18,6 +18,7 @@
 * Added inline reified factories for the following, removing the need to pass a class:
   * `ExceptionHandler.of` that only needs the handler.
   * `ParamType.ofEnum`.
+* `HttpChunkedJsonResponse` can now change the status of the underlying response until a `write` has occurred.
 
 ### Fixes
 * None.
