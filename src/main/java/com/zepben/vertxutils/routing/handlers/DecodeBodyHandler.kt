@@ -35,7 +35,7 @@ class DecodeBodyHandler(
 
     private fun handleBody(context: RoutingContext): Any? {
         val rawBody = context.body()
-        if (rawBody == null || rawBody.length() == 0) {
+        if (rawBody == null || rawBody.length() <= 0) {
             if (bodyRule.isRequired)
                 throw BadParamException.missingBody()
 

@@ -122,6 +122,28 @@ class DecodeBodyHandlerTest {
         verifyBadParamResponse(invalidBody(requiredRule, reason))
     }
 
+    @Test
+    internal fun `body missing`() {
+        val handler = DecodeBodyHandler(requiredRule)
+
+        handler.handle(context)
+
+        verifyBadParamResponse(missingBody())
+    }
+
+    @Test
+    internal fun `body missing -1`() {
+        // Real world testing revealed a missing body actually returns -1 for the length, as opposed to 0 for an empty body.
+        // The value of `asString` was also `null`, rather than an empty string.
+        doReturn(-1).`when`(requestBody).length()
+        doReturn(null).`when`(requestBody).asString()
+        val handler = DecodeBodyHandler(requiredRule)
+
+        handler.handle(context)
+
+        verifyBadParamResponse(missingBody())
+    }
+
     private fun verifyBadParamResponse(e: BadParamException) {
         verify(response).statusCode = 400
         val json = asJson(e.message)
