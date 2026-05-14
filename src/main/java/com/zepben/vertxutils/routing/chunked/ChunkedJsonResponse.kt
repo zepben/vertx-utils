@@ -194,8 +194,6 @@ abstract class ChunkedJsonResponse(
         /**
          * Append a JSON value to the element. This will provide required escaping.
          *
-         * NOTE: This deliberately removes support for adding JsonObject and JsonArray values directly, they should be provided via DSL builders.
-         *
          * @param value The scalar value to add to this element.
          * @throws IllegalArgumentException for any unsupported value types.
          */
@@ -204,7 +202,8 @@ abstract class ChunkedJsonResponse(
                 null -> append("null")
                 is String -> append(Json.encode(value))
                 is Number, is Boolean -> append(value.toString())
-                is JsonObject, is JsonArray -> throw IllegalArgumentException("JsonObject and JsonArray values shouldn't be added directly to a chunked response, please use the appropriate builders instead.")
+                is JsonObject -> append(value.encode())
+                is JsonArray -> append(value.encode())
                 else -> throw IllegalArgumentException("Unsupported JSON value type: ${value::class}")
             }
 

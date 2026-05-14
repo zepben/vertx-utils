@@ -9,6 +9,8 @@ package com.zepben.vertxutils.routing.chunked
 
 import com.zepben.testutils.exception.ExpectException.Companion.expect
 import com.zepben.testutils.junit.SystemLogExtension
+import io.vertx.kotlin.core.json.jsonArrayOf
+import io.vertx.kotlin.core.json.jsonObjectOf
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.equalTo
 import org.junit.jupiter.api.Test
@@ -95,6 +97,18 @@ class ChunkedJsonResponseTest {
         }
 
         val expected = "{\"o1\":{\"o1k1\":0,\"o1k2\":\"text\",\"o1k3\":[[{}]],\"o1k4\":[]},\"o2\":{\"o3\":{},\"o2k1\":[0,1,2]}}"
+
+        assertThat(response.toString(), equalTo(expected))
+    }
+
+    @Test
+    fun `encodes JsonObject and JsonArray values`() {
+        response.ofArray {
+            item(jsonObjectOf("a" to 1, "b" to "c"))
+            item(jsonArrayOf("d", 2, 3))
+        }
+
+        val expected = "[{\"a\":1,\"b\":\"c\"},[\"d\",2,3]]"
 
         assertThat(response.toString(), equalTo(expected))
     }
