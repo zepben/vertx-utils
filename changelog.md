@@ -19,6 +19,7 @@
   * `ExceptionHandler.of` that only needs the handler.
   * `ParamType.ofEnum`.
 * `HttpChunkedJsonResponse` can now change the status of the underlying response until a `write` has occurred.
+* `CaptureChunkedJsonResponse` can now be cleared, allowing it to be reused for capturing additional messages.
 
 ### Fixes
 * None.

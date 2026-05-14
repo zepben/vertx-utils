@@ -27,7 +27,7 @@ abstract class ChunkedJsonResponse(
 
     }
 
-    private val sb = StringBuilder(bufferSize)
+    protected val sb = StringBuilder(bufferSize)
     private val needsSeparatorStack = ArrayDeque<Boolean>()
 
     /**

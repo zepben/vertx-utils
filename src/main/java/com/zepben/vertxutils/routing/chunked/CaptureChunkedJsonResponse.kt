@@ -25,4 +25,9 @@ class CaptureChunkedJsonResponse(
         return captured
     }
 
+    fun clear() {
+        captured = ""
+        sb.setLength(0)
+    }
+
 }

@@ -41,4 +41,25 @@ class CaptureChunkedJsonResponseTest {
         assertThat(response.toString(), equalTo("[\"this is\",\"my\",\"test data\"]"))
     }
 
+    @Test
+    internal fun `can be cleared`() {
+        val response = CaptureChunkedJsonResponse()
+
+        response.ofArray {
+            item("used")
+        }
+
+        assertThat(response.toString(), equalTo("[\"used\"]"))
+
+        response.clear()
+
+        assertThat(response.toString(), equalTo(""))
+
+        response.ofArray {
+            item("used again")
+        }
+
+        assertThat(response.toString(), equalTo("[\"used again\"]"))
+    }
+
 }
