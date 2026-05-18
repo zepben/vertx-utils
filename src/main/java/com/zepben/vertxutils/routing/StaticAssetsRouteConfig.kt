@@ -7,11 +7,16 @@
  */
 package com.zepben.vertxutils.routing
 
-/**
- * It's a versionable Route
- */
-interface VersionableRoute {
+class StaticAssetsRouteConfig private constructor(
+    val webRoot: String,
+    val isCaching: Boolean,
+) {
 
-    val routeVersion: RouteVersion
+    companion object {
+
+        fun of(webRoot: String, isCaching: Boolean): StaticAssetsRouteConfig =
+            StaticAssetsRouteConfig(webRoot, isCaching)
+
+    }
 
 }
