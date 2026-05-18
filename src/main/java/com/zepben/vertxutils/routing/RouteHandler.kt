@@ -7,11 +7,11 @@
  */
 package com.zepben.vertxutils.routing
 
-/**
- * It's a versionable Route
- */
-interface VersionableRoute {
+import io.vertx.core.Handler
+import io.vertx.ext.web.RoutingContext
 
-    val routeVersion: RouteVersion
-
-}
+class RouteHandler(
+    val handler: Handler<RoutingContext>,
+    val isBlocking: Boolean,
+    val blockingOrdered: Boolean? = null,
+)

@@ -1,0 +1,30 @@
+/*
+ * Copyright 2026 Zeppelin Bend Pty Ltd
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
+package com.zepben.vertxutils
+
+import com.zepben.testutils.junit.SystemLogExtension
+import com.zepben.testutils.junit.TestClassValidator
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.RegisterExtension
+
+class TestsTest {
+
+    companion object {
+
+        @JvmField
+        @RegisterExtension
+        val systemOut: SystemLogExtension = SystemLogExtension.SYSTEM_OUT.captureLog().muteOnSuccess()
+    }
+
+    @Test
+    internal fun `validate test classes`() {
+        TestClassValidator.validate()
+    }
+
+}

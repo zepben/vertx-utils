@@ -5,13 +5,14 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-package com.zepben.vertxutils.routing
+package com.zepben.vertxutils.json.filter.parser
 
-/**
- * It's a versionable Route
- */
-interface VersionableRoute {
+enum class FilterType(
+    val denotedBy: String = "",
+) {
 
-    val routeVersion: RouteVersion
+    INCLUDE,
+    EXCLUDE(denotedBy = "-"),
+    PASSTHROUGH
 
 }

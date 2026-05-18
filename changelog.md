@@ -1,13 +1,25 @@
 # Vertx Utils changelog
-## [1.9.0] - UNRELEASED
+## [2.0.0] - UNRELEASED
 ### Breaking Changes
-* None.
+* Rebuilt to be Kotlin, so pretty much everything has changed at least a bit. If you want to use Java, keep using v1.
+* The `RouteRegisterLogger` class has been replaced with the `logRegisteredRoutes` factory function.
+* The following functions have been replaced with `contains`, allowing use of the Kotlin `in` operator:
+  * `PathParams.exists`.
+  * `QueryParams.exists`.
+  * `RouteVersion.includes`.
+* `RouteVersionUtils.forVersion` has been replaced with a Kotlin inline equivalent that only needs the factory, not the available routes enum.
+* All `JsonUtils` extract helpers are now extensions.
 
 ### New Features
 * None.
 
 ### Enhancements
-* None.
+* `ChunkedJsonResponse` has been upgraded to a DSL style builder.
+* Added inline reified factories for the following, removing the need to pass a class:
+  * `ExceptionHandler.of` that only needs the handler.
+  * `ParamType.ofEnum`.
+* `HttpChunkedJsonResponse` can now change the status of the underlying response until a `write` has occurred.
+* `CaptureChunkedJsonResponse` can now be cleared, allowing it to be reused for capturing additional messages.
 
 ### Fixes
 * None.

@@ -7,11 +7,8 @@
  */
 package com.zepben.vertxutils.routing
 
-/**
- * It's a versionable Route
- */
-interface VersionableRoute {
+import org.slf4j.Logger
 
-    val routeVersion: RouteVersion
-
+fun logRegisteredRoutes(logger: Logger): (String, Route) -> Unit = { path: String, route: Route ->
+    route.methods.forEach { method -> logger.info("$method: $path") }
 }
