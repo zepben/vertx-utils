@@ -1,5 +1,5 @@
 # Vertx Utils changelog
-## [2.0.0] - UNRELEASED
+## [2.0.0] - 2026-05-21
 ### Breaking Changes
 * Rebuilt to be Kotlin, so pretty much everything has changed at least a bit. If you want to use Java, keep using v1.
 * The `RouteRegisterLogger` class has been replaced with the `logRegisteredRoutes` factory function.
