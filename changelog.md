@@ -1,4 +1,20 @@
 # Vertx Utils changelog
+## [2.1.0] - UNRELEASED
+### Breaking Changes
+* None.
+
+### New Features
+* None.
+
+### Enhancements
+* None.
+
+### Fixes
+* None.
+
+### Notes
+* None.
+
 ## [2.0.0] - 2026-05-21
 ### Breaking Changes
 * Rebuilt to be Kotlin, so pretty much everything has changed at least a bit. If you want to use Java, keep using v1.
