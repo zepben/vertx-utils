@@ -7,18 +7,15 @@
  */
 package com.zepben.vertxutils.testing
 
-import com.jayway.awaitility.Awaitility
 import io.restassured.builder.RequestSpecBuilder
 import io.restassured.specification.RequestSpecification
 import io.vertx.core.DeploymentOptions
-import io.vertx.core.Promise
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonObject
 import java.io.IOException
 import java.lang.AutoCloseable
 import java.net.ServerSocket
 import java.util.concurrent.TimeUnit
-import java.util.concurrent.atomic.AtomicBoolean
 
 class DeployRestVerticleHelper(
     verticleClass: Class<*>,
@@ -34,21 +31,14 @@ class DeployRestVerticleHelper(
             config.put("http.port", port)
 
             // Start the server
-            val promise = Promise.promise<Void>()
-            val future = promise.future()
             vertx = Vertx.vertx()
-            val options = DeploymentOptions().setConfig(config)
-            vertx.deployVerticle(
-                verticleClass.getName(),
-                options,
-            ) { ar ->
-                if (ar!!.succeeded()) promise.complete()
-                else promise.fail(ar.cause())
+            runCatching {
+                vertx.deployVerticle(verticleClass.getName(), DeploymentOptions().setConfig(config))
+                    .await(5, TimeUnit.SECONDS)
+            }.onFailure {
+                // Catch any exception raised and convert it to an `AssertionError` for the testing framework.
+                throw AssertionError(it.message, it)
             }
-
-            Awaitility.await().atMost(5, TimeUnit.SECONDS).until { future.isComplete }
-
-            if (!future.succeeded()) throw AssertionError(future.cause().message)
 
             requestSpec = RequestSpecBuilder().setBaseUri("http://localhost").setPort(port).build()
         } catch (ex: IOException) {
@@ -57,9 +47,7 @@ class DeployRestVerticleHelper(
     }
 
     override fun close() {
-        val done = AtomicBoolean(false)
-        vertx.close { done.set(true) }
-        Awaitility.await().until { done.get() }
+        vertx.close().await()
     }
 
     @get:Throws(IOException::class)

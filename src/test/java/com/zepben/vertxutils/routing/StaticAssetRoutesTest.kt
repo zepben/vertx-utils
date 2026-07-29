@@ -46,7 +46,7 @@ class StaticAssetRoutesTest {
     @AfterEach
     fun tearDown() {
         val latch = CountDownLatch(1)
-        vertx.close { latch.countDown() }
+        vertx.close().onComplete { latch.countDown() }
         latch.await()
     }
 
@@ -121,7 +121,7 @@ class StaticAssetRoutesTest {
         val router = Router.router(vertx)
         vertx.createHttpServer()
             .requestHandler(RouteRegister(router, "", true).add(routes).router)
-            .listen(port) {
+            .listen(port).onComplete {
                 latch.countDown()
                 if (it.failed()) throw RuntimeException("Failed to start server")
             }

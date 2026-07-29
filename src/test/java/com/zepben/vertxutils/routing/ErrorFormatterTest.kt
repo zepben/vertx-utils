@@ -13,6 +13,7 @@ import com.zepben.testutils.junit.SystemLogExtension
 import com.zepben.vertxutils.routing.ErrorFormatter.asJson
 import com.zepben.vertxutils.routing.handlers.UtilHandlers.CATCH_ALL_API_FAILURE_HANDLER
 import com.zepben.vertxutils.routing.handlers.UtilHandlers.REDIRECT_NO_TRAILING_SLASH_TO_TRAILING_SLASH_HANDLER
+import io.netty.handler.codec.http.HttpResponseStatus
 import io.vertx.core.http.HttpServerRequest
 import io.vertx.core.http.HttpServerResponse
 import io.vertx.core.json.JsonObject
@@ -34,16 +35,34 @@ class ErrorFormatterTest {
     }
 
     @Test
-    fun defaultFailureHandler() {
+    fun `default failure handler uses context status when available`() {
         val context = mock<RoutingContext>()
         val response = mock<HttpServerResponse>(RETURNS_SELF)
         doReturn(response).`when`(context).response()
+        doReturn(HttpResponseStatus.UNAUTHORIZED.code()).`when`(context).statusCode()
 
         val failure: Throwable = RuntimeException("test")
         doReturn(failure).`when`(context).failure()
         CATCH_ALL_API_FAILURE_HANDLER.handle(context)
 
         verify(response).putHeader(HttpHeaders.CONTENT_TYPE, MediaType.JSON_UTF_8.toString())
+        verify(response).statusCode = HttpResponseStatus.UNAUTHORIZED.code()
+        verify(response).end(asJson(failure.toString()))
+    }
+
+    @Test
+    fun `default failure handler uses 500 by default`() {
+        val context = mock<RoutingContext>()
+        val response = mock<HttpServerResponse>(RETURNS_SELF)
+        doReturn(response).`when`(context).response()
+        doReturn(-1).`when`(context).statusCode()
+
+        val failure: Throwable = RuntimeException("test")
+        doReturn(failure).`when`(context).failure()
+        CATCH_ALL_API_FAILURE_HANDLER.handle(context)
+
+        verify(response).putHeader(HttpHeaders.CONTENT_TYPE, MediaType.JSON_UTF_8.toString())
+        verify(response).statusCode = HttpResponseStatus.INTERNAL_SERVER_ERROR.code()
         verify(response).end(asJson(failure.toString()))
     }
 

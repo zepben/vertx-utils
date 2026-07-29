@@ -18,9 +18,9 @@ import org.slf4j.Logger
 object UtilHandlers {
 
     /**
-     * Returns the default failure handler that if the [RoutingContext.failure] is not null responds with a
-     * 500 message with our own "standardised" errors JSON response (See [ErrorFormatter.asJson])
-     * containing the message from the failure. If a logger is specified, it will also log the stacktrace on the server side
+     * Returns the default failure handler that, if the [RoutingContext.failure] is not null, responds with our own "standardised"
+     * errors JSON response (See [ErrorFormatter.asJson]). The status of this message will default to 500 if no status is provided,
+     * and will contain the message from the failure. If a logger is specified, it will also log the stacktrace on the server side.
      */
     val CATCH_ALL_API_FAILURE_HANDLER_WITH_EXCEPTION_LOGGING: (Logger?) -> Handler<RoutingContext> = { logger ->
         Handler { context: RoutingContext ->
@@ -28,7 +28,14 @@ object UtilHandlers {
             if (failure != null && !context.response().ended()) {
                 logger?.error("Error stack trace:", failure)
 
-                Respond.withJson(context, HttpResponseStatus.INTERNAL_SERVER_ERROR, ErrorFormatter.asJson(failure.toString()))
+                // Use the status of the context if it has been set. This allows handlers to simply fail the context (standard Vert.x
+                // behaviour), instead of needing to send a response to avoid a 500 overwrite of the status.
+                Respond.withJson(
+                    context,
+                    context.statusCode().takeUnless { it == -1 }?.let { HttpResponseStatus.valueOf(it) }
+                        ?: HttpResponseStatus.INTERNAL_SERVER_ERROR,
+                    ErrorFormatter.asJson(failure.toString()),
+                )
                 return@Handler
             } else if (failure is VertxException && failure.message == "Connection was closed") {
                 // Don't call context.next() in this case because it logs it. We don't care.
