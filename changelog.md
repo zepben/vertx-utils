@@ -1,19 +1,21 @@
 # Vertx Utils changelog
 ## [2.1.0] - UNRELEASED
 ### Breaking Changes
-* None.
+* Updated to use Vert.x v5, which removes deprecated functions from v4, and moves to a `Future` based approach instead of callbacks.
 
 ### New Features
 * None.
 
 ### Enhancements
-* None.
+* `CATCH_ALL_API_FAILURE_HANDLER` and `CATCH_ALL_API_FAILURE_HANDLER_WITH_EXCEPTION_LOGGING` now:
+  * Return the status code of a failed `context`, if it is set, instead of always using `500 - INTERNAL_SERVER_ERROR`.
+  * Capture and ignore `ClosedChannelException` exceptions in addition to `VertxException` versions.
 
 ### Fixes
 * None.
 
 ### Notes
-* None.
+* Removed the `com.jayway.awaitility:awaitility` dependency. Its scope was `provided`, so this should have no impact.
 
 ## [2.0.0] - 2026-05-21
 ### Breaking Changes

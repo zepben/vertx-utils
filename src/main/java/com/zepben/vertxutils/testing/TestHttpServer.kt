@@ -40,7 +40,7 @@ class TestHttpServer(
         server.requestHandler(router)
             .listen(
                 this.randomPortNumber,
-            ) { res ->
+            ).onComplete { res ->
                 if (res.failed()) throw RuntimeException(res.cause())
                 latch.countDown()
             }
@@ -55,8 +55,8 @@ class TestHttpServer(
 
     override fun close() {
         val latch = CountDownLatch(2)
-        server.close { latch.countDown() }
-        vertx.close { latch.countDown() }
+        server.close().onComplete { latch.countDown() }
+        vertx.close().onComplete { latch.countDown() }
 
         try {
             latch.await()
