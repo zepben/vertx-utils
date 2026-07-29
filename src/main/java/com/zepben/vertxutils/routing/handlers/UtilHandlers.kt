@@ -14,6 +14,7 @@ import io.vertx.core.Handler
 import io.vertx.core.VertxException
 import io.vertx.ext.web.RoutingContext
 import org.slf4j.Logger
+import java.nio.channels.ClosedChannelException
 
 object UtilHandlers {
 
@@ -37,7 +38,7 @@ object UtilHandlers {
                     ErrorFormatter.asJson(failure.toString()),
                 )
                 return@Handler
-            } else if (failure is VertxException && failure.message == "Connection was closed") {
+            } else if ((failure is VertxException) && (failure.message == "Connection was closed") || (failure is ClosedChannelException)) {
                 // Don't call context.next() in this case because it logs it. We don't care.
                 return@Handler
             }
