@@ -1,4 +1,20 @@
 # Vertx Utils changelog
+## [2.2.0] - UNRELEASED
+### Breaking Changes
+* None.
+
+### New Features
+* None.
+
+### Enhancements
+* None.
+
+### Fixes
+* None.
+
+### Notes
+* None.
+
 ## [2.1.0] - 2026-08-04
 ### Breaking Changes
 * Updated to use Vert.x v5, which removes deprecated functions from v4, and moves to a `Future` based approach instead of callbacks.
